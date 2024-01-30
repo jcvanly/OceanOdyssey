@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4717727345544480940}
   - component: {fileID: 7287036838174773256}
   - component: {fileID: 6344392170676812437}
+  - component: {fileID: 7981535819531840703}
   m_Layer: 6
   m_Name: CoralCanon
   m_TagString: Untagged
@@ -174,4 +175,17 @@ MonoBehaviour:
   projectilePrefab: {fileID: 9220584709758053778, guid: 436f53556a3da1540a6b286aae403aff, type: 3}
   shootInterval: 2
   maxHealth: 20
-  healthBar: {fileID: 0}
+--- !u!114 &7981535819531840703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040442863766775056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d0c774e17575b4ebb97f12d7cfe925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 3558397398815780150, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+  damage: 1
