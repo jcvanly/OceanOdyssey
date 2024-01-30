@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemyPrefabs; // Array to hold different enemy prefabs
-    private GameObject currentEnemy; // To keep track of the spawned enemy
+    public GameObject[] enemyPrefabs;
+    private GameObject currentEnemy;
+    public static int activeEnemies = 0; // Static counter for active enemies
 
     void Start()
     {
@@ -14,20 +15,29 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        // Check if the current enemy has been destroyed
         if (currentEnemy == null)
         {
             SpawnEnemy();
+        }
+
+        // Perform actions when no enemies are left
+        if (activeEnemies == 0)
+        {
+            // Perform your actions here
         }
     }
 
     void SpawnEnemy()
     {
-        // Choose a random enemy prefab
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
         GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
-
-        // Spawn the random enemy
         currentEnemy = Instantiate(randomEnemyPrefab, transform.position, Quaternion.identity);
+        activeEnemies++; // Increment the counter when an enemy is spawned
+    }
+
+    // Call this method to decrement the counter
+    public static void EnemyDied()
+    {
+        activeEnemies--;
     }
 }

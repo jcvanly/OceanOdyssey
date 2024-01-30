@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7287036838174773256}
   - component: {fileID: 6344392170676812437}
   - component: {fileID: 7981535819531840703}
+  - component: {fileID: -2480325222173742288}
   m_Layer: 6
   m_Name: CoralCanon
   m_TagString: Untagged
@@ -189,3 +190,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 3558397398815780150, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
   damage: 1
+--- !u!114 &-2480325222173742288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040442863766775056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ef79bb203901e4bbc1ea25d9e10c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
