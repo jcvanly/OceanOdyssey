@@ -7,7 +7,8 @@ public class PlayerHealth : MonoBehaviour
     public int health; // player's current health
     public int maxHealth = 5; // total amount of health the player has
 
-
+    public SpriteRenderer playerSr;
+    public PlayerMovement playerMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+
+            playerSr.enabled = false;
+            playerMovement.enabled = false;
         }
     }
 }
