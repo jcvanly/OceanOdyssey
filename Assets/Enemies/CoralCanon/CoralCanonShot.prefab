@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3113039241378545211}
   - component: {fileID: 6044056812232855835}
   - component: {fileID: 7605366358125675140}
+  - component: {fileID: 3521272516049267036}
   - component: {fileID: -3906875157050905135}
   m_Layer: 7
   m_Name: CoralCanonShot
@@ -159,6 +160,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8, y: 8}
   m_EdgeRadius: 0
+--- !u!114 &3521272516049267036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9220584709758053778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d0c774e17575b4ebb97f12d7cfe925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 0}
+  damage: 1
 --- !u!114 &-3906875157050905135
 MonoBehaviour:
   m_ObjectHideFlags: 0

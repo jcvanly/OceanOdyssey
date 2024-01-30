@@ -15,11 +15,15 @@ public class HealthDisplay : MonoBehaviour
     public Image[] hearts;
     public PlayerHealth playerHealth;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        if (playerHealth == null)
+        {
+            Debug.LogError("PlayerHealth component not found.");
+        }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -27,7 +31,6 @@ public class HealthDisplay : MonoBehaviour
 
         health = playerHealth.health;
         maxHealth = playerHealth.maxHealth;
-
 
 
        for (int i = 0; i < hearts.Length; i++) 

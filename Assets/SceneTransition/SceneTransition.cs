@@ -25,6 +25,7 @@ public class SceneTransition : MonoBehaviour
         {
             // Assuming you want to skip the first scene (index 0) and start from index 1
             randomSceneIndex = Random.Range(2, sceneCount);
+            DontDestroyOnLoad(gameObject);
         } 
         while (randomSceneIndex == currentSceneIndex);
 
