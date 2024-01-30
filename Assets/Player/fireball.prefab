@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4830959394018104756}
   - component: {fileID: 3120989005564900505}
   - component: {fileID: -7723714833387115746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6426527251555192821}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
