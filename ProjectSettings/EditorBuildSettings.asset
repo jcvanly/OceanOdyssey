@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/U.unity
     guid: 775a836eefc80784e823c907f9c81b4b
+  - enabled: 1
+    path: Assets/Scenes/Rectangle.unity
+    guid: d025345f8b9a94de29249939f36f005b
   m_configObjects: {}
