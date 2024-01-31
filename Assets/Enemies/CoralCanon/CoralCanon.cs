@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Required for UI elements
 
-public class EnemyShooter : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public float shootInterval = 2f;
     public int maxHealth = 100; // Max health of the enemy
-    private int currentHealth; // Current health of the enemy
+    public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
 
     private float shootTimer;
@@ -37,6 +37,7 @@ public class EnemyShooter : MonoBehaviour
         Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.left * 5f;
         Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.right * 5f;
     }
+    
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("PlayerProjectile"))
@@ -45,8 +46,9 @@ public class EnemyShooter : MonoBehaviour
             Destroy(collider.gameObject); // Destroy the projectile
         }
     }
+    
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
