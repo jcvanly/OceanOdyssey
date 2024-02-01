@@ -28,7 +28,6 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
-
     void SpawnEnemy()
     {
         int randomIndex = Random.Range(0, enemyPrefabs.Length);
@@ -41,5 +40,10 @@ public class EnemySpawner : MonoBehaviour
     public static void EnemyDied()
     {
         activeEnemies--;
+    }
+
+    public float getNumberOfEnemies ()
+    {
+        return activeEnemies;
     }
 }
