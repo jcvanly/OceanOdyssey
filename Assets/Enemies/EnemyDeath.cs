@@ -9,7 +9,7 @@ public class EnemyDeath : MonoBehaviour
 
     public void Die()
     {
-        // Other death related code...
+        //Debug.Log("I died");
         OnDeath?.Invoke();
         EnemySpawner.EnemyDied(); // Notify the spawner that an enemy has died
         Destroy(gameObject);

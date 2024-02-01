@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
+    private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
 
     private float shootTimer;
 
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
     {
         shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
+        enemyDeath = GetComponent<EnemyDeath>();
     }
 
     void Update()
@@ -55,7 +57,8 @@ public class Enemy : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            enemyDeath.Die();
+            //Die();
         }
     }
 

@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemyPrefabs;
     private GameObject currentEnemy;
     public static int activeEnemies = 0; // Static counter for active enemies
+    public float spawnDelay = 500f; // Delay between spawns
+    private float spawnTimer;
 
     void Start()
     {
@@ -15,15 +17,15 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (currentEnemy == null)
+        // Check if it's time to spawn a new enemy
+        if (currentEnemy == null && activeEnemies == 0)
         {
-            SpawnEnemy();
-        }
-
-        // Perform actions when no enemies are left
-        if (activeEnemies == 0)
-        {
-            // Perform your actions here
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer >= spawnDelay)
+            {
+                SpawnEnemy();
+                spawnTimer = 0; // Reset timer after spawning
+            }
         }
     }
 
