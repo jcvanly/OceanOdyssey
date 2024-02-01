@@ -3,33 +3,20 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-using UnityEngine;
-
 public class HomingProjectile : MonoBehaviour
 {
-    private Transform playerTransform;
-    public float homingSpeed = 5f;
-
-    void Start()
-    {
-        // Find the player's transform
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        // Destroy the projectile after a certain time (adjust as needed)
-        Destroy(gameObject, 5f);
-    }
+    private Vector3 direction;
 
     void Update()
     {
-        // Calculate the direction towards the player
-        Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+        // Move the projectile in the specified direction
+        transform.Translate(direction * Time.deltaTime, Space.World);
+    }
 
-        // Smoothly rotate towards the player
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, homingSpeed * Time.deltaTime);
-
-        // Move the projectile forward
-        transform.Translate(Vector3.forward * Time.deltaTime * homingSpeed, Space.Self);
+    public void SetDirection(Vector3 newDirection)
+    {
+        // Set the direction of the homing attack
+        direction = newDirection.normalized;
     }
 
     void OnTriggerEnter(Collider other)
