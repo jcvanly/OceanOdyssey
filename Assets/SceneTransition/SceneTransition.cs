@@ -10,10 +10,15 @@ public class SceneTransition : MonoBehaviour
     {
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
-            LoadRandomScene();
+            if (GlobalEnemyManager.ScenesVisited >= 3)
+            {
+                LoadSpecificScene(); // Load a specific scene after 5 visits
+            }
+            else
+            {
+                LoadRandomScene(); // Continue loading random scenes otherwise
+            }
         }
-
-        Debug.Log("Trigger entered");
     }
 
     private void LoadRandomScene()
@@ -25,12 +30,20 @@ public class SceneTransition : MonoBehaviour
         do
         {
             // Assuming you want to skip the first scene (index 0) and start from index 1
-            randomSceneIndex = Random.Range(2, sceneCount);
+            randomSceneIndex = Random.Range(3, sceneCount);
             DontDestroyOnLoad(gameObject);
         } 
         while (randomSceneIndex == currentSceneIndex);
 
         Debug.Log("Loading scene index: " + randomSceneIndex);
+        GlobalEnemyManager.IncrementScenesVisited(); // Increment the counter
         SceneManager.LoadScene(randomSceneIndex);
+    }
+
+    private void LoadSpecificScene()
+    {
+        int specificSceneIndex = 2;
+        Debug.Log("Loading specific scene index: " + specificSceneIndex);
+        SceneManager.LoadScene(specificSceneIndex);
     }
 }
