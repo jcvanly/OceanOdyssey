@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: 63b1c19d7605c294b8a21325d8645bb1
   - enabled: 1
-    path: Assets/Scenes/Level_0.unity
+    path: Assets/Scenes/StartArea.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Square.unity
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rectangle.unity
     guid: d025345f8b9a94de29249939f36f005b
+  - enabled: 1
+    path: Assets/Scenes/DonutIsland.unity
+    guid: 2b8498ecc806a564b88ea7bd07f2f9e7
   m_configObjects: {}

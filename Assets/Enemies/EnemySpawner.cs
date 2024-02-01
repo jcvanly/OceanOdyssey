@@ -5,45 +5,22 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemyPrefabs;
-    private GameObject currentEnemy;
-    public static int activeEnemies = 0; // Static counter for active enemies
-    public float spawnDelay = 500f; // Delay between spawns
-    private float spawnTimer;
+    private bool hasSpawned = false; // Flag to check if enemy has been spawned
 
     void Start()
     {
         SpawnEnemy();
     }
 
-    void Update()
-    {
-        // Check if it's time to spawn a new enemy
-        if (currentEnemy == null && activeEnemies == 0)
-        {
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnDelay)
-            {
-                SpawnEnemy();
-                spawnTimer = 0; // Reset timer after spawning
-            }
-        }
-    }
     void SpawnEnemy()
     {
-        int randomIndex = Random.Range(0, enemyPrefabs.Length);
-        GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
-        currentEnemy = Instantiate(randomEnemyPrefab, transform.position, Quaternion.identity);
-        activeEnemies++; // Increment the counter when an enemy is spawned
-    }
-
-    // Call this method to decrement the counter
-    public static void EnemyDied()
-    {
-        activeEnemies--;
-    }
-
-    public float getNumberOfEnemies ()
-    {
-        return activeEnemies;
+        if (!hasSpawned)
+        {
+            int randomIndex = Random.Range(0, enemyPrefabs.Length);
+            GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
+            Instantiate(randomEnemyPrefab, transform.position, Quaternion.identity);
+            GlobalEnemyManager.EnemySpawned(); // Increment global counter
+            hasSpawned = true; // Set flag to true to prevent further spawning
+        }
     }
 }

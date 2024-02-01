@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 9220584709758053778, guid: 436f53556a3da1540a6b286aae403aff, type: 3}
-  shootInterval: 2
+  shootInterval: 1
   maxHealth: 20
   currentHealth: 0
 --- !u!114 &7981535819531840703

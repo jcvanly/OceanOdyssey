@@ -11,7 +11,7 @@ public class EnemyDeath : MonoBehaviour
     {
         //Debug.Log("I died");
         OnDeath?.Invoke();
-        EnemySpawner.EnemyDied(); // Notify the spawner that an enemy has died
+        GlobalEnemyManager.EnemyDied(); // Decrement global counter
         Destroy(gameObject);
     }
 }
