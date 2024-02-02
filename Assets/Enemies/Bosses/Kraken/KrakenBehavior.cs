@@ -19,33 +19,55 @@ public class KrakenBehavior : MonoBehaviour
     public int numberOfShots = 7; // Number of shots in the beam
     public float timeBetweenShots = 0.1f; // Time between each shot in the beam
     private float tentacleShootTimer;
+    public GameObject inkSprayPrefab; // Reference to the Ink Spray prefab
+    public float inkSprayInterval = 5f; // Interval for spraying ink
+    private float inkSprayTimer;
+
+
 
 
     void Start()
-    {
-        shootTimer = shootInterval;
-        tentacleShootTimer = tentacleShootInterval; // Initialize the tentacle shoot timer
-        currentHealth = maxHealth;
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+{
+    shootTimer = shootInterval;
+    tentacleShootTimer = tentacleShootInterval;
+    inkSprayTimer = inkSprayInterval; // Initialize the ink spray timer
+    currentHealth = maxHealth;
+    playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+}
+
 
     void Update()
+{
+    shootTimer -= Time.deltaTime;
+    tentacleShootTimer -= Time.deltaTime;
+    inkSprayTimer -= Time.deltaTime;
+
+    if (shootTimer <= 0)
     {
-        shootTimer -= Time.deltaTime;
-        tentacleShootTimer -= Time.deltaTime;
-
-        if (shootTimer <= 0)
-        {
-            StartCoroutine(ShootBeam());
-            shootTimer = shootInterval;
-        }
-
-        if (tentacleShootTimer <= 0)
-        {
-            StartCoroutine(ShootTentacles());
-            tentacleShootTimer = tentacleShootInterval;
-        }
+        StartCoroutine(ShootBeam());
+        shootTimer = shootInterval;
     }
+
+    if (tentacleShootTimer <= 0)
+    {
+        StartCoroutine(ShootTentacles());
+        tentacleShootTimer = tentacleShootInterval;
+    }
+
+    if (inkSprayTimer <= 0)
+    {
+        StartCoroutine(SprayInkOverPlayer());
+        inkSprayTimer = inkSprayInterval;
+    }
+}
+
+
+    IEnumerator SprayInkOverPlayer()
+{
+    GameObject inkSpray = Instantiate(inkSprayPrefab, playerTransform.position + Vector3.up * 2, Quaternion.identity); 
+    inkSpray.transform.localScale = new Vector3(5f, 5f, 1f); 
+    yield return null; 
+}
 
     IEnumerator ShootBeam()
     {
@@ -76,7 +98,6 @@ public class KrakenBehavior : MonoBehaviour
 
         yield return new WaitForSeconds(tentacleDuration);
 
-        // Optionally retract tentacles here if needed
     }
 
     void ShootTentacleInDirection(Vector2 direction)
@@ -88,34 +109,37 @@ public class KrakenBehavior : MonoBehaviour
 {
     List<GameObject> tentacles = new List<GameObject>();
 
-    // Assuming each segment is 1 unit long for example, adjust based on your prefab size
-    float segmentLength = 1.0f; // You should adjust this based on the actual size of your tentacle prefab
-    int segmentsNeeded = Mathf.CeilToInt(tentacleLength / segmentLength); // Calculate how many segments are needed based on the desired tentacle length
+    // Determine the actual size of the tentacle prefab for accurate placement
+    float segmentLength = 1.0f; // Adjust this value based on your prefab's actual dimensions
+    int segmentsNeeded = Mathf.CeilToInt(tentacleLength / segmentLength);
 
     for (int i = 0; i < segmentsNeeded; i++)
     {
-        // Calculate position for each segment considering the segment size
-        Vector3 positionOffset = direction * segmentLength * i;
+        Vector3 positionOffset = direction.normalized * segmentLength * i;
         Vector3 segmentPosition = transform.position + positionOffset;
 
         GameObject tentacle = Instantiate(tentaclePrefab, segmentPosition, Quaternion.identity);
-        // Adjust the rotation to match the direction of the tentacle
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         tentacle.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         tentacles.Add(tentacle);
-        // Optionally, add a small delay here if you want each segment to appear one after another
+
+        // Introduce a delay to create the effect of the tentacle extending
+        yield return new WaitForSeconds(0.05f); // Adjust this delay to control the speed of extension
     }
 
+    // Wait for the tentacle to stay extended for the duration
     yield return new WaitForSeconds(tentacleDuration);
 
     // Retract tentacles starting from the last one
     for (int i = tentacles.Count - 1; i >= 0; i--)
     {
         Destroy(tentacles[i]);
-        yield return new WaitForSeconds(0.1f); // Delay between destroying each segment to simulate retraction
+        // Introduce a delay between destroying each segment to simulate retraction
+        yield return new WaitForSeconds(0.05f); // Adjust this delay to control the speed of retraction
     }
 }
+
 
 
     void OnTriggerEnter2D(Collider2D collider)

@@ -214,3 +214,4 @@ MonoBehaviour:
   currentHealth: 0
   numberOfShots: 7
   timeBetweenShots: 0.1
+  inkSprayPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
