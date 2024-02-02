@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &659334042579454502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2628128852356125974}
+  m_Layer: 6
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2628128852356125974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659334042579454502}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.28, y: -1.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3433373551761962897}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5268836546780753990
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,8 +43,9 @@ GameObject:
   - component: {fileID: 5299516337946756927}
   - component: {fileID: 382340904990057600}
   - component: {fileID: 1533358313160897323}
+  - component: {fileID: 6471455306323206229}
   m_Layer: 6
-  m_Name: squid
+  m_Name: Kraken
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,10 +60,11 @@ Transform:
   m_GameObject: {fileID: 5268836546780753990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2206, y: 0.3452, z: 0}
+  m_LocalPosition: {x: -0.058, y: 0.216, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2628128852356125974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5299516337946756927
@@ -158,3 +191,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.73, y: 2.71}
   m_EdgeRadius: 0
+--- !u!114 &6471455306323206229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5268836546780753990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fca09f556cabd44a051e87f8d7dd72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentaclePrefab: {fileID: 1770145957345753787, guid: 172da8428b7673c49ac3121e362648f4, type: 3}
+  tentacleShootInterval: 11
+  tentacleLength: 11
+  tentacleDuration: 4
+  numberOfTentacles: 4
+  projectilePrefab: {fileID: 1983259497627553265, guid: 977ef0856da50bf4da9dae7035340027, type: 3}
+  shootInterval: 2
+  maxHealth: 100
+  currentHealth: 0
+  numberOfShots: 7
+  timeBetweenShots: 0.1
