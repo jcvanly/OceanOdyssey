@@ -38909,6 +38909,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6495212009612012523, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: hearts.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495212009612012523, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 
       objectReference: {fileID: 2009163529}

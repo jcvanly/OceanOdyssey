@@ -19190,7 +19190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &701832224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -53282,6 +53282,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6495212009612012523, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: hearts.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495212009612012523, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
       propertyPath: hearts.Array.data[0]
       value: 
       objectReference: {fileID: 361961509}
@@ -53341,6 +53345,10 @@ PrefabInstance:
     - target: {fileID: 527019572565127307, guid: 01ec3e805af16bf4e843689655d38d31, type: 3}
       propertyPath: m_Name
       value: EnderPearl
+      objectReference: {fileID: 0}
+    - target: {fileID: 527019572565127307, guid: 01ec3e805af16bf4e843689655d38d31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 907112876798643482, guid: 01ec3e805af16bf4e843689655d38d31, type: 3}
       propertyPath: m_Mass

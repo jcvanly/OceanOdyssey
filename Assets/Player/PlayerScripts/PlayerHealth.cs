@@ -16,6 +16,12 @@ public class PlayerHealth : MonoBehaviour
        // DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        PlayerPrefs.SetInt("PlayerHealth", health);
+    }
+
+
     public void TakeDamage(int amount) // how much damage the player takes
     {
 
