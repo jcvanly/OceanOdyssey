@@ -19,55 +19,74 @@ public class KrakenBehavior : MonoBehaviour
     public int numberOfShots = 7; // Number of shots in the beam
     public float timeBetweenShots = 0.1f; // Time between each shot in the beam
     private float tentacleShootTimer;
-    public GameObject inkSprayPrefab; // Reference to the Ink Spray prefab
-    public float inkSprayInterval = 5f; // Interval for spraying ink
-    private float inkSprayTimer;
+     public float inkSpotShootInterval = 10f; // Interval for shooting ink spots
+    private float inkSpotTimer;
+    public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
 
 
 
 
-    void Start()
-{
-    shootTimer = shootInterval;
-    tentacleShootTimer = tentacleShootInterval;
-    inkSprayTimer = inkSprayInterval; // Initialize the ink spray timer
-    currentHealth = maxHealth;
-    playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-}
 
-
-    void Update()
-{
-    shootTimer -= Time.deltaTime;
-    tentacleShootTimer -= Time.deltaTime;
-    inkSprayTimer -= Time.deltaTime;
-
-    if (shootTimer <= 0)
+void Start()
     {
-        StartCoroutine(ShootBeam());
         shootTimer = shootInterval;
-    }
-
-    if (tentacleShootTimer <= 0)
-    {
-        StartCoroutine(ShootTentacles());
         tentacleShootTimer = tentacleShootInterval;
+        inkSpotTimer = inkSpotShootInterval; // Initialize the ink spot timer
+        currentHealth = maxHealth;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    if (inkSprayTimer <= 0)
+
+void Update()
     {
-        StartCoroutine(SprayInkOverPlayer());
-        inkSprayTimer = inkSprayInterval;
+        shootTimer -= Time.deltaTime;
+        tentacleShootTimer -= Time.deltaTime;
+        inkSpotTimer -= Time.deltaTime;
+
+        if (shootTimer <= 0)
+        {
+            StartCoroutine(ShootBeam());
+            shootTimer = shootInterval;
+        }
+
+        if (tentacleShootTimer <= 0)
+        {
+            StartCoroutine(ShootTentacles());
+            tentacleShootTimer = tentacleShootInterval;
+        }
+
+        if (inkSpotTimer <= 0)
+        {
+            StartCoroutine(ShootInkSpot());
+            inkSpotTimer = inkSpotShootInterval;
+        }
+    }
+
+
+    IEnumerator ShootInkSpot()
+{
+    Vector3 targetPosition = playerTransform.position; // Target position is current player position
+    GameObject inkSpot = Instantiate(inkSpotPrefab, transform.position, Quaternion.identity); // Instantiate at Kraken's position
+
+    // Assuming the ink spot moves directly towards the player's current position
+    float speed = 5f; // Adjust speed as necessary
+    while (inkSpot.transform.position != targetPosition)
+    {
+        if (inkSpot == null) yield break; // Exit if ink spot was destroyed for some reason
+        inkSpot.transform.position = Vector3.MoveTowards(inkSpot.transform.position, targetPosition, speed * Time.deltaTime);
+        yield return null;
+    }
+
+    // Do not destroy the ink spot immediately after reaching the target. Wait for 5 seconds.
+    yield return new WaitForSeconds(5f); // Wait for 5 seconds
+
+    // Destroy the ink spot after 5 seconds without fading out
+    if (inkSpot != null)
+    {
+        Destroy(inkSpot);
     }
 }
 
-
-    IEnumerator SprayInkOverPlayer()
-{
-    GameObject inkSpray = Instantiate(inkSprayPrefab, playerTransform.position + Vector3.up * 2, Quaternion.identity); 
-    inkSpray.transform.localScale = new Vector3(5f, 5f, 1f); 
-    yield return null; 
-}
 
     IEnumerator ShootBeam()
     {
@@ -125,7 +144,7 @@ public class KrakenBehavior : MonoBehaviour
         tentacles.Add(tentacle);
 
         // Introduce a delay to create the effect of the tentacle extending
-        yield return new WaitForSeconds(0.05f); // Adjust this delay to control the speed of extension
+        yield return new WaitForSeconds(0.05f); // Adjust this to control the speed of extension
     }
 
     // Wait for the tentacle to stay extended for the duration

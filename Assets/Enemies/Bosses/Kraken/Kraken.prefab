@@ -204,14 +204,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tentaclePrefab: {fileID: 1770145957345753787, guid: 172da8428b7673c49ac3121e362648f4, type: 3}
-  tentacleShootInterval: 11
+  tentacleShootInterval: 10
   tentacleLength: 11
-  tentacleDuration: 4
+  tentacleDuration: 6
   numberOfTentacles: 4
   projectilePrefab: {fileID: 1983259497627553265, guid: 977ef0856da50bf4da9dae7035340027, type: 3}
-  shootInterval: 2
+  shootInterval: 1
   maxHealth: 100
   currentHealth: 0
-  numberOfShots: 7
+  numberOfShots: 20
   timeBetweenShots: 0.1
-  inkSprayPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
+  inkSpotShootInterval: 10
+  inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
