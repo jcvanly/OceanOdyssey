@@ -12,6 +12,22 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    void Start()
+    {
+        // If 'cam' is not assigned, find the main camera
+        if (cam == null)
+        {
+            cam = Camera.main;
+
+            if (cam == null)
+            {
+                Debug.LogError("Main camera not found. Make sure there is a camera tagged as 'MainCamera' in the scene.");
+            }
+        }
+
+        // Make sure the 'cam' object persists between scene changes
+        DontDestroyOnLoad(cam.gameObject);
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;

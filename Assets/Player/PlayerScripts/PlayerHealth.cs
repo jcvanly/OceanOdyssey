@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         health = maxHealth;
        // DontDestroyOnLoad(gameObject);
     }

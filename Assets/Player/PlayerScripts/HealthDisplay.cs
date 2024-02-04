@@ -17,6 +17,7 @@ public class HealthDisplay : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         playerHealth = FindObjectOfType<PlayerHealth>();
         if (playerHealth == null)
         {
