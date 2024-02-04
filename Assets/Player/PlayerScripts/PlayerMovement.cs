@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-
     public Rigidbody2D rb;
     public Camera cam;
 
@@ -14,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // If 'cam' is not assigned, find the main camera
         if (cam == null)
         {
             cam = Camera.main;
@@ -25,11 +23,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // Make sure the 'cam' object persists between scene changes
         DontDestroyOnLoad(cam.gameObject);
     }
 
-    // Update is called once per frame
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
