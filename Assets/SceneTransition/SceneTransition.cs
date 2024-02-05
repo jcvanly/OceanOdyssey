@@ -51,7 +51,7 @@ public class SceneTransition : MonoBehaviour
         SceneManager.LoadScene(specificSceneIndex);
 
         // Call a method to spawn the player at the designated spawn point
-        StartCoroutine(SpawnPlayerAtSpawnPoint());
+     //   StartCoroutine(SpawnPlayerAtSpawnPoint());
     }
 
     IEnumerator SpawnPlayerAtSpawnPoint()
