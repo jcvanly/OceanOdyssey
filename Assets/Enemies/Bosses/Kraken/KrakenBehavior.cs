@@ -22,7 +22,7 @@ public class KrakenBehavior : MonoBehaviour
      public float inkSpotShootInterval = 10f; // Interval for shooting ink spots
     private float inkSpotTimer;
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
-
+    public HealthBar healthBar;
 
 
 
@@ -173,12 +173,11 @@ void Update()
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // This method needs to be implemented in your HealthBar script
 
         if (currentHealth <= 0)
         {
-            //enemyDeath.Die();
-            //Die();
+            Die();
         }
     }
 
