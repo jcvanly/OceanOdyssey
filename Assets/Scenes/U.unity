@@ -37783,7 +37783,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812546591}
-  - component: {fileID: 1812546592}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: SpawnPoint
@@ -37806,18 +37805,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1812546592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812546590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 308a855c894643045b6cafea0dd6fde5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1940108019
 GameObject:
   m_ObjectHideFlags: 0
