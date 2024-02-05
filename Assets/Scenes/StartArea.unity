@@ -30741,6 +30741,14 @@ PrefabInstance:
       propertyPath: hearts.Array.data[19]
       value: 
       objectReference: {fileID: 1269794351}
+    - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
+      propertyPath: bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
+      propertyPath: maxBulletRange
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
