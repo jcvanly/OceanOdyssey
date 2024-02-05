@@ -8,6 +8,10 @@ TagManager:
   - PlayerProjectile
   - Boss
   - SpawnPoint
+  - InkSpray
+  - InkSpot
+  - Tentacle
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -45,12 +49,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 1250044791
+  - name: Enemy Projectile
+    uniqueID: 4010121675
     locked: 0
   - name: Enemy
     uniqueID: 1901066737
     locked: 0
-  - name: Enemy Projectile
-    uniqueID: 4010121675
+  - name: UI
+    uniqueID: 1250044791
+    locked: 0
+  - name: Player
+    uniqueID: 606313059
+    locked: 0
+  - name: Player projectile
+    uniqueID: 3497509729
     locked: 0

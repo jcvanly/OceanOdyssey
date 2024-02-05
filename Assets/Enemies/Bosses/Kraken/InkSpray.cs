@@ -1,27 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InkSpray : MonoBehaviour
 {
-    // public float fadeDuration = 10f; // Time for the ink to completely fade out
-    // private SpriteRenderer spriteRenderer;
-    // private float timer;
+    public float speedReduction = 510f; // Amount to reduce speed by
+    public float minSpeed = 2f; // Minimum speed the player can be reduced to
 
-    // void Start()
-    // {
-    //     spriteRenderer = GetComponent<SpriteRenderer>();
-    // }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player")) // Make sure the player has a tag "Player"
+        {
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                // Reduce speed but ensure it doesn't go below a minimum speed
+                //change to - when not testing
+                playerMovement.moveSpeed = Mathf.Max(playerMovement.moveSpeed + speedReduction, minSpeed);
+            }
+        }
+    }
 
-    // void Update()
-    // {
-    //     if (timer < fadeDuration)
-    //     {
-    //         timer += Time.deltaTime;
-    //         float alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
-    //         spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
-    //     }
-    //     else
-    //     {
-    //         Destroy(gameObject); // Destroy the ink spray after it has faded out
-    //     }
-    // }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                // Reset speed to original value
+                //change this to + when not testing
+                playerMovement.moveSpeed -= speedReduction;
+            }
+        }
+    }
 }
