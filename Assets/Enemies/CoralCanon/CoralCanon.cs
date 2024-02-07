@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
 
     private float shootTimer;
-
+    private bool isDead = false;
     void Start()
     {
         shootTimer = shootInterval;
@@ -48,17 +48,21 @@ public class Enemy : MonoBehaviour
             Destroy(collider.gameObject); // Destroy the projectile
         }
     }
-    
+
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
-
-        if (currentHealth <= 0)
+        if (isDead == false)
         {
-            enemyDeath.Die();
-            //Die();
+            currentHealth -= damage;
+            //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
+
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+                //Die();
+            }
         }
     }
 

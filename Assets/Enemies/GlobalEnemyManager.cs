@@ -10,7 +10,7 @@ public static class GlobalEnemyManager
     public static void EnemySpawned()
     {
         TotalEnemies++;
-        Debug.Log("Total number of enemies: " + TotalEnemies);
+        //Debug.Log("Total number of enemies: " + TotalEnemies);
     }
 
     public static void EnemyDied()
