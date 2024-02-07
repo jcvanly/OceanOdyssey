@@ -6,105 +6,71 @@ using UnityEngine.Tilemaps;
 
 public class Seagull : MonoBehaviour
 {
-    public float dashSpeed = 7f;
+    public float dashSpeed = 5;
     public float dashDuration = 1f;
-    public float dashCooldown = 2f;
-
-    private bool dashLeft = true;
-
+    public float dashCooldown = 3f;
+    private GameObject player;
+    private Rigidbody2D rb;
+    private Vector3 dashDirection;
     private bool canDash = true;
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
-    private float time;
-    private float currTime;
-
     private float startDash;
 
     void Start()
     {
-        time = Time.time;
         currentHealth = maxHealth; // Initialize current health
         enemyDeath = GetComponent<EnemyDeath>();
+        rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-  //  void Update()
-    //{
 
-      //  if (canDash)
-        //{
-          //  Dash();
-        //}
-
-    //}
-
-    void FixedUpdate()
+    private void Update()
     {
-        if(canDash)
+        // Automatically trigger the dash if the cooldown is over
+        if (canDash)
         {
             Dash();
         }
     }
 
-    
-    void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collider.gameObject.CompareTag("PlayerProjectile"))
+        if(collision.gameObject.CompareTag("PlayerProjectile"))
         {
-            TakeDamage(10); // Assuming each hit decreases 10 health
-            Destroy(collider.gameObject); // Destroy the projectile
-        }
-
-        if (collider.CompareTag("Obstacle"))
-        {
-            Debug.Log("seagull hit tile with c.");
-            StopDash();
+            TakeDamage(1);
         }
     }
 
-     private void Dash()
+    private void Dash()
     {
-        startDash = Time.time;
         canDash = false;
 
-        Vector2 dashDirection;
+        dashDirection = player.transform.position - transform.position;
+        rb.velocity = new Vector2(dashDirection.x,dashDirection.y).normalized * dashSpeed;
+        
+        dashDirection.Normalize();
 
+        rb.velocity = dashDirection * dashSpeed;
 
-        if(dashLeft == true)
-        {
-            dashDirection = new Vector2(1f, 0f);
-            dashDirection.Normalize();
-        }
-        else
-        {
-            dashDirection = new Vector2(-1f, 0f);
-            dashDirection.Normalize();
-        }
-
-
-        GetComponent<Rigidbody2D>().velocity = dashDirection * dashSpeed * Time.deltaTime;
+        Invoke("StopDash", dashDuration);
+        Invoke("ResetDash", dashCooldown);
     }
 
     private void StopDash()
     {
-        if(dashLeft == true)
-        {
-            dashLeft = false;
-        }
-        else
-        {
-            dashLeft = true;
-        }
-        Debug.Log("Dash stop");
-        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        canDash = true;
+        Debug.Log("stopDash");
+        rb.velocity = Vector2.zero;
     }
-    
+
     private void ResetDash()
     {
         canDash = true;
     }
+
 
     public void TakeDamage(int damage)
     {
