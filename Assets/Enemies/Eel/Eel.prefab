@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3037761880937133320}
   - component: {fileID: -2344139354170352335}
   - component: {fileID: -5666139244265998923}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 316209696880422928, guid: a699429ec652247aca57c6132de7933e, type: 3}
   shootInterval: 2
-  maxHealth: 100
+  maxHealth: 10
   currentHealth: 0
 --- !u!114 &-2344139354170352335
 MonoBehaviour:

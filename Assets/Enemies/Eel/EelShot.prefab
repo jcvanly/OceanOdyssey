@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: -3614935863082672999}
   - component: {fileID: -2691520586054880804}
   - component: {fileID: -8195166312976507210}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EelShot
-  m_TagString: Untagged
+  m_TagString: CoralCanonShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

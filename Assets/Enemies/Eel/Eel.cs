@@ -10,13 +10,17 @@ public class Eel : MonoBehaviour
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
+    private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
+
 
     private float shootTimer;
+    private bool isDead = false;
 
     void Start()
     {
         shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
+        enemyDeath = GetComponent<EnemyDeath>();
     }
 
     void Update()
@@ -50,18 +54,16 @@ public class Eel : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
-
-        if (currentHealth <= 0)
+        if (isDead == false)
         {
-            Die();
-        }
-    }
+            currentHealth -= damage;
+            //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
 
-    void Die()
-    {
-        // Add logic for enemy death, e.g., play animation, sound, etc.
-        Destroy(gameObject); // Destroy the enemy object
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+            }
+        }
     }
 }

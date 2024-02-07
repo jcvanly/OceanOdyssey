@@ -198,6 +198,13 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
             Destroy(tentacle);
         }
 
+        GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("HealthBar");
+        if (healthBarGameObject != null) {
+            healthBarGameObject.SetActive(false);
+        } else {
+            Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
+        }
+
         // Display the victory message
         StartCoroutine(DisplayVictoryMessage());
 
@@ -207,7 +214,7 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
     IEnumerator DisplayVictoryMessage()
     {
         GameObject victoryMessage = Instantiate(victoryTextPrefab, Vector3.zero, Quaternion.identity); // Assuming it's a UI element, position might need adjustment
-        victoryMessage.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false); // Make sure you have a Canvas tagged as "Canvas"
+        victoryMessage.transform.SetParent(GameObject.FindGameObjectWithTag("VictoryText").transform, false); // Make sure you have a Canvas tagged as "Canvas"
         victoryMessage.SetActive(true);
 
         yield return new WaitForSeconds(3); // Display "Victory" for 3 seconds

@@ -61,14 +61,7 @@ public class Enemy : MonoBehaviour
             {
                 enemyDeath.Die();
                 isDead = true;
-                //Die();
             }
         }
-    }
-
-    void Die()
-    {
-        // Add logic for enemy death, e.g., play animation, sound, etc.
-        Destroy(gameObject); // Destroy the enemy object
     }
 }
