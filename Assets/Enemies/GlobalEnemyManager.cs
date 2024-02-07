@@ -10,11 +10,13 @@ public static class GlobalEnemyManager
     public static void EnemySpawned()
     {
         TotalEnemies++;
+        //Debug.Log("Total number of enemies: " + TotalEnemies);
     }
 
     public static void EnemyDied()
     {
-        TotalEnemies--;
+        TotalEnemies = Mathf.Max(0, TotalEnemies - 1); // Ensure TotalEnemies never goes below 0
+        Debug.Log("Total number of enemies: " + TotalEnemies);
     }
 
     public static void IncrementScenesVisited()

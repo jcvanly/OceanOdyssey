@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 109987173}
   - component: {fileID: 109987172}
-  - component: {fileID: 109987171}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -141,14 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &109987171
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109987170}
-  m_Enabled: 1
 --- !u!20 &109987172
 Camera:
   m_ObjectHideFlags: 0
@@ -37783,7 +37774,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1812546591}
-  - component: {fileID: 1812546592}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: SpawnPoint
@@ -37800,24 +37790,12 @@ Transform:
   m_GameObject: {fileID: 1812546590}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.44, y: -4.35, z: -0.045172706}
+  m_LocalPosition: {x: -6.404, y: -4.467, z: -0.045172706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1812546592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812546590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 308a855c894643045b6cafea0dd6fde5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1940108019
 GameObject:
   m_ObjectHideFlags: 0
@@ -37896,11 +37874,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4826939296582391605, guid: 9ebd4b75a2bd100429acb2f5a83f054a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.82
+      value: 6.81
       objectReference: {fileID: 0}
     - target: {fileID: 4826939296582391605, guid: 9ebd4b75a2bd100429acb2f5a83f054a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.09
+      value: 4.83
       objectReference: {fileID: 0}
     - target: {fileID: 4826939296582391605, guid: 9ebd4b75a2bd100429acb2f5a83f054a, type: 3}
       propertyPath: m_LocalPosition.z
