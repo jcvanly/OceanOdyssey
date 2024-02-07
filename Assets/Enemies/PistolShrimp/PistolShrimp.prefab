@@ -202,4 +202,4 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6984052051264338637, guid: 9a8ebbb676f104944ac162ac5c363acd, type: 3}
   shootInterval: 2
   maxHealth: 10
-  currentHealth: 0
+  currentHealth: 10
