@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 458605691}
   - component: {fileID: 458605690}
   - component: {fileID: 458605692}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Tilemap-Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
