@@ -331,7 +331,6 @@ GameObject:
   - component: {fileID: 251096752}
   - component: {fileID: 251096751}
   - component: {fileID: 251096750}
-  - component: {fileID: 251096753}
   m_Layer: 0
   m_Name: Tilemap-Doodads Collsion (damage)
   m_TagString: Untagged
@@ -1875,20 +1874,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &251096753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251096748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d0c774e17575b4ebb97f12d7cfe925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
-  damage: 1
 --- !u!1 &309974483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,7 +1983,7 @@ GameObject:
   - component: {fileID: 593208832}
   - component: {fileID: 593208831}
   - component: {fileID: 593208830}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Tilemap-Collsion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
