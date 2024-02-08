@@ -12,6 +12,8 @@ TagManager:
   - InkSpot
   - Tentacle
   - Canvas
+  - HealthBar
+  - VictoryText
   layers:
   - Default
   - TransparentFX

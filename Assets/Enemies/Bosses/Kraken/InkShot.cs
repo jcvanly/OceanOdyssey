@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InkShot : MonoBehaviour
 {
+    public PlayerHealth playerHealth;
     void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log("Bullet collided with: " + collision.gameObject.name);

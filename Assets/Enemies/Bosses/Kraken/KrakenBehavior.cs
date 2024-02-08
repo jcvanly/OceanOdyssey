@@ -23,7 +23,6 @@ public class KrakenBehavior : MonoBehaviour
     private float inkSpotTimer;
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
     public HealthBar healthBar;
-    public GameObject victoryTextPrefab; // Assign a prefab with the "Victory" text in the inspector
 
 
 
@@ -205,20 +204,9 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
-        // Display the victory message
-        StartCoroutine(DisplayVictoryMessage());
-
+        
         // Destroy the enemy object
         Destroy(gameObject);
     }
-    IEnumerator DisplayVictoryMessage()
-    {
-        GameObject victoryMessage = Instantiate(victoryTextPrefab, Vector3.zero, Quaternion.identity); // Assuming it's a UI element, position might need adjustment
-        victoryMessage.transform.SetParent(GameObject.FindGameObjectWithTag("VictoryText").transform, false); // Make sure you have a Canvas tagged as "Canvas"
-        victoryMessage.SetActive(true);
 
-        yield return new WaitForSeconds(3); // Display "Victory" for 3 seconds
-
-        Destroy(victoryMessage); // Remove the victory message after displaying
-    }
 }
