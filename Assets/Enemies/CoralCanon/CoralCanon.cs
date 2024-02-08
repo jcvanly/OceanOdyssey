@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     public float shootInterval = 2f;
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
-    //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
 
     private float shootTimer;
@@ -55,7 +54,6 @@ public class Enemy : MonoBehaviour
         if (isDead == false)
         {
             currentHealth -= damage;
-            //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
 
             if (currentHealth <= 0)
             {

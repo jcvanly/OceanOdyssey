@@ -11,7 +11,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
-            if (GlobalEnemyManager.ScenesVisited >= 1)
+            if (GlobalEnemyManager.ScenesVisited >= 5)
             {
                 LoadSpecificScene(); // Load a specific scene after # of visits
             }
@@ -51,7 +51,7 @@ public class SceneTransition : MonoBehaviour
         SceneManager.LoadScene(specificSceneIndex);
 
         // Call a method to spawn the player at the designated spawn point
-        
+
     }
 
 }

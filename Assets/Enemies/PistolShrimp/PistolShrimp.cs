@@ -10,9 +10,10 @@ public class PistolShrimp : MonoBehaviour
     public float shootInterval = 2f;
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
-    //public Image healthBar; // Reference to the UI health bar
     private float shootTimer;
     private EnemyDeath enemyDeath;
+    private bool isDead = false;
+
 
     void Start()
     {
@@ -49,18 +50,15 @@ public class PistolShrimp : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
-
-        if (currentHealth <= 0)
+        if (isDead == false)
         {
-            enemyDeath.Die();
-        }
-    }
+            currentHealth -= damage;
 
-    void Die()
-    {
-        // Add logic for enemy death, e.g., play animation, sound, etc.
-        Destroy(gameObject); // Destroy the enemy object
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+            }
+        }
     }
 }

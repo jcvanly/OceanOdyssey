@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: -3360698429107140792}
   - component: {fileID: 1885006236327983481}
   - component: {fileID: 7587219094050044902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PistolShrimpShot
-  m_TagString: Untagged
+  m_TagString: CoralCanonShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
