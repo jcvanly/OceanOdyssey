@@ -216,3 +216,5 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   inkSpotShootInterval: 10
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
+  healthBar: {fileID: 0}
+  victoryTextPrefab: {fileID: 4217718493927667490, guid: 92d4fb82becbd23459db04f06402c3ac, type: 3}

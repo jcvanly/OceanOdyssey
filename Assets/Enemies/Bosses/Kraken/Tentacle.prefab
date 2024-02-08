@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6013811444975733860}
   m_Layer: 6
   m_Name: Tentacle
-  m_TagString: Untagged
+  m_TagString: Tentacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1901066737
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -763987527, guid: 1fe0d97732d9fa84882e44da6484c8cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

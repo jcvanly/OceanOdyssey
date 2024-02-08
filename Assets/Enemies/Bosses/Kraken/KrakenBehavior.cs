@@ -22,6 +22,8 @@ public class KrakenBehavior : MonoBehaviour
      public float inkSpotShootInterval = 10f; // Interval for shooting ink spots
     private float inkSpotTimer;
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
+    public HealthBar healthBar;
+    public GameObject victoryTextPrefab; // Assign a prefab with the "Victory" text in the inspector
 
 
 
@@ -124,7 +126,7 @@ void Update()
         StartCoroutine(SpawnAndRetractTentacleSequence(direction));
     }
 
-    IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
+IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
 {
     List<GameObject> tentacles = new List<GameObject>();
 
@@ -173,18 +175,50 @@ void Update()
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // This method needs to be implemented in your HealthBar script
 
         if (currentHealth <= 0)
         {
-            //enemyDeath.Die();
-            //Die();
+            Die();
         }
     }
 
     void Die()
     {
-        // Add logic for enemy death, e.g., play animation, sound, etc.
-        Destroy(gameObject); // Destroy the enemy object
+
+        
+        // Destroy all ink spots. Assuming you have a tag "InkSpot" for all ink spot objects
+        foreach (GameObject inkSpot in GameObject.FindGameObjectsWithTag("InkSpot"))
+        {
+            Destroy(inkSpot);
+        }
+
+        foreach (GameObject tentacle in GameObject.FindGameObjectsWithTag("Tentacle"))
+        {
+            Destroy(tentacle);
+        }
+
+        GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("HealthBar");
+        if (healthBarGameObject != null) {
+            healthBarGameObject.SetActive(false);
+        } else {
+            Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
+        }
+
+        // Display the victory message
+        StartCoroutine(DisplayVictoryMessage());
+
+        // Destroy the enemy object
+        Destroy(gameObject);
+    }
+    IEnumerator DisplayVictoryMessage()
+    {
+        GameObject victoryMessage = Instantiate(victoryTextPrefab, Vector3.zero, Quaternion.identity); // Assuming it's a UI element, position might need adjustment
+        victoryMessage.transform.SetParent(GameObject.FindGameObjectWithTag("VictoryText").transform, false); // Make sure you have a Canvas tagged as "Canvas"
+        victoryMessage.SetActive(true);
+
+        yield return new WaitForSeconds(3); // Display "Victory" for 3 seconds
+
+        Destroy(victoryMessage); // Remove the victory message after displaying
     }
 }

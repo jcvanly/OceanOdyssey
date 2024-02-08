@@ -13,7 +13,7 @@ public class SceneTransition : MonoBehaviour
         {
             if (GlobalEnemyManager.ScenesVisited >= 3)
             {
-                LoadSpecificScene(); // Load a specific scene after 5 visits
+                LoadSpecificScene(); // Load a specific scene after # of visits
             }
             else
             {
