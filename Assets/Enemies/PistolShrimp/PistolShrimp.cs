@@ -11,14 +11,14 @@ public class PistolShrimp : MonoBehaviour
     public int maxHealth = 100; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
-
     private float shootTimer;
+    private EnemyDeath enemyDeath;
 
     void Start()
     {
         shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
-        //target = GameObject.FindGameObjectWithTag("Player").transform;
+        enemyDeath = GetComponent<EnemyDeath>();
     }
 
     void Update()
@@ -54,7 +54,7 @@ public class PistolShrimp : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            enemyDeath.Die();
         }
     }
 
