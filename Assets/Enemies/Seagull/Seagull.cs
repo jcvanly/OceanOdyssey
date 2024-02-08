@@ -18,6 +18,7 @@ public class Seagull : MonoBehaviour
     //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
     private float startDash;
+    
 
     void Start()
     {
