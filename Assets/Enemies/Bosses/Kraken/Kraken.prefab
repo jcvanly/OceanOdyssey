@@ -61,7 +61,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.058, y: 0.216, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2628128852356125974}
@@ -105,10 +105,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e3e08204f7b3144c9be6689c0b69943, type: 3}
+  m_SortingLayerID: 1901066737
+  m_SortingLayer: 2
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 3bb5fd2793894594783fff77376aca2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -182,7 +182,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.73, y: 2.71}
+    oldSize: {x: 10.75, y: 11.35}
     newSize: {x: 2.73, y: 2.71}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -217,4 +217,4 @@ MonoBehaviour:
   inkSpotShootInterval: 10
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
   healthBar: {fileID: 0}
-  victoryTextPrefab: {fileID: 4217718493927667490, guid: 92d4fb82becbd23459db04f06402c3ac, type: 3}
+  musicController: {fileID: 5858543740781014850, guid: 7c989ea45db47b946b661f9ced188d1e, type: 3}
