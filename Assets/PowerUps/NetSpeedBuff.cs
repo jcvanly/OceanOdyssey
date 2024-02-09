@@ -24,7 +24,7 @@ public class NetSpeedBuff : PowerupEffect
 
         if (notificationText != null)
         {
-            notificationText.gameObject.SetActive(false);
+            notificationText.text = "";
         }
     }
 }

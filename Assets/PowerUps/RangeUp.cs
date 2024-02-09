@@ -25,7 +25,7 @@ public class RangeUp : PowerupEffect
 
         if (notificationText != null)
         {
-            notificationText.gameObject.SetActive(false);
+            notificationText.text = "";
         }
     }
 }
