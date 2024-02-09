@@ -7,13 +7,16 @@ public class EnemyDeath : MonoBehaviour
 {
     public static event Action OnDeath;
 
-    // Reference to the power-up prefab
-    public GameObject powerUpPrefab;
+    // List of power-up prefabs
+    public List<GameObject> powerUpPrefabs;
 
     public void Die()
     {
-        // Always spawn the power-up for testing purposes
-        SpawnPowerUp();
+        // Randomly choose a power-up prefab from the list
+        GameObject selectedPowerUpPrefab = powerUpPrefabs[UnityEngine.Random.Range(0, powerUpPrefabs.Count)];
+
+        // Spawn the selected power-up prefab
+        SpawnPowerUp(selectedPowerUpPrefab);
 
         // Invoke the OnDeath event
         OnDeath?.Invoke();
@@ -26,9 +29,9 @@ public class EnemyDeath : MonoBehaviour
     }
 
     // Function to spawn the power-up
-    private void SpawnPowerUp()
+    private void SpawnPowerUp(GameObject powerUpPrefab)
     {
-        // Instantiate the power-up prefab at the enemy's position
+        // Instantiate the selected power-up prefab at the enemy's position
         Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
     }
 }

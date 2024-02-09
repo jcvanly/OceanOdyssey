@@ -203,4 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ef79bb203901e4bbc1ea25d9e10c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpPrefab: {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
+  powerUpPrefabs:
+  - {fileID: 6331993429629992327, guid: 829487a337b3f8042b8aa403aaa67d74, type: 3}
+  - {fileID: 3598073716927550320, guid: 9fda35a152378b240a61570d4b26cd07, type: 3}
+  - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+  - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
+  - {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
+  - {fileID: 5858498842445802810, guid: 8be9154dceedb754da6534c0b4a60b95, type: 3}
