@@ -7,18 +7,40 @@ using UnityEngine;
 public class PermHealthUp : PowerupEffect
 {
     public int amount;
+
     public override void Apply(GameObject target, TextMeshProUGUI notificationText)
     {
-        target.GetComponent<PlayerHealth>().maxHealth += amount;
-        target.GetComponent<PlayerHealth>().health += amount;
+        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
 
-        if (notificationText != null)
+        if (playerHealth != null)
         {
-            notificationText.text = "+ " + amount + " max health";
-            notificationText.gameObject.SetActive(true);
-            target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
-        }
+            // Increase the maximum health
+            playerHealth.maxHealth += amount;
 
+            // Check if adding the amount to the current health would exceed the new maximum health
+            if (playerHealth.health + amount > playerHealth.maxHealth)
+            {
+                // Set health to the new maximum health if adding the amount would exceed it
+                playerHealth.health = playerHealth.maxHealth;
+            }
+            else
+            {
+                // Add the amount to the current health
+                playerHealth.health += amount;
+            }
+
+            // Show notification
+            if (notificationText != null)
+            {
+                notificationText.text = "+ " + amount + " max health";
+                notificationText.gameObject.SetActive(true);
+                target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
+            }
+        }
+        else
+        {
+            Debug.LogWarning("PlayerHealth component not found on target GameObject.");
+        }
     }
 
     private IEnumerator HideNotification(TextMeshProUGUI notificationText)
@@ -30,5 +52,4 @@ public class PermHealthUp : PowerupEffect
             notificationText.text = "";
         }
     }
-
 }
