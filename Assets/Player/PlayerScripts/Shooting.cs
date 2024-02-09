@@ -7,15 +7,25 @@ public class Shooting : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
-    public float bulletSpeed = 16f; // Speed of the bullet
+    public float bulletSpeed = 25f; // Speed of the bullet
     public float bulletRange = 15f; // Maximum range of the bullet in pixels
+    public float shootCooldown = 0.03f; // Cooldown time between shots in seconds
+    private float shootTimer = 0f; // Timer to track cooldown between shots
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        // Decrement the shootTimer
+        if (shootTimer > 0)
+        {
+            shootTimer -= Time.deltaTime;
+        }
+
+        // Check if the shoot button is pressed and if shootTimer is less than or equal to 0
+        if (Input.GetButtonDown("Fire1") && shootTimer <= 0)
         {
             Shoot();
+            shootTimer = shootCooldown; // Reset the shootTimer
         }
     }
 

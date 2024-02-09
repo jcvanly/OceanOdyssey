@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InkSpray : MonoBehaviour
 {
-    public float speedReduction = 510f; // Amount to reduce speed by
+    public float speedReduction = 200f; // Amount to reduce speed by
     public float minSpeed = 2f; // Minimum speed the player can be reduced to
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,7 +16,7 @@ public class InkSpray : MonoBehaviour
             {
                 // Reduce speed but ensure it doesn't go below a minimum speed
                 //change to - when not testing
-                playerMovement.moveSpeed = Mathf.Max(playerMovement.moveSpeed + speedReduction, minSpeed);
+                playerMovement.moveSpeed = Mathf.Max(playerMovement.moveSpeed - speedReduction, minSpeed);
             }
         }
     }
@@ -30,7 +30,7 @@ public class InkSpray : MonoBehaviour
             {
                 // Reset speed to original value
                 //change this to + when not testing
-                playerMovement.moveSpeed -= speedReduction;
+                playerMovement.moveSpeed += speedReduction;
             }
         }
     }

@@ -210,7 +210,7 @@ MonoBehaviour:
   numberOfTentacles: 4
   projectilePrefab: {fileID: 1983259497627553265, guid: 977ef0856da50bf4da9dae7035340027, type: 3}
   shootInterval: 1
-  maxHealth: 100
+  maxHealth: 300
   currentHealth: 0
   numberOfShots: 20
   timeBetweenShots: 0.1

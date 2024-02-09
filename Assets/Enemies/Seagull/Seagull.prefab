@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 10
-  dashDuration: 0.5
+  dashDuration: 0.3
   dashCooldown: 2
-  maxHealth: 10
+  maxHealth: 40
   currentHealth: 0

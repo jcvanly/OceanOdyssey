@@ -43,7 +43,7 @@ public class Seagull : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("PlayerProjectile"))
         {
-            TakeDamage(1);
+            TakeDamage(10);
         }
     }
 
