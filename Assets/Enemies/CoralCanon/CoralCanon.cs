@@ -41,8 +41,10 @@ public class Enemy : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("entered 2D");
         if (collider.gameObject.CompareTag("PlayerProjectile"))
         {
+            Debug.Log("taking 10 damage");
             TakeDamage(10); // Assuming each hit decreases 10 health
             Destroy(collider.gameObject); // Destroy the projectile
         }

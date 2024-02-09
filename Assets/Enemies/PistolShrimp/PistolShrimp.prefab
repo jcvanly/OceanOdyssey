@@ -200,6 +200,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6984052051264338637, guid: 9a8ebbb676f104944ac162ac5c363acd, type: 3}
-  shootInterval: 2
-  maxHealth: 10
-  currentHealth: 10
+  shootInterval: 1.2
+  maxHealth: 40
+  currentHealth: 0

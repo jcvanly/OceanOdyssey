@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16, y: 0.16, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 316209696880422928, guid: a699429ec652247aca57c6132de7933e, type: 3}
-  shootInterval: 2
-  maxHealth: 10
+  shootInterval: 0.7
+  maxHealth: 40
   currentHealth: 0
 --- !u!114 &-2344139354170352335
 MonoBehaviour:

@@ -18,6 +18,7 @@ public class Seagull : MonoBehaviour
     //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
     private float startDash;
+    private bool isDead = false;
     
 
     void Start()
@@ -75,19 +76,15 @@ public class Seagull : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
-
-        if (currentHealth <= 0)
+        if (isDead == false)
         {
-            enemyDeath.Die();
-            //Die();
-        }
-    }
+            currentHealth -= damage;
 
-    void Die()
-    {
-        // Add logic for enemy death, e.g., play animation, sound, etc.
-        Destroy(gameObject); // Destroy the enemy object
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+            }
+        }
     }
 }

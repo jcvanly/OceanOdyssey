@@ -57,7 +57,6 @@ public class Eel : MonoBehaviour
         if (isDead == false)
         {
             currentHealth -= damage;
-            //healthBar.fillAmount = (float)currentHealth / maxHealth; // Update health bar
 
             if (currentHealth <= 0)
             {

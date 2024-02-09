@@ -7,8 +7,8 @@ public class Shooting : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
-    public float bulletSpeed = 20f; // Speed of the bullet
-    public float bulletRange = 10f; // Maximum range of the bullet in pixels
+    public float bulletSpeed = 16f; // Speed of the bullet
+    public float bulletRange = 15f; // Maximum range of the bullet in pixels
 
     // Update is called once per frame
     void Update()
