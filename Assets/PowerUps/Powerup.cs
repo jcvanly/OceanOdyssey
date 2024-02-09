@@ -10,13 +10,10 @@ public class Powerup : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
-
-        // Get a reference to the Canvas GameObject
         Canvas canvas = FindObjectOfType<Canvas>();
 
         if (canvas != null)
         {
-            // Search for the TextMeshPro component within the Canvas GameObject and its children
             TextMeshProUGUI notificationText = canvas.GetComponentInChildren<TextMeshProUGUI>();
 
             if (notificationText != null)
