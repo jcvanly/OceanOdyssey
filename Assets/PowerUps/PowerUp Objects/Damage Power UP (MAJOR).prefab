@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7175800549449701028}
   - component: {fileID: 8418364610332139062}
   - component: {fileID: 8344932616597091691}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Damage Power UP (MAJOR)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

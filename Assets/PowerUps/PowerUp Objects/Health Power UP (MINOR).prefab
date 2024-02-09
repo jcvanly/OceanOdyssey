@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3071145232444745526}
   - component: {fileID: 4564507735373018879}
   - component: {fileID: 2350786017802866975}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Health Power UP (MINOR)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
