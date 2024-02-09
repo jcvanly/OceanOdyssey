@@ -32254,7 +32254,7 @@ PrefabInstance:
       objectReference: {fileID: 1269794351}
     - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
       propertyPath: bulletSpeed
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
       propertyPath: maxBulletRange

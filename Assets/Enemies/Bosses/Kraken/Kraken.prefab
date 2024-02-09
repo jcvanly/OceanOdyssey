@@ -210,11 +210,10 @@ MonoBehaviour:
   numberOfTentacles: 4
   projectilePrefab: {fileID: 1983259497627553265, guid: 977ef0856da50bf4da9dae7035340027, type: 3}
   shootInterval: 1
-  maxHealth: 300
+  maxHealth: 450
   currentHealth: 0
   numberOfShots: 20
   timeBetweenShots: 0.1
   inkSpotShootInterval: 10
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
   healthBar: {fileID: 0}
-  musicController: {fileID: 5858543740781014850, guid: 7c989ea45db47b946b661f9ced188d1e, type: 3}

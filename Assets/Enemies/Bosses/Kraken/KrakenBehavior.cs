@@ -23,7 +23,6 @@ public class KrakenBehavior : MonoBehaviour
     private float inkSpotTimer;
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
     public HealthBar healthBar;
-    public BossMusicController musicController;
 
 
 
@@ -36,7 +35,6 @@ void Start()
         inkSpotTimer = inkSpotShootInterval; // Initialize the ink spot timer
         currentHealth = maxHealth;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        musicController.PlayBossMusic();
     }
 
 
@@ -186,9 +184,6 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
 
     void Die()
     {
-
-        musicController.StopBossMusic();
-
         
         // Destroy all ink spots. Assuming you have a tag "InkSpot" for all ink spot objects
         foreach (GameObject inkSpot in GameObject.FindGameObjectsWithTag("InkSpot"))
