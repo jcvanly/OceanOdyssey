@@ -38326,6 +38326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: 0b260a81c43917744b13f85b067bc254, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &772657548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38584,6 +38585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: af8d579f6e5646e47b3510b7c23fb3de, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &1157743083
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38728,6 +38730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: e5411493628b57d4e8e79d3f0f8df58c, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &1219140800
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38872,6 +38875,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: d49ed554da8ec4a459858cfc47c25748, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &1236694191
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39195,6 +39199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: a0e64cf66845817449e755bc9f3b2cd7, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &1599905418
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39339,6 +39344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: 0b260a81c43917744b13f85b067bc254, type: 2}
+  notificationText: {fileID: 686780052425925654, guid: 5b27f37daa641f742858d0b4f4e6ec7a, type: 3}
 --- !u!61 &2036203522
 BoxCollider2D:
   m_ObjectHideFlags: 0
