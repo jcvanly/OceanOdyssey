@@ -13,7 +13,7 @@ public class EnemyDeath : MonoBehaviour
     public void Die()
     {
         // Randomly determine whether to spawn a power-up
-        if (UnityEngine.Random.value <= 0.1f) // 10% chance
+        if (UnityEngine.Random.value <= 0.5f) // 10% chance
         {
             // Randomly choose a power-up prefab from the list
             GameObject selectedPowerUpPrefab = powerUpPrefabs[UnityEngine.Random.Range(0, powerUpPrefabs.Count)];
