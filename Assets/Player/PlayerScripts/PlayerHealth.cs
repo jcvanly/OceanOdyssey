@@ -61,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerSr.enabled = false;
             playerMovement.enabled = false;
+            GameOverScript.showGameOver();
         }
         else
         {
