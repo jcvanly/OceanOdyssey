@@ -10,11 +10,10 @@ public class PlayerHealth : MonoBehaviour
     public SpriteRenderer playerSr;
     public PlayerMovement playerMovement;
     // Start is called before the first frame update
-    public float flashDuration = 1f;
-    private Color damageColor = new Color(1f, 0f, 0f, 0.5f);
+    public float flashDuration = .4f;
+    private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
     private float damageTime;
-    private float timeSinceDamage;
     private float timeLastFlash;
     private float currTime;
     private bool flashOnDamage = false;
