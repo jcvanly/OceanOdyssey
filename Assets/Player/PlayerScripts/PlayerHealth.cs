@@ -17,7 +17,9 @@ public class PlayerHealth : MonoBehaviour
     private float timeLastFlash;
     private float currTime;
     private bool flashOnDamage = false;
-    
+    private AudioSource soundEffects;
+    public AudioClip sound;
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -48,7 +50,15 @@ public class PlayerHealth : MonoBehaviour
                 playerSr.color = originalColor;
             }
         }
-
+        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
+        if (soundObject != null)
+        {
+            soundEffects = soundObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
+        }
     }
 
 
@@ -56,7 +66,10 @@ public class PlayerHealth : MonoBehaviour
     {
 
         health -= amount;
-
+        if (soundEffects != null)
+        {
+            soundEffects.PlayOneShot(sound);
+        }
         if (health <= 0)
         {
             playerSr.enabled = false;
