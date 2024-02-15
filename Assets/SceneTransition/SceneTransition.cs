@@ -11,7 +11,7 @@ public class SceneTransition : MonoBehaviour
     {
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
-            if (GlobalEnemyManager.ScenesVisited >= 3)
+            if (GlobalEnemyManager.ScenesVisited >= 2)
             {
                 LoadSpecificScene(); // Load a specific scene after # of visits
             }
