@@ -6,10 +6,23 @@ using System; // Needed for Action
 public class EnemyDeath : MonoBehaviour
 {
     public static event Action OnDeath;
-
+    private AudioSource soundEffects;
+    public AudioClip sound;
     // List of power-up prefabs
     public List<GameObject> powerUpPrefabs;
 
+    private void Update()
+    {
+        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
+        if (soundObject != null)
+        {
+            soundEffects = soundObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
+        }
+    }
     public void Die()
     {
         // Randomly determine whether to spawn a power-up
@@ -30,6 +43,11 @@ public class EnemyDeath : MonoBehaviour
 
         // Destroy the enemy gameObject
         Destroy(gameObject);
+
+        if (soundEffects != null)
+        {
+            soundEffects.PlayOneShot(sound);
+        }
     }
 
 
