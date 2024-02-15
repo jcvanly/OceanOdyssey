@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartArea.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/King & Queen.unity
+    guid: cac891f864e109747bae224a0504111d
+  - enabled: 0
     path: Assets/Scenes/SquidArena.unity
     guid: 251652161268df04ba8f928cf25e8aaa
   - enabled: 1
