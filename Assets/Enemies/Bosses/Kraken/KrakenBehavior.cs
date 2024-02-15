@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class KrakenBehavior : MonoBehaviour
 {
     
@@ -23,6 +23,10 @@ public class KrakenBehavior : MonoBehaviour
     private float inkSpotTimer;
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
     public HealthBar healthBar;
+    public Image fadePanel;
+    public float fadeDuration = 2f;
+    public GameObject victoryText;
+    public GameObject nextIslandButton;
 
 
 
@@ -30,6 +34,7 @@ public class KrakenBehavior : MonoBehaviour
 
 void Start()
     {
+        HideVictoryScreen();
         shootTimer = shootInterval;
         tentacleShootTimer = tentacleShootInterval;
         inkSpotTimer = inkSpotShootInterval; // Initialize the ink spot timer
@@ -203,8 +208,43 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
-        // Destroy the enemy object
-        Destroy(gameObject);
+
+        StartCoroutine(FadeToBlack());
+
     }
+
+    public IEnumerator FadeToBlack()
+    {
+        float elapsedTime = 0f;
+        Color panelColor = fadePanel.color;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            panelColor.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            Debug.Log(panelColor.a + elapsedTime);
+            fadePanel.color = panelColor;
+            yield return null;
+        }
+
+        ShowVictoryScreen();
+        
+        // Destroy the enemy object
+        Destroy(gameObject);  
+        
+    }
+
+    public void ShowVictoryScreen()
+    {
+        victoryText.SetActive(true);
+        nextIslandButton.SetActive(true);
+    }
+
+    // Optionally, if you want to be able to hide them again
+    public void HideVictoryScreen()
+    {
+        victoryText.SetActive(false);
+        nextIslandButton.SetActive(false);
+    }
+    
 
 }
