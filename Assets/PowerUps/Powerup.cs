@@ -6,19 +6,21 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
-    public AudioClip pickupSound; // Assign your pickup sound effect in the Inspector
+    private AudioSource pickupSound;
 
-    private AudioSource audioSource;
-
-    private void Start()
+    private void Update()
     {
-        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component on the same GameObject
-        if (audioSource == null)
+        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
+        GameObject soundObject = GameObject.FindWithTag("pickupsound");
+        if (soundObject != null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>(); // Add AudioSource component if not already present
+            pickupSound = soundObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with tag 'pickupsound' found.");
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
@@ -33,23 +35,10 @@ public class Powerup : MonoBehaviour
                 // Apply the power-up effect
                 powerupEffect.Apply(collision.gameObject, notificationText);
 
-                if (pickupSound != null && audioSource != null)
+                // Play the shooting sound effect if AudioSource is found
+                if (pickupSound != null)
                 {
-                    Debug.Log("Attempting to play pickup sound.");
-                    if (!audioSource.enabled)
-                    {
-                        audioSource.enabled = true;
-                    }
-                    audioSource.Play();
-                    audioSource.PlayOneShot(pickupSound);
-                    if (!audioSource.isPlaying)
-                    {
-                        audioSource.enabled = false;
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("Pickup sound or AudioSource component not assigned.");
+                    pickupSound.Play();
                 }
             }
             else

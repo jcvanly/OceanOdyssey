@@ -16,6 +16,8 @@ TagManager:
   - VictoryText
   - CrabHealth
   - LobsterHealth
+  - shooting sound
+  - pickupsound
   layers:
   - Default
   - TransparentFX

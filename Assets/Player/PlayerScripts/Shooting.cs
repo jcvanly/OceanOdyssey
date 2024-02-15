@@ -6,26 +6,49 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    private AudioSource shootingSound; // Change to private, as it will be assigned dynamically
 
-    public float bulletSpeed = 25f; // Speed of the bullet
-    public float bulletRange = 15f; // Maximum range of the bullet in pixels
-    public float shootCooldown = 0.03f; // Cooldown time between shots in seconds
-    private float shootTimer = 0f; // Timer to track cooldown between shots
+    public float bulletSpeed = 25f;
+    public float bulletRange = 15f;
+    public float shootCooldown = 0.03f;
+    private float shootTimer = 0f;
 
-    // Update is called once per frame
+    void Start()
+    {
+        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
+        GameObject soundObject = GameObject.FindWithTag("shooting sound");
+        if (soundObject != null)
+        {
+            shootingSound = soundObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with tag 'shooting sound' found.");
+        }
+    }
+
     void Update()
     {
-        // Decrement the shootTimer
+        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
+        GameObject soundObject = GameObject.FindWithTag("shooting sound");
+        if (soundObject != null)
+        {
+            shootingSound = soundObject.GetComponent<AudioSource>();
+        }
+        else
+        {
+            Debug.LogWarning("No GameObject with tag 'shooting sound' found.");
+        }
+
         if (shootTimer > 0)
         {
             shootTimer -= Time.deltaTime;
         }
 
-        // Check if the shoot button is pressed and if shootTimer is less than or equal to 0
         if (Input.GetButtonDown("Fire1") && shootTimer <= 0)
         {
             Shoot();
-            shootTimer = shootCooldown; // Reset the shootTimer
+            shootTimer = shootCooldown;
         }
     }
 
@@ -33,17 +56,15 @@ public class Shooting : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-        // Calculate the target position based on the bullet range
         Vector2 targetPosition = firePoint.position + firePoint.right * bulletRange;
-
-        // Calculate the direction to the target position
         Vector2 direction = (targetPosition - (Vector2)firePoint.position).normalized;
-
-        // Set the bullet velocity
         rb.velocity = direction * bulletSpeed;
-
-        // Destroy the bullet after reaching the specified range
         Destroy(bullet, bulletRange / bulletSpeed);
+
+        // Play the shooting sound effect if AudioSource is found
+        if (shootingSound != null)
+        {
+            shootingSound.Play();
+        }
     }
 }
