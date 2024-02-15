@@ -6,38 +6,25 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    private AudioSource shootingSound; // Change to private, as it will be assigned dynamically
+    private AudioSource soundEffects; 
+    public AudioClip sound;
 
     public float bulletSpeed = 25f;
     public float bulletRange = 15f;
     public float shootCooldown = 0.03f;
     private float shootTimer = 0f;
 
-    void Start()
-    {
-        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
-        GameObject soundObject = GameObject.FindWithTag("shooting sound");
-        if (soundObject != null)
-        {
-            shootingSound = soundObject.GetComponent<AudioSource>();
-        }
-        else
-        {
-            Debug.LogWarning("No GameObject with tag 'shooting sound' found.");
-        }
-    }
 
     void Update()
     {
-        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
-        GameObject soundObject = GameObject.FindWithTag("shooting sound");
+        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
         if (soundObject != null)
         {
-            shootingSound = soundObject.GetComponent<AudioSource>();
+            soundEffects = soundObject.GetComponent<AudioSource>();
         }
         else
         {
-            Debug.LogWarning("No GameObject with tag 'shooting sound' found.");
+            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
         }
 
         if (shootTimer > 0)
@@ -61,10 +48,9 @@ public class Shooting : MonoBehaviour
         rb.velocity = direction * bulletSpeed;
         Destroy(bullet, bulletRange / bulletSpeed);
 
-        // Play the shooting sound effect if AudioSource is found
-        if (shootingSound != null)
+        if (soundEffects != null)
         {
-            shootingSound.Play();
+            soundEffects.PlayOneShot(sound);
         }
     }
 }

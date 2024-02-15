@@ -18,6 +18,7 @@ TagManager:
   - LobsterHealth
   - shooting sound
   - pickupsound
+  - SoundEffects
   layers:
   - Default
   - TransparentFX

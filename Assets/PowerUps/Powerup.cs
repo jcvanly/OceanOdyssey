@@ -6,19 +6,18 @@ using UnityEngine;
 public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
-    private AudioSource pickupSound;
-
+    private AudioSource soundEffects;
+    public AudioClip sound;
     private void Update()
     {
-        // Find the GameObject with the "shootingsound" tag and get its AudioSource component
-        GameObject soundObject = GameObject.FindWithTag("pickupsound");
+        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
         if (soundObject != null)
         {
-            pickupSound = soundObject.GetComponent<AudioSource>();
+            soundEffects = soundObject.GetComponent<AudioSource>();
         }
         else
         {
-            Debug.LogWarning("No GameObject with tag 'pickupsound' found.");
+            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,10 +34,9 @@ public class Powerup : MonoBehaviour
                 // Apply the power-up effect
                 powerupEffect.Apply(collision.gameObject, notificationText);
 
-                // Play the shooting sound effect if AudioSource is found
-                if (pickupSound != null)
+                if (soundEffects != null)
                 {
-                    pickupSound.Play();
+                    soundEffects.PlayOneShot(sound);
                 }
             }
             else

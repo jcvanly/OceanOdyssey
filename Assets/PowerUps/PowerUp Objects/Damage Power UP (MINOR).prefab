@@ -144,4 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: a0e64cf66845817449e755bc9f3b2cd7, type: 2}
-  pickupSound: {fileID: 8300000, guid: b0e62ed71b1538648b719821f4f63b4c, type: 3}
+  sound: {fileID: 8300000, guid: ba39bf8baf6d13046889b2d64822381a, type: 3}

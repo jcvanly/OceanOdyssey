@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: 2805f1b21c9ba084bb2a601e20ec422c, type: 2}
-  pickupSound: {fileID: 8300000, guid: 00e4eb96f4f6cc249a632e4027644cad, type: 3}
+  sound: {fileID: 8300000, guid: ba39bf8baf6d13046889b2d64822381a, type: 3}
 --- !u!70 &1528875822675047744
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
