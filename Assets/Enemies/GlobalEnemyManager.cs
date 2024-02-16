@@ -6,6 +6,10 @@ public static class GlobalEnemyManager
 {
     public static int TotalEnemies { get; private set; } = 0;
     public static int ScenesVisited { get; private set; } = 0; // Tracker for scenes visited
+    public static bool KrakenDefeated = false;
+    public static bool CrabDefeated = false;
+
+    
 
     public static void EnemySpawned()
     {

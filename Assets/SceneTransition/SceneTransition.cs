@@ -11,13 +11,37 @@ public class SceneTransition : MonoBehaviour
     {
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
-            if (GlobalEnemyManager.ScenesVisited >= 1)
-            {
-                LoadSpecificScene(); // Load a specific scene after # of visits
+            if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
+                if (GlobalEnemyManager.ScenesVisited >= 1)
+                {
+                    LoadSpecificScene(); // Load a specific scene after # of visits
+                }
+                else
+                {
+                    LoadRandomScene(); // Continue loading random scenes otherwise
+                }
             }
-            else
-            {
-                LoadRandomScene(); // Continue loading random scenes otherwise
+
+            if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
+                if (GlobalEnemyManager.ScenesVisited >= 5)
+                    {
+                        LoadSpecificScene(); // Load a specific scene after # of visits
+                    }
+                else
+                    {
+                        LoadRandomScene(); // Continue loading random scenes otherwise
+                    }
+            }
+
+            if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
+                if (GlobalEnemyManager.ScenesVisited >= 10)
+                    {
+                        LoadSpecificScene(); // Load a specific scene after # of visits
+                    }
+                else
+                    {
+                        LoadRandomScene(); // Continue loading random scenes otherwise
+                    }
             }
         }
     }
@@ -26,31 +50,48 @@ public class SceneTransition : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int sceneCount = SceneManager.sceneCountInBuildSettings;
-        int randomSceneIndex;
+        int randomSceneIndex = 0;
 
         do
         {
-            // Assuming you want to skip the first scene (index 0) and start from index 1
-            randomSceneIndex = Random.Range(3, sceneCount);
-            //DontDestroyOnLoad(gameObject);
+            if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
+            randomSceneIndex = Random.Range(3, 7);
+            }
+
+            if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
+            randomSceneIndex = Random.Range(9, 12);
+            }
+
+            if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
+            randomSceneIndex = Random.Range(3, 7);
+            }
         }
         while (randomSceneIndex == currentSceneIndex);
 
         Debug.Log("Loading scene index: " + randomSceneIndex);
         GlobalEnemyManager.IncrementScenesVisited(); // Increment the counter
         SceneManager.LoadScene(randomSceneIndex);
-
-        // Call a method to spawn the player at the designated spawn point
-
     }
 
     private void LoadSpecificScene()
     {
-        int specificSceneIndex = 2;
+
+        int specificSceneIndex = 0;
+
+        if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
+            specificSceneIndex = 2;
+        }
+
+        if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
+            specificSceneIndex = 8;
+        }
+
+        if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
+            specificSceneIndex = 2;
+        }
+
         Debug.Log("Loading specific scene index: " + specificSceneIndex);
         SceneManager.LoadScene(specificSceneIndex);
-
-        // Call a method to spawn the player at the designated spawn point
 
     }
 

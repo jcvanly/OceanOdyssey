@@ -27,6 +27,7 @@ public class KrakenBehavior : MonoBehaviour
     public float fadeDuration = 2f;
     public GameObject victoryText;
     public GameObject nextIslandButton;
+    
 
 
 
@@ -201,6 +202,10 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
             Destroy(tentacle);
         }
 
+        timeBetweenShots = 10f;
+        shootInterval = 10f;
+        numberOfShots = 0;
+
         GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("HealthBar");
         if (healthBarGameObject != null) {
             healthBarGameObject.SetActive(false);
@@ -208,6 +213,8 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
+
+        GlobalEnemyManager.KrakenDefeated = true;
 
         StartCoroutine(FadeToBlack());
 
