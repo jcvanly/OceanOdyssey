@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tide Pool Start.unity
     guid: 1b069946d17059e479e7d50ea0ad7c7a
   - enabled: 1
+    path: Assets/Scenes/King & Queen.unity
+    guid: cac891f864e109747bae224a0504111d
+  - enabled: 1
     path: Assets/Scenes/Tide Pool Cut.unity
     guid: 473c16b8705a11a488a52201655fdd00
   - enabled: 1
@@ -38,10 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tide Pool One.unity
     guid: d9fe5586bade84e4faaa181ffc051f3c
-  - enabled: 0
-    path: Assets/Scenes/King & Queen.unity
-    guid: cac891f864e109747bae224a0504111d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 070f4292436f74bcbbb82bce07651db2
   m_configObjects: {}
