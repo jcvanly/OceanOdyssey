@@ -10,7 +10,7 @@ public class KingCrab : MonoBehaviour
     public CrabHealthBar healthBar;
     public Transform player; // Reference to the player's transform
     public float moveSpeed = 5f; // Movement speed of the crab
-    public float stoppingDistance = 4f; // Distance at which the crab stops moving towards the player
+    public float stoppingDistance = 3f; // Distance at which the crab stops moving towards the player
     public float attackDistance = 3f; // Distance within which the crab will attack the player
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -26,11 +26,14 @@ public class KingCrab : MonoBehaviour
     public GameObject verticalSlashPrefab; // The prefab for the vertical slash effect
     public float verticalSlashWarningDuration = 1f; // Time the effect is visible before the slash lands
     public float verticalSlashDamage = 20; // Damage dealt by the vertical slash
+    public PlayerHealth playerHealth;
+
 
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
     }
 
@@ -107,9 +110,7 @@ public class KingCrab : MonoBehaviour
     // Check if player is within attack radius
     if (Vector2.Distance(player.position, transform.position) <= attackRadius)
     {
-        // Apply damage to the player
-        // Make sure your player has a method to take damage
-        player.GetComponent<PlayerHealth>().TakeDamage(slamDamage);
+        playerHealth.TakeDamage(1);
     }
 
     // Destroy the attack effect after a short delay
@@ -154,9 +155,9 @@ public class KingCrab : MonoBehaviour
         downRenderer.color = opaqueColor;
 
         // Check for player within damage range on all sides
-        if (Vector2.Distance(player.position, transform.position) <= 2f) // Assuming a simple range check for demonstration
+        if (Vector2.Distance(player.position, transform.position) <= 4f)
         {
-            // player.GetComponent<PlayerHealth>().TakeDamage(sideSlashDamage);
+            playerHealth.TakeDamage(1);
         }
 
         // Destroy the swoosh effects after a short delay
@@ -187,9 +188,9 @@ public class KingCrab : MonoBehaviour
         // Make the slash fully opaque to indicate the attack is landing
         slashRenderer.color = new Color(1, 1, 1, 1);
 
-        if (Vector2.Distance(player.position, playerPosition) <= 2f) 
+        if (Vector2.Distance(player.position, playerPosition) <= 1.6f) 
         {
-            //player.GetComponent<PlayerHealth>().TakeDamage(verticalSlashDamage);
+            playerHealth.TakeDamage(1);
         }
 
         // Destroy the slash effect after a short delay to clean up

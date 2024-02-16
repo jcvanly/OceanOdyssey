@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1485202198897525622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5151851400653640787}
+  m_Layer: 6
+  m_Name: Claw Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5151851400653640787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485202198897525622}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.48, y: -4.76, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1237423001508900770}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5791664190806002192
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +46,7 @@ GameObject:
   - component: {fileID: -9140110623602839949}
   m_Layer: 6
   m_Name: King Crab
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,10 +60,11 @@ Transform:
   m_GameObject: {fileID: 5791664190806002192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.825, y: -0.082, z: -0.72561175}
+  m_LocalPosition: {x: -0.14, y: 0.05, z: -0.72561175}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5151851400653640787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4114700484957061235
@@ -175,17 +207,17 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 0}
   player: {fileID: 0}
-  moveSpeed: 5
-  stoppingDistance: 4
+  moveSpeed: 7
+  stoppingDistance: 3
   attackDistance: 3
   attackInterval: 3
-  swooshPrefab: {fileID: 0}
+  swooshPrefab: {fileID: 8930379954197447619, guid: 36da2a40318579e4aaa2fd95e99251f9, type: 3}
   sideSlashWarningDuration: 1
   sideSlashDamage: 15
-  attackCirclePrefab: {fileID: 0}
+  attackCirclePrefab: {fileID: 7026627020603540439, guid: 29834b8d7476235428b317b42df04253, type: 3}
   attackWarningDuration: 1
   attackRadius: 3
   slamDamage: 20
-  verticalSlashPrefab: {fileID: 0}
+  verticalSlashPrefab: {fileID: 7831747273543504148, guid: 50b7ebbd1c2cd4a41ad02636412f77e5, type: 3}
   verticalSlashWarningDuration: 1
   verticalSlashDamage: 20

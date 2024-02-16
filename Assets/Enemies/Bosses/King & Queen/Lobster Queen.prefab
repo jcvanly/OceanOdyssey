@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1710518195716763441}
   - component: {fileID: 1676946069589058770}
   - component: {fileID: -2881679802396034872}
+  - component: {fileID: 3083811662601549024}
   m_Layer: 6
   m_Name: Lobster Queen
   m_TagString: Boss
@@ -29,10 +30,11 @@ Transform:
   m_GameObject: {fileID: 2916957856937105328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.64, y: 2.77, z: -0.72561175}
+  m_LocalPosition: {x: -8.46, y: -3.52, z: -0.72561175}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6192928778220009667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4786552018056042649
@@ -150,7 +152,7 @@ MonoBehaviour:
   speed: 2
   waypoints: []
   stopTime: 1
-  miniLobsterPrefab: {fileID: 0}
+  miniLobsterPrefab: {fileID: 2218696376568667835, guid: d221681f6be8c1e4c852764d20e6fe63, type: 3}
   spawnPoint: {fileID: 0}
 --- !u!50 &-2881679802396034872
 Rigidbody2D:
@@ -179,3 +181,58 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3083811662601549024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916957856937105328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d073385e03653a5419f639e707bbec09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 40
+  currentHealth: 0
+  healthBar: {fileID: 0}
+  speed: 2
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stopTime: 1
+  miniLobsterPrefab: {fileID: 2218696376568667835, guid: d221681f6be8c1e4c852764d20e6fe63, type: 3}
+  spawnPoint: {fileID: 6192928778220009667}
+--- !u!1 &2962840682399357102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6192928778220009667}
+  m_Layer: 0
+  m_Name: LobsterSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6192928778220009667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2962840682399357102}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.98, y: -1.13, z: 0.09964305}
+  m_LocalScale: {x: 3.333333, y: 3.333333, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6845146359105526496}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
