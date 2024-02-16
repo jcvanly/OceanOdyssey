@@ -58,7 +58,7 @@ public class LobsterQueen : MonoBehaviour
     {
         while (true) // Continuously spawn mini lobsters every 5 seconds
         {
-            yield return new WaitForSeconds(3.5f); // Wait for 5 seconds
+            yield return new WaitForSeconds(10f); // Wait for 5 seconds
             Instantiate(miniLobsterPrefab, spawnPoint.position, Quaternion.identity); // Spawn a mini lobster
         }
     }

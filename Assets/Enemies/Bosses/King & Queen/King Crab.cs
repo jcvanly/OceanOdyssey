@@ -22,7 +22,7 @@ public class KingCrab : MonoBehaviour
     public GameObject attackCirclePrefab; // The red circle prefab
     public float attackWarningDuration = 1f; // Time the circle is visible before the attack lands
     public float attackRadius = 3f; // Radius of the attack effect
-    public int slamDamage = 20; // Damage dealt by the slam attack
+    public int slamDamage = 1; // Damage dealt by the slam attack
     public GameObject verticalSlashPrefab; // The prefab for the vertical slash effect
     public float verticalSlashWarningDuration = 1f; // Time the effect is visible before the slash lands
     public float verticalSlashDamage = 20; // Damage dealt by the vertical slash
@@ -86,8 +86,8 @@ public class KingCrab : MonoBehaviour
     attackPhase = (attackPhase + 1) % 3; // Cycle through the attacks
     }
 
-    IEnumerator PerformSlamAttack()
-    {
+IEnumerator PerformSlamAttack()
+{
     isAttacking = true;
 
     // Calculate direction and position for the attack based on the player's position
@@ -99,105 +99,118 @@ public class KingCrab : MonoBehaviour
     // Instantiate the attack circle
     GameObject attackCircle = Instantiate(attackCirclePrefab, attackPosition, Quaternion.identity);
     SpriteRenderer circleRenderer = attackCircle.GetComponent<SpriteRenderer>();
-    circleRenderer.color = new Color(1, 0, 0, 0.5f); // Make the circle red and semi-transparent
+    AttackCircle attackCircleScript = attackCircle.GetComponent<AttackCircle>(); // Ensure you have this component attached to the prefab
 
+    // Make the circle red and semi-transparent initially
+    circleRenderer.color = new Color(1, 0, 0, 0.5f);
+    
     // Wait for the warning duration
     yield return new WaitForSeconds(attackWarningDuration);
 
-    // Make the circle fully opaque
+    // Make the circle fully opaque to signal the attack is about to hit
     circleRenderer.color = new Color(1, 0, 0, 1);
 
-    // Check if player is within attack radius
-    if (Vector2.Distance(player.position, transform.position) <= attackRadius)
-    {
-        playerHealth.TakeDamage(1);
+    // Activate the attack circle to start detecting the player and dealing damage
+    if (attackCircleScript != null) {
+        attackCircleScript.Activate();
+    } else {
+        Debug.LogError("AttackCircle script not found on the attack circle prefab!");
     }
 
-    // Destroy the attack effect after a short delay
-    Destroy(attackCircle, 0.5f);
+    // Give some time for the player to potentially be hit
+    yield return new WaitForSeconds(0.5f);
+
+    // Destroy the attack effect
+    Destroy(attackCircle);
 
     isAttacking = false;
-    }
+}
 
-    IEnumerator PerformSideSlash()
+
+IEnumerator PerformSideSlash()
+{
+    isAttacking = true;
+
+    // Instantiate the swoosh effects on all sides of the crab
+    GameObject leftSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.left * 2, Quaternion.identity);
+    GameObject rightSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.right * 2, Quaternion.identity);
+    GameObject upSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.up * 2, Quaternion.Euler(0, 0, 90));
+    GameObject downSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.down * 2, Quaternion.Euler(0, 0, -90));
+
+    // Mirror the left swoosh by scaling it negatively on the x-axis
+    leftSwoosh.transform.localScale = new Vector3(-1.6f, 1.6f, 1); // Adjusted scale for mirroring
+
+    GameObject[] swooshes = new GameObject[] { leftSwoosh, rightSwoosh, upSwoosh, downSwoosh };
+
+    foreach (GameObject swoosh in swooshes)
     {
-        isAttacking = true;
-
-        // Instantiate the swoosh effects on both sides of the crab
-        GameObject leftSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.left * 2, Quaternion.identity);
-        GameObject rightSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.right * 2, Quaternion.identity);
-        // Instantiate the swoosh effects above and below the crab, rotating them to face up and down
-        GameObject upSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.up * 2, Quaternion.Euler(0, 0, 90));
-        GameObject downSwoosh = Instantiate(swooshPrefab, transform.position + Vector3.down * 2, Quaternion.Euler(0, 0, -90));
-
-        leftSwoosh.transform.localScale = new Vector3(-1.6f, 1.6f, 1); 
-
-        SpriteRenderer leftRenderer = leftSwoosh.GetComponent<SpriteRenderer>();
-        SpriteRenderer rightRenderer = rightSwoosh.GetComponent<SpriteRenderer>();
-        SpriteRenderer upRenderer = upSwoosh.GetComponent<SpriteRenderer>();
-        SpriteRenderer downRenderer = downSwoosh.GetComponent<SpriteRenderer>();
-
-        // Set the color to make the swoosh semi-transparent
-        Color semiTransparentColor = new Color(1, 1, 1, 0.5f);
-        leftRenderer.color = semiTransparentColor;
-        rightRenderer.color = semiTransparentColor;
-        upRenderer.color = semiTransparentColor;
-        downRenderer.color = semiTransparentColor;
-
-        // Wait for the warning duration
-        yield return new WaitForSeconds(sideSlashWarningDuration);
-
-        // Make the swoosh fully opaque
-        Color opaqueColor = new Color(1, 1, 1, 1);
-        leftRenderer.color = opaqueColor;
-        rightRenderer.color = opaqueColor;
-        upRenderer.color = opaqueColor;
-        downRenderer.color = opaqueColor;
-
-        // Check for player within damage range on all sides
-        if (Vector2.Distance(player.position, transform.position) <= 4f)
-        {
-            playerHealth.TakeDamage(1);
-        }
-
-        // Destroy the swoosh effects after a short delay
-        Destroy(leftSwoosh, 0.5f);
-        Destroy(rightSwoosh, 0.5f);
-        Destroy(upSwoosh, 0.5f);
-        Destroy(downSwoosh, 0.5f);
-
-        isAttacking = false;
+        SpriteRenderer renderer = swoosh.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(1, 1, 1, 0.5f); // Make swoosh semi-transparent to serve as a warning
+        AttackSide attackSideScript = swoosh.AddComponent<AttackSide>(); // Add AttackSide script dynamically
+        attackSideScript.player = player; 
+        attackSideScript.playerHealth = playerHealth; 
     }
 
+    // Wait for the warning duration
+    yield return new WaitForSeconds(sideSlashWarningDuration);
 
+    // Make the swoosh fully opaque and activate them for damage detection
+    foreach (GameObject swoosh in swooshes)
+    {
+        SpriteRenderer renderer = swoosh.GetComponent<SpriteRenderer>();
+        renderer.color = new Color(1, 1, 1, 1); // Make swoosh fully opaque
+        AttackSide attackSideScript = swoosh.GetComponent<AttackSide>();
+        if (attackSideScript != null)
+        {
+            attackSideScript.Activate();
+        }
+    }
+
+    // Destroy the swoosh effects after a short delay
+    foreach (GameObject swoosh in swooshes)
+    {
+        Destroy(swoosh, 0.5f);
+    }
+
+    isAttacking = false;
+}
 
     IEnumerator PerformVerticalSlash()
-    {
-        isAttacking = true;
+{
+    isAttacking = true;
 
-        // Instantiate the vertical slash effect at the player's current location
-        Vector3 playerPosition = player.position; // Capture the player's position at the moment the attack starts
-        GameObject verticalSlash = Instantiate(verticalSlashPrefab, playerPosition, Quaternion.identity);
+    // Instantiate the vertical slash effect at the player's current location
+    Vector3 playerPosition = player.position; // Capture the player's position at the moment the attack starts
+    GameObject verticalSlash = Instantiate(verticalSlashPrefab, playerPosition, Quaternion.identity);
 
-        SpriteRenderer slashRenderer = verticalSlash.GetComponent<SpriteRenderer>();
-        slashRenderer.color = new Color(1, 1, 1, 0.5f); // Make slash semi-transparent to serve as a warning
+    SpriteRenderer slashRenderer = verticalSlash.GetComponent<SpriteRenderer>();
+    // Make slash semi-transparent to serve as a warning
+    slashRenderer.color = new Color(1, 1, 1, 0.5f);
 
-        // Wait for the warning duration before the attack lands
-        yield return new WaitForSeconds(verticalSlashWarningDuration);
+    // Access the AttackSlash script on the vertical slash prefab
+    AttackSlash attackSlashScript = verticalSlash.GetComponent<AttackSlash>();
 
-        // Make the slash fully opaque to indicate the attack is landing
-        slashRenderer.color = new Color(1, 1, 1, 1);
+    // Wait for the warning duration before the attack lands
+    yield return new WaitForSeconds(verticalSlashWarningDuration);
 
-        if (Vector2.Distance(player.position, playerPosition) <= 1.6f) 
-        {
-            playerHealth.TakeDamage(1);
-        }
+    // Make the slash fully opaque to indicate the attack is landing
+    slashRenderer.color = new Color(1, 1, 1, 1);
 
-        // Destroy the slash effect after a short delay to clean up
-        Destroy(verticalSlash, 0.5f);
-
-        isAttacking = false;
+    // Activate the slash to start detecting the player and dealing damage
+    if (attackSlashScript != null) {
+        attackSlashScript.Activate();
+    } else {
+        Debug.LogError("AttackSlash script not found on the vertical slash prefab!");
     }
+
+    // Wait a bit to give time for the player to potentially be hit
+    yield return new WaitForSeconds(0.5f);
+
+    // Destroy the slash effect after a short delay to clean up
+    Destroy(verticalSlash);
+
+    isAttacking = false;
+}
 
 
 

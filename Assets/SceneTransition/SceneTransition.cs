@@ -23,7 +23,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
-                if (GlobalEnemyManager.ScenesVisited >= 1)
+                if (GlobalEnemyManager.ScenesVisited >= 10)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }
@@ -34,7 +34,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-                if (GlobalEnemyManager.ScenesVisited >= 10)
+                if (GlobalEnemyManager.ScenesVisited >= 15)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }
@@ -59,7 +59,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
-            randomSceneIndex = Random.Range(9, 12);
+            randomSceneIndex = Random.Range(9, 14);
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
