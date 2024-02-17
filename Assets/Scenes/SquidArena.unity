@@ -5050,7 +5050,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.93
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5159,7 +5159,7 @@ PrefabInstance:
       objectReference: {fileID: 1723720443}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: maxHealth
-      value: 450
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: victoryText

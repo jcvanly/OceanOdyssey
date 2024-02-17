@@ -17,6 +17,12 @@ public class PermHealthUp : PowerupEffect
             // Increase the maximum health
             playerHealth.maxHealth += amount;
 
+            // Ensure maximum health does not exceed 20
+            if (playerHealth.maxHealth > 20)
+            {
+                playerHealth.maxHealth = 20;
+            }
+
             // Check if adding the amount to the current health would exceed the new maximum health
             if (playerHealth.health + amount > playerHealth.maxHealth)
             {

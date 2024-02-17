@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.32, y: -1.47, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 9220584709758053778, guid: 436f53556a3da1540a6b286aae403aff, type: 3}
   shootInterval: 1
-  maxHealth: 40
+  maxHealth: 60
   currentHealth: 0
 --- !u!114 &7981535819531840703
 MonoBehaviour:
@@ -205,8 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   powerUpPrefabs:
-  - {fileID: 6331993429629992327, guid: 829487a337b3f8042b8aa403aaa67d74, type: 3}
-  - {fileID: 3598073716927550320, guid: 9fda35a152378b240a61570d4b26cd07, type: 3}
+  - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+  - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
   - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
   - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
   - {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
