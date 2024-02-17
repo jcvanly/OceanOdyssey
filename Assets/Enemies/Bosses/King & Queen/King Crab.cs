@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class KingCrab : MonoBehaviour
 {
+    public bool CrabIsAlive = true;
     private Rigidbody2D rb;
     public int maxHealth = 40;
     public int currentHealth;
@@ -27,10 +30,16 @@ public class KingCrab : MonoBehaviour
     public float verticalSlashWarningDuration = 1f; // Time the effect is visible before the slash lands
     public float verticalSlashDamage = 20; // Damage dealt by the vertical slash
     public PlayerHealth playerHealth;
+    public Image fadePanel;
+    public float fadeDuration = 2f;
+    public GameObject victoryText;
+    public GameObject nextIslandButton;
+    
 
 
     void Start()
     {
+        HideVictoryScreen();
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
@@ -88,6 +97,8 @@ public class KingCrab : MonoBehaviour
 
 IEnumerator PerformSlamAttack()
 {
+    if (!CrabIsAlive) yield break; // Add this line
+
     isAttacking = true;
 
     // Calculate direction and position for the attack based on the player's position
@@ -129,6 +140,8 @@ IEnumerator PerformSlamAttack()
 
 IEnumerator PerformSideSlash()
 {
+    if (!CrabIsAlive) yield break; // Add this line
+
     isAttacking = true;
 
     // Instantiate the swoosh effects on all sides of the crab
@@ -176,41 +189,43 @@ IEnumerator PerformSideSlash()
 }
 
     IEnumerator PerformVerticalSlash()
-{
-    isAttacking = true;
+    {
+        if (!CrabIsAlive) yield break; // Add this line
 
-    // Instantiate the vertical slash effect at the player's current location
-    Vector3 playerPosition = player.position; // Capture the player's position at the moment the attack starts
-    GameObject verticalSlash = Instantiate(verticalSlashPrefab, playerPosition, Quaternion.identity);
+        isAttacking = true;
 
-    SpriteRenderer slashRenderer = verticalSlash.GetComponent<SpriteRenderer>();
-    // Make slash semi-transparent to serve as a warning
-    slashRenderer.color = new Color(1, 1, 1, 0.5f);
+        // Instantiate the vertical slash effect at the player's current location
+        Vector3 playerPosition = player.position; // Capture the player's position at the moment the attack starts
+        GameObject verticalSlash = Instantiate(verticalSlashPrefab, playerPosition, Quaternion.identity);
 
-    // Access the AttackSlash script on the vertical slash prefab
-    AttackSlash attackSlashScript = verticalSlash.GetComponent<AttackSlash>();
+        SpriteRenderer slashRenderer = verticalSlash.GetComponent<SpriteRenderer>();
+        // Make slash semi-transparent to serve as a warning
+        slashRenderer.color = new Color(1, 1, 1, 0.5f);
 
-    // Wait for the warning duration before the attack lands
-    yield return new WaitForSeconds(verticalSlashWarningDuration);
+        // Access the AttackSlash script on the vertical slash prefab
+        AttackSlash attackSlashScript = verticalSlash.GetComponent<AttackSlash>();
 
-    // Make the slash fully opaque to indicate the attack is landing
-    slashRenderer.color = new Color(1, 1, 1, 1);
+        // Wait for the warning duration before the attack lands
+        yield return new WaitForSeconds(verticalSlashWarningDuration);
 
-    // Activate the slash to start detecting the player and dealing damage
-    if (attackSlashScript != null) {
-        attackSlashScript.Activate();
-    } else {
-        Debug.LogError("AttackSlash script not found on the vertical slash prefab!");
+        // Make the slash fully opaque to indicate the attack is landing
+        slashRenderer.color = new Color(1, 1, 1, 1);
+
+        // Activate the slash to start detecting the player and dealing damage
+        if (attackSlashScript != null) {
+            attackSlashScript.Activate();
+        } else {
+            Debug.LogError("AttackSlash script not found on the vertical slash prefab!");
+        }
+
+        // Wait a bit to give time for the player to potentially be hit
+        yield return new WaitForSeconds(0.5f);
+
+        // Destroy the slash effect after a short delay to clean up
+        Destroy(verticalSlash);
+
+        isAttacking = false;
     }
-
-    // Wait a bit to give time for the player to potentially be hit
-    yield return new WaitForSeconds(0.5f);
-
-    // Destroy the slash effect after a short delay to clean up
-    Destroy(verticalSlash);
-
-    isAttacking = false;
-}
 
 
 
@@ -237,6 +252,10 @@ IEnumerator PerformSideSlash()
 
     void Die()
     {
+        CrabIsAlive = false; // Ensure this flag is set to false
+    
+        StopAllCoroutines();
+
         GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("CrabHealth");
         if (healthBarGameObject != null) {
             healthBarGameObject.SetActive(false);
@@ -244,7 +263,45 @@ IEnumerator PerformSideSlash()
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
+        GlobalEnemyManager.CrabDead = true;
+
+        if (GlobalEnemyManager.CrabAndLobsterDead()) {
+            ShowVictoryScreen();
+            StartCoroutine(FadeToBlack());
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
+    public void ShowVictoryScreen()
+    {
+        victoryText.SetActive(true);
+        nextIslandButton.SetActive(true);
+    }
+
+    public void HideVictoryScreen()
+    {
+        victoryText.SetActive(false);
+        nextIslandButton.SetActive(false);
+    }
+
+    public IEnumerator FadeToBlack()
+    {
+        Debug.Log("fade to black");
+        float elapsedTime = 0f;
+        Color panelColor = fadePanel.color;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            panelColor.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            Debug.Log(panelColor.a + elapsedTime);
+            fadePanel.color = panelColor;
+            yield return null;
+        }
+
+        ShowVictoryScreen();
         // Destroy the enemy object
-        Destroy(gameObject);
+        Destroy(gameObject);  
+        
     }
 }

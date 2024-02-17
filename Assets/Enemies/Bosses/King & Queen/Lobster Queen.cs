@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using System;
+
 
 public class LobsterQueen : MonoBehaviour
 {
+    public bool LobsterIsAlive = true;
     public int maxHealth = 40;
     public int currentHealth;
     public LobsterHealthBar healthBar;
@@ -13,6 +17,14 @@ public class LobsterQueen : MonoBehaviour
     private bool isMoving = true; // Flag to control movement
     public GameObject miniLobsterPrefab; // Reference to the mini lobster prefab
     public Transform spawnPoint; // The point from where mini lobsters will be spawned
+     public Image fadePanel;
+    public float fadeDuration = 2f;
+    public GameObject victoryText;
+    public GameObject nextIslandButton;
+    public GameObject projectilePrefab; // Reference to the projectile prefab
+    public Transform playerTransform; // To aim at the player
+
+    
 
 
 
@@ -28,7 +40,7 @@ public class LobsterQueen : MonoBehaviour
             StartCoroutine(MoveToNextWaypoint());
         }
         
-            StartCoroutine(SpawnMiniLobster()); // Start spawning mini lobsters
+        StartCoroutine(SpawnMiniLobster()); // Start spawning mini lobsters
 
     }
 
@@ -58,7 +70,7 @@ public class LobsterQueen : MonoBehaviour
     {
         while (true) // Continuously spawn mini lobsters every 5 seconds
         {
-            yield return new WaitForSeconds(10f); // Wait for 5 seconds
+            yield return new WaitForSeconds(3f); // Wait for 5 seconds
             Instantiate(miniLobsterPrefab, spawnPoint.position, Quaternion.identity); // Spawn a mini lobster
         }
     }
@@ -92,7 +104,40 @@ public class LobsterQueen : MonoBehaviour
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
-        // Destroy the enemy object
-        Destroy(gameObject);
+        GlobalEnemyManager.LobsterDead = true;
+
+        if (GlobalEnemyManager.CrabAndLobsterDead()) {
+            ShowVictoryScreen();
+            StartCoroutine(FadeToBlack());
+        } else {
+            Destroy(gameObject);
+        }
     }
+
+    public void ShowVictoryScreen()
+    {
+        victoryText.SetActive(true);
+        nextIslandButton.SetActive(true);
+    }
+
+    public IEnumerator FadeToBlack()
+    {
+        Debug.Log("fade to black");
+        float elapsedTime = 0f;
+        Color panelColor = fadePanel.color;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            panelColor.a = Mathf.Clamp01(elapsedTime / fadeDuration);
+            Debug.Log(panelColor.a + elapsedTime);
+            fadePanel.color = panelColor;
+            yield return null;
+        }
+
+        ShowVictoryScreen();
+        // Destroy the enemy object
+        Destroy(gameObject);  
+        
+    }
+    
 }
