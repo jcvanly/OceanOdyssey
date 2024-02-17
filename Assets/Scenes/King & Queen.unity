@@ -243,7 +243,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: eaab77b15341be84487bcad9cdb65297, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -403,7 +403,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.93
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3065,6 +3065,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1726421609}
+    - target: {fileID: 1676946069589058770, guid: 01ad9920523e0dc418c8d1b0fcddbe19, type: 3}
+      propertyPath: maxHealth
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 1676946069589058770, guid: 01ad9920523e0dc418c8d1b0fcddbe19, type: 3}
       propertyPath: waypoints.Array.size
       value: 4
@@ -26701,6 +26705,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1187683389}
+    - target: {fileID: -9140110623602839949, guid: 1e103a1aa5761574787d41fc8f0045bd, type: 3}
+      propertyPath: maxHealth
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: -9140110623602839949, guid: 1e103a1aa5761574787d41fc8f0045bd, type: 3}
       propertyPath: moveSpeed
       value: 12

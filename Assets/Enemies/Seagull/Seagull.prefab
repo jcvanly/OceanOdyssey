@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
-  damage: 1
+  damage: 2
 --- !u!114 &3844429128743502249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   powerUpPrefabs:
-  - {fileID: 6331993429629992327, guid: 829487a337b3f8042b8aa403aaa67d74, type: 3}
-  - {fileID: 3598073716927550320, guid: 9fda35a152378b240a61570d4b26cd07, type: 3}
+  - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+  - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
   - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
   - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
   - {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
@@ -216,5 +216,5 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.3
   dashCooldown: 2
-  maxHealth: 40
+  maxHealth: 30
   currentHealth: 0
