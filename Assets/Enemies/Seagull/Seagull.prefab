@@ -175,6 +175,7 @@ MonoBehaviour:
   dashCooldown: 2
   maxHealth: 30
   currentHealth: 0
+  flashDuration: 0.4
 --- !u!60 &4134919065134092489
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +195,7 @@ PolygonCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3575
   m_ForceReceiveLayers:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -11,7 +11,14 @@ public class Eel : MonoBehaviour
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
-
+    public float flashDuration = .4f;
+    private SpriteRenderer eelSr;
+    private Color damageColor = new Color(1f, 0f, 0f, 1f);
+    private Color originalColor;
+    private float damageTime;
+    private float timeLastFlash;
+    private float currTime;
+    private bool flashOnDamage = false;
 
     private float shootTimer;
     private bool isDead = false;
@@ -21,15 +28,37 @@ public class Eel : MonoBehaviour
         shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
         enemyDeath = GetComponent<EnemyDeath>();
+        eelSr = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = eelSr.color;
     }
 
     void Update()
     {
         shootTimer -= Time.deltaTime;
+        currTime = Time.time;
+
         if (shootTimer <= 0)
         {
             Shoot();
             shootTimer = shootInterval;
+        }
+
+        if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
+        {
+            resetColor();
+        }
+        else if (flashOnDamage == true)
+        {
+            if(eelSr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                eelSr.color = damageColor;
+            }
+            else if (eelSr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                eelSr.color = originalColor;
+            }
         }
     }
 
@@ -63,6 +92,20 @@ public class Eel : MonoBehaviour
                 enemyDeath.Die();
                 isDead = true;
             }
+            else
+            {
+                currTime = Time.time;
+                flashOnDamage = true;
+                damageTime = currTime;
+                timeLastFlash = currTime;
+                eelSr.color = damageColor;
+            }
         }
+    }
+
+    public void resetColor()
+    {
+        eelSr.color = originalColor;
+        flashOnDamage = false;
     }
 }

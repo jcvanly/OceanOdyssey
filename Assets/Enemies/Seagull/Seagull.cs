@@ -19,6 +19,14 @@ public class Seagull : MonoBehaviour
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
     private float startDash;
     private bool isDead = false;
+    public float flashDuration = .4f;
+    private SpriteRenderer enemySr;
+    private Color damageColor = new Color(1f, 0f, 0f, 1f);
+    private Color originalColor;
+    private float damageTime;
+    private float timeLastFlash;
+    private float currTime;
+    private bool flashOnDamage = false;
     
 
     void Start()
@@ -27,16 +35,40 @@ public class Seagull : MonoBehaviour
         enemyDeath = GetComponent<EnemyDeath>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
+         enemySr = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = enemySr.color;
     }
 
 
     private void Update()
     {
+        currTime = Time.time;
         // Automatically trigger the dash if the cooldown is over
         if (canDash)
         {
             Dash();
         }
+
+        if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
+        {
+            resetColor();
+        }
+
+        else if (flashOnDamage == true)
+        {
+            if(enemySr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                enemySr.color = damageColor;
+            }
+            else if (enemySr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                enemySr.color = originalColor;
+            }
+        }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -85,6 +117,26 @@ public class Seagull : MonoBehaviour
                 enemyDeath.Die();
                 isDead = true;
             }
+
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+            }
+            else
+            {
+                currTime = Time.time;
+                flashOnDamage = true;
+                damageTime = currTime;
+                timeLastFlash = currTime;
+                enemySr.color = damageColor;
+            }
         }
+    }
+
+    public void resetColor()
+    {
+        enemySr.color = originalColor;
+        flashOnDamage = false;
     }
 }

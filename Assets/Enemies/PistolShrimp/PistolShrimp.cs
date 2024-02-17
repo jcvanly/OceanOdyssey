@@ -13,6 +13,14 @@ public class PistolShrimp : MonoBehaviour
     private float shootTimer;
     private EnemyDeath enemyDeath;
     private bool isDead = false;
+    public float flashDuration = .4f;
+    private SpriteRenderer enemySr;
+    private Color damageColor = new Color(1f, 0f, 0f, 1f);
+    private Color originalColor;
+    private float damageTime;
+    private float timeLastFlash;
+    private float currTime;
+    private bool flashOnDamage = false;
 
 
     void Start()
@@ -20,15 +28,36 @@ public class PistolShrimp : MonoBehaviour
         shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
         enemyDeath = GetComponent<EnemyDeath>();
+        enemySr = gameObject.GetComponent<SpriteRenderer>();
+        originalColor = enemySr.color;
     }
 
     void Update()
     {
         shootTimer -= Time.deltaTime;
+        currTime = Time.time;
         if (shootTimer <= 0)
         {
             Shoot();
             shootTimer = shootInterval;
+        }
+
+        if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
+        {
+            resetColor();
+        }
+        else if (flashOnDamage == true)
+        {
+            if(enemySr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                enemySr.color = damageColor;
+            }
+            else if (enemySr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            {
+                timeLastFlash = currTime;
+                enemySr.color = originalColor;
+            }
         }
     }
 
@@ -59,6 +88,26 @@ public class PistolShrimp : MonoBehaviour
                 enemyDeath.Die();
                 isDead = true;
             }
+
+            if (currentHealth <= 0)
+            {
+                enemyDeath.Die();
+                isDead = true;
+            }
+            else
+            {
+                currTime = Time.time;
+                flashOnDamage = true;
+                damageTime = currTime;
+                timeLastFlash = currTime;
+                enemySr.color = damageColor;
+            }
         }
+    }
+
+     public void resetColor()
+    {
+        enemySr.color = originalColor;
+        flashOnDamage = false;
     }
 }
