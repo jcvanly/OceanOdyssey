@@ -23,6 +23,7 @@ public class LobsterQueen : MonoBehaviour
     public GameObject nextIslandButton;
     public GameObject projectilePrefab; // Reference to the projectile prefab
     public Transform playerTransform; // To aim at the player
+    public float projectileSpeed = 10f;
 
     
 
@@ -30,19 +31,19 @@ public class LobsterQueen : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
-        if (waypoints.Length < 4)
-        {
-            Debug.LogError("Insufficient waypoints set for LobsterQueen. Please set 4 waypoints.");
-        }
-        else
-        {
-            StartCoroutine(MoveToNextWaypoint());
-        }
-        
-        StartCoroutine(SpawnMiniLobster()); // Start spawning mini lobsters
-
+    currentHealth = maxHealth;
+    if (waypoints.Length < 4)
+    {
+        Debug.LogError("Insufficient waypoints set for LobsterQueen. Please set 4 waypoints.");
     }
+    else
+    {
+        StartCoroutine(MoveToNextWaypoint());
+    }
+    
+    StartCoroutine(AlternateAttack()); // Start alternating between spawning and shooting
+    }
+
 
     IEnumerator MoveToNextWaypoint()
     {
@@ -66,14 +67,40 @@ public class LobsterQueen : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnMiniLobster()
+    IEnumerator AlternateAttack()
     {
-        while (true) // Continuously spawn mini lobsters every 5 seconds
+    bool spawnMiniLobsterNext = true; // Flag to alternate actions
+
+    while (LobsterIsAlive) // Continue as long as the Lobster Queen is alive
+    {
+        yield return new WaitForSeconds(1f); // Wait for 3 seconds between actions
+
+        if (spawnMiniLobsterNext == true)
         {
-            yield return new WaitForSeconds(3f); // Wait for 5 seconds
             Instantiate(miniLobsterPrefab, spawnPoint.position, Quaternion.identity); // Spawn a mini lobster
         }
+        else
+        {
+            ShootProjectileAtPlayer(); // Shoot a projectile at the player
+        }
+
+        Debug.Log(spawnMiniLobsterNext);
+
+        spawnMiniLobsterNext = !spawnMiniLobsterNext; // Toggle the flag to alternate the action next time
     }
+    }
+
+    void ShootProjectileAtPlayer()
+    {
+    
+        // Debug.Log("shooting projectile");
+        // GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        // Vector2 direction = (playerTransform.position - spawnPoint.position).normalized;
+        // projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed; // Set the speed of your projectile here
+        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1).normalized * speed;
+
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("PlayerProjectile"))
