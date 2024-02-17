@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1710518195716763441}
   - component: {fileID: 1676946069589058770}
   - component: {fileID: -2881679802396034872}
-  - component: {fileID: 3083811662601549024}
   m_Layer: 6
   m_Name: Lobster Queen
   m_TagString: Boss
@@ -146,14 +145,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d073385e03653a5419f639e707bbec09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  LobsterIsAlive: 1
+  maxHealth: 150
   currentHealth: 0
   healthBar: {fileID: 0}
   speed: 2
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   stopTime: 1
   miniLobsterPrefab: {fileID: 2218696376568667835, guid: d221681f6be8c1e4c852764d20e6fe63, type: 3}
   spawnPoint: {fileID: 0}
+  fadePanel: {fileID: 0}
+  fadeDuration: 2
+  victoryText: {fileID: 0}
+  nextIslandButton: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  playerTransform: {fileID: 0}
 --- !u!50 &-2881679802396034872
 Rigidbody2D:
   serializedVersion: 4
@@ -181,30 +191,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3083811662601549024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2916957856937105328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d073385e03653a5419f639e707bbec09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 40
-  currentHealth: 0
-  healthBar: {fileID: 0}
-  speed: 2
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  stopTime: 1
-  miniLobsterPrefab: {fileID: 2218696376568667835, guid: d221681f6be8c1e4c852764d20e6fe63, type: 3}
-  spawnPoint: {fileID: 6192928778220009667}
 --- !u!1 &2962840682399357102
 GameObject:
   m_ObjectHideFlags: 0
