@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Powerups/RangeUp")]
 public class RangeUp : PowerupEffect
 {
-    public int amount;
+    public float amount;
     public override void Apply(GameObject target, TextMeshProUGUI notificationText)
     {
         target.GetComponent<Shooting>().bulletRange += amount;

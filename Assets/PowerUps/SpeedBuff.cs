@@ -6,7 +6,7 @@ using TMPro;
 [CreateAssetMenu(menuName = "Powerups/SpeedBuff")]
 public class SpeedBuff : PowerupEffect
 {
-    public int amount;
+    public float amount;
     public override void Apply(GameObject target, TextMeshProUGUI notificationText)
     {
         target.GetComponent<PlayerMovement>().moveSpeed += amount;

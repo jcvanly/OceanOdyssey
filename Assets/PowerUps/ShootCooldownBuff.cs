@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-
-[CreateAssetMenu(menuName = "Powerups/NetSpeedBuff")]
-public class NetSpeedBuff : PowerupEffect
+using UnityEngine;
+[CreateAssetMenu(menuName = "Powerups/ShootCooldownBuff")]
+public class ShootCooldownBuff : PowerupEffect
 {
     public float amount;
+
     public override void Apply(GameObject target, TextMeshProUGUI notificationText)
     {
-        target.GetComponent<Shooting>().bulletSpeed += amount;
-
+        target.GetComponent<Shooting>().shootCooldown -= amount;
         if (notificationText != null)
         {
-            notificationText.text = "+ " + amount + " net speed";
+            notificationText.text = "- " + amount + " shoot cooldown";
             notificationText.gameObject.SetActive(true);
             target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
         }
+
     }
+
     private IEnumerator HideNotification(TextMeshProUGUI notificationText)
     {
         yield return new WaitForSeconds(2f);
@@ -27,4 +28,5 @@ public class NetSpeedBuff : PowerupEffect
             notificationText.text = "";
         }
     }
+
 }

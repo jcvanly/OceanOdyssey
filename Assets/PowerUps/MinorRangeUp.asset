@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf900c7174cd0a49a720a684ffe0805, type: 3}
   m_Name: MinorRangeUp
   m_EditorClassIdentifier: 
-  amount: 1
+  amount: 0.5

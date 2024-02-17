@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b8985160af1e04f80f08cb8b08355f, type: 3}
   m_Name: MinorNetSpeedBuff
   m_EditorClassIdentifier: 
-  amount: 1
+  amount: 0.5
