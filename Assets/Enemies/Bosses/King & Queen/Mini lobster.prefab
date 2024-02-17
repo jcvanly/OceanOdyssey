@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 7583376252425332494}
   - component: {fileID: 4823978509036937036}
   - component: {fileID: 2316340594265601378}
-  - component: {fileID: 644366696133643287}
+  - component: {fileID: 316492083329516060}
   m_Layer: 6
   m_Name: Mini lobster
-  m_TagString: Untagged
+  m_TagString: MiniLobster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
-  damage: 0
+  damage: 1
 --- !u!114 &5070489076445403614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cafefeea5e8ed04eb2ec04201cc8f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 3
-  dashDuration: 2
-  dashCooldown: 3
-  maxHealth: 20
+  projectilePrefab: {fileID: 6189647295299260402, guid: c9bb57e24ee321742ac30d115826f7ac, type: 3}
+  shootingCooldown: 2
+  maxHealth: 30
   currentHealth: 0
 --- !u!212 &4823978509036937036
 SpriteRenderer:
@@ -161,8 +160,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &644366696133643287
-BoxCollider2D:
+--- !u!60 &316492083329516060
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,7 +192,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05191028, y: 0.01045391}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -203,6 +202,49 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.3095093, y: 1.9582348}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.31, y: -0.45999998}
+      - {x: 0.41, y: -0.32}
+      - {x: 0.42999998, y: -0.22999999}
+      - {x: 0.32, y: -0.089999996}
+      - {x: 0.53999996, y: -0.099999994}
+      - {x: 0.48, y: 0.22999999}
+      - {x: 0.26, y: 0.31}
+      - {x: 0.48, y: 0.29999998}
+      - {x: 0.57, y: 0.39999998}
+      - {x: 0.57, y: 0.71}
+      - {x: 0.39999998, y: 0.79999995}
+      - {x: 0.29999998, y: 0.78}
+      - {x: 0.28, y: 0.76}
+      - {x: 0.19, y: 0.59999996}
+      - {x: 0.22999999, y: 0.68}
+      - {x: 0.22999999, y: 0.84999996}
+      - {x: 0.21, y: 0.87}
+      - {x: 0.099999994, y: 0.87}
+      - {x: 0, y: 0.71}
+      - {x: -0.08, y: 0.85999995}
+      - {x: -0.11, y: 0.87}
+      - {x: -0.22, y: 0.87}
+      - {x: -0.22, y: 0.68}
+      - {x: -0.19999999, y: 0.65999997}
+      - {x: -0.26, y: 0.62}
+      - {x: -0.24, y: 0.77}
+      - {x: -0.39, y: 0.81}
+      - {x: -0.56, y: 0.62}
+      - {x: -0.56, y: 0.39999998}
+      - {x: -0.48999998, y: 0.32999998}
+      - {x: -0.32999998, y: 0.16}
+      - {x: -0.38, y: 0.14}
+      - {x: -0.41, y: 0}
+      - {x: -0.29, y: -0.13}
+      - {x: -0.38, y: -0.19999999}
+      - {x: -0.41, y: -0.32999998}
+      - {x: -0.41, y: -0.76}
+      - {x: -0.31, y: -0.84999996}
+      - {x: -0.22999999, y: -0.93}
+      - {x: 0.25, y: -0.93}
+      - {x: 0.32, y: -0.89}
+      - {x: 0.39999998, y: -0.78999996}
+      - {x: 0.44, y: -0.56}
+  m_UseDelaunayMesh: 0

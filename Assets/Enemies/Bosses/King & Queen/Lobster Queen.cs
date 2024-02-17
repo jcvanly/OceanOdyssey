@@ -24,6 +24,8 @@ public class LobsterQueen : MonoBehaviour
     public GameObject projectilePrefab; // Reference to the projectile prefab
     public Transform playerTransform; // To aim at the player
     public float projectileSpeed = 10f;
+    public float alternateTime = 3f;
+    private SpriteRenderer spriteRenderer; 
 
     
 
@@ -31,6 +33,8 @@ public class LobsterQueen : MonoBehaviour
 
     void Start()
     {
+    spriteRenderer = GetComponent<SpriteRenderer>();
+
     currentHealth = maxHealth;
     if (waypoints.Length < 4)
     {
@@ -42,6 +46,12 @@ public class LobsterQueen : MonoBehaviour
     }
     
     StartCoroutine(AlternateAttack()); // Start alternating between spawning and shooting
+    }
+
+    void Update()
+    {
+        CheckKingCrabStatus();
+
     }
 
 
@@ -73,7 +83,7 @@ public class LobsterQueen : MonoBehaviour
 
     while (LobsterIsAlive) // Continue as long as the Lobster Queen is alive
     {
-        yield return new WaitForSeconds(1f); // Wait for 3 seconds between actions
+        yield return new WaitForSeconds(alternateTime); // Wait for 3 seconds between actions
 
         if (spawnMiniLobsterNext == true)
         {
@@ -124,6 +134,7 @@ public class LobsterQueen : MonoBehaviour
 
     void Die()
     {
+        // Existing code to deactivate the health bar and set the lobster as dead
         GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("LobsterHealth");
         if (healthBarGameObject != null) {
             healthBarGameObject.SetActive(false);
@@ -137,10 +148,19 @@ public class LobsterQueen : MonoBehaviour
             ShowVictoryScreen();
             StartCoroutine(FadeToBlack());
         } else {
-            Destroy(gameObject);
+            DestroyAllMiniLobsters(); // Destroy all mini lobsters
+            Destroy(gameObject); // Destroy the Lobster Queen
         }
     }
 
+    void DestroyAllMiniLobsters()
+    {
+        GameObject[] miniLobsters = GameObject.FindGameObjectsWithTag("MiniLobster");
+        foreach (GameObject miniLobster in miniLobsters)
+        {
+            Destroy(miniLobster);
+        }
+    }
     public void ShowVictoryScreen()
     {
         victoryText.SetActive(true);
@@ -165,6 +185,24 @@ public class LobsterQueen : MonoBehaviour
         // Destroy the enemy object
         Destroy(gameObject);  
         
+    }
+
+    public void CheckKingCrabStatus()
+    {
+        if (GlobalEnemyManager.CrabDead == true)
+        {
+            // Apply red tint
+            spriteRenderer.color = Color.red;
+    
+            speed = 8f; 
+ 
+            stopTime = .25f;
+
+            projectileSpeed = 15f;
+            alternateTime = 1f;
+
+
+        }
     }
     
 }

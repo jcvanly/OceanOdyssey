@@ -19,6 +19,7 @@ TagManager:
   - shooting sound
   - pickupsound
   - SoundEffects
+  - MiniLobster
   layers:
   - Default
   - TransparentFX

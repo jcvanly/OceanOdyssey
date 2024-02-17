@@ -1,78 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
-using UnityEngine.Tilemaps;
 
 public class MiniLobster : MonoBehaviour
 {
-    public float dashSpeed = 5;
-    public float dashDuration = 1f;
-    public float dashCooldown = 3f;
-    private GameObject player;
-    private Rigidbody2D rb;
-    private Vector3 dashDirection;
-    private bool canDash = true;
-    public int maxHealth = 100; // Max health of the enemy
+    public GameObject projectilePrefab; // Assign in inspector
+    public float shootingCooldown = 2f; // Time between shots
+    private float shootingTimer;
+    private Transform playerTransform;
+    public int maxHealth = 30; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
-    //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
-    private float startDash;
     private bool isDead = false;
-    
 
     void Start()
     {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        shootingTimer = shootingCooldown; // Start with the ability to shoot immediately
         currentHealth = maxHealth; // Initialize current health
         enemyDeath = GetComponent<EnemyDeath>();
-        rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-
-    private void Update()
+    void Update()
     {
-        // Automatically trigger the dash if the cooldown is over
-        if (canDash)
+        shootingTimer -= Time.deltaTime;
+        if (shootingTimer <= 0)
         {
-            Dash();
+            ShootAtPlayer();
+            shootingTimer = shootingCooldown;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void ShootAtPlayer()
     {
-        if(collision.gameObject.CompareTag("PlayerProjectile"))
+        if (playerTransform != null && projectilePrefab != null)
         {
-            TakeDamage(10);
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            projectile.GetComponent<Rigidbody2D>().velocity = direction * 10f; // Adjust speed as needed
+            
+            // Optional: Adjust projectile rotation to face the player
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
-    private void Dash()
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        canDash = false;
-
-        dashDirection = player.transform.position - transform.position;
-        rb.velocity = new Vector2(dashDirection.x,dashDirection.y).normalized * dashSpeed;
-        
-        dashDirection.Normalize();
-
-        rb.velocity = dashDirection * dashSpeed;
-
-        Invoke("StopDash", dashDuration);
-        Invoke("ResetDash", dashCooldown);
+        if (collider.gameObject.CompareTag("PlayerProjectile"))
+        {
+            TakeDamage(10); // Assuming each hit decreases 10 health
+            Destroy(collider.gameObject); // Destroy the projectile
+        }
     }
-
-    private void StopDash()
-    {
-        Debug.Log("stopDash");
-        rb.velocity = Vector2.zero;
-    }
-
-    private void ResetDash()
-    {
-        canDash = true;
-    }
-
+    
 
     public void TakeDamage(int damage)
     {
@@ -87,5 +66,6 @@ public class MiniLobster : MonoBehaviour
             }
         }
     }
-}
 
+    
+}

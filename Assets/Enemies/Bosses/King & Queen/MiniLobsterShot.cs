@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InkShot : MonoBehaviour
+public class MiniLobsterShot : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
     private GameObject player;
     private Rigidbody2D rb;
-    public float speed = 10f;
-
-
+    public float speed = 6f;
 
     void Start()
     {
@@ -30,9 +27,9 @@ public class InkShot : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Bullet collided with: " + collision.gameObject.name);
         Destroy(gameObject);
     }
 }

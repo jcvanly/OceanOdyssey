@@ -8,7 +8,7 @@ public class KingCrab : MonoBehaviour
 {
     public bool CrabIsAlive = true;
     private Rigidbody2D rb;
-    public int maxHealth = 40;
+    public int maxHealth = 300;
     public int currentHealth;
     public CrabHealthBar healthBar;
     public Transform player; // Reference to the player's transform
@@ -34,11 +34,18 @@ public class KingCrab : MonoBehaviour
     public float fadeDuration = 2f;
     public GameObject victoryText;
     public GameObject nextIslandButton;
+    public float enragedAttackInterval = 0.5f;
+    private SpriteRenderer spriteRenderer; // To change the color of the crab
+    public float enragedMoveSpeed = 15f; // Increased move speed when enraged
+
+    public float enragedStoppingDistance = 2f; // Distance at which the crab stops moving towards the player
+    public float enragedAttackDistance = 2f; // Distance within which the crab will attack the player
     
 
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         HideVictoryScreen();
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -51,6 +58,8 @@ public class KingCrab : MonoBehaviour
     {
         MoveTowardsPlayer();
 
+        CheckLobsterQueenStatus();
+
         if (!isAttacking) // Check if not already performing an attack
         {
         attackTimer += Time.deltaTime;
@@ -60,6 +69,7 @@ public class KingCrab : MonoBehaviour
                 attackTimer = 0f; // Reset timer after an attack is initiated
             }
         }
+
     }
 
     void MoveTowardsPlayer()
@@ -263,6 +273,7 @@ IEnumerator PerformSideSlash()
             Debug.LogError("HealthBar GameObject not found. Make sure it's tagged correctly.");
         }
 
+
         GlobalEnemyManager.CrabDead = true;
 
         if (GlobalEnemyManager.CrabAndLobsterDead()) {
@@ -303,5 +314,22 @@ IEnumerator PerformSideSlash()
         // Destroy the enemy object
         Destroy(gameObject);  
         
+    }
+
+    void CheckLobsterQueenStatus()
+    {
+        if (GlobalEnemyManager.LobsterDead == true)
+        {
+            // Apply red tint
+            spriteRenderer.color = Color.red;
+
+            // Increase move speed and decrease attack interval
+            attackInterval = enragedAttackInterval;
+            attackDistance = enragedAttackDistance;
+
+            attackWarningDuration = 0.6f;
+            sideSlashWarningDuration = 0.25f;
+            verticalSlashWarningDuration = 0.4f;
+        }
     }
 }
