@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1863604326382092241}
   - component: {fileID: 953551646206105907}
   - component: {fileID: 8424912021512874403}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Shoot Cooldown DOWN (MAJOR)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -46858,6 +46858,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 1023102056072592658, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
+      propertyPath: moveSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3716540924775303760, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.849
@@ -46952,7 +46956,7 @@ PrefabInstance:
       objectReference: {fileID: 1269794351}
     - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
       propertyPath: bulletRange
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8741647161270830423, guid: 4f8182690948b8742a7a2bef8c1772bf, type: 3}
       propertyPath: bulletSpeed

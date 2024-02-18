@@ -83,11 +83,7 @@ public class PistolShrimp : MonoBehaviour
         {
             currentHealth -= damage;
 
-            if (currentHealth <= 0)
-            {
-                enemyDeath.Die();
-                isDead = true;
-            }
+ 
 
             if (currentHealth <= 0)
             {

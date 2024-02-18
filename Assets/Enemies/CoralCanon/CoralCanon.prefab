@@ -132,6 +132,7 @@ MonoBehaviour:
   shootInterval: 1
   maxHealth: 60
   currentHealth: 0
+  flashDuration: 0.4
 --- !u!114 &7981535819531840703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +175,8 @@ MonoBehaviour:
   - {fileID: 6574374632272980863, guid: a6f39265a72c51144bea54d1796ed391, type: 3}
   - {fileID: 368534435725132346, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
   - {fileID: 6365717416019777495, guid: 0f93316bdbd195f4ca971e2d83ce90f6, type: 3}
+  - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+  - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
 --- !u!60 &5296886722878229660
 PolygonCollider2D:
   m_ObjectHideFlags: 0

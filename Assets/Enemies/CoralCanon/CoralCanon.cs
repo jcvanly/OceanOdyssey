@@ -92,12 +92,6 @@ public class Enemy : MonoBehaviour
                 enemyDeath.Die();
                 isDead = true;
             }
-
-            if (currentHealth <= 0)
-            {
-                enemyDeath.Die();
-                isDead = true;
-            }
             else
             {
                 currTime = Time.time;

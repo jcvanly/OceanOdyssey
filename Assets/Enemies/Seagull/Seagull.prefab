@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3844429128743502249}
   - component: {fileID: 682681161488403123}
   - component: {fileID: 4134919065134092489}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Seagull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,6 +158,8 @@ MonoBehaviour:
   - {fileID: 8038961770682418465, guid: 17527e6c879a6c74d95778826b8b2935, type: 3}
   - {fileID: 368534435725132346, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
   - {fileID: 6365717416019777495, guid: 0f93316bdbd195f4ca971e2d83ce90f6, type: 3}
+  - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+  - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
 --- !u!114 &682681161488403123
 MonoBehaviour:
   m_ObjectHideFlags: 0

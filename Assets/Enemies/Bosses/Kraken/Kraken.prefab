@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tentaclePrefab: {fileID: 1770145957345753787, guid: 172da8428b7673c49ac3121e362648f4, type: 3}
-  tentacleShootInterval: 10
+  tentacleShootInterval: 8
   tentacleLength: 11
   tentacleDuration: 6
   numberOfTentacles: 4
@@ -214,6 +214,10 @@ MonoBehaviour:
   currentHealth: 0
   numberOfShots: 20
   timeBetweenShots: 0.1
-  inkSpotShootInterval: 10
+  inkSpotShootInterval: 8
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
   healthBar: {fileID: 0}
+  fadePanel: {fileID: 0}
+  fadeDuration: 2
+  victoryText: {fileID: 0}
+  nextIslandButton: {fileID: 0}
