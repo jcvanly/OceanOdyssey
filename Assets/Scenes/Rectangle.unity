@@ -39104,8 +39104,8 @@ Tilemap:
   - first: {x: -2, y: 17, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -39114,8 +39114,8 @@ Tilemap:
   - first: {x: -1, y: 17, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -39145,13 +39145,13 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: fd5caa764bbf73041b90d9d64d4b0564, type: 2}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 16fb2a047356f5d4192fb67b9eb96142, type: 2}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 424638aa3ad67294bbbc346b648a0a9e, type: 2}
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 9e5a323754ea56041be71e5730b8fcf8, type: 2}
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 6da27c0b478286d4d8ca5c7e9b0291fd, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: be263e8c5669fb44494381e00eff8daf, type: 2}
@@ -39220,13 +39220,13 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 3
     m_Data: {fileID: 438713684, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: 702524469, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data: {fileID: -1177288394, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {fileID: -1936478648, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
-  - m_RefCount: 3
+  - m_RefCount: 2
     m_Data: {fileID: 1038575991, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 925860439, guid: 4f28092d55b85764bb4ef77d9919419d, type: 3}
