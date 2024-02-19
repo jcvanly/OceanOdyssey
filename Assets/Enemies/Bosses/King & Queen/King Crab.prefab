@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CrabIsAlive: 1
-  maxHealth: 10
+  maxHealth: 400
   currentHealth: 0
   healthBar: {fileID: 0}
   player: {fileID: 0}
@@ -150,6 +150,10 @@ MonoBehaviour:
   fadeDuration: 2
   victoryText: {fileID: 0}
   nextIslandButton: {fileID: 0}
+  enragedAttackInterval: 1
+  enragedMoveSpeed: 15
+  enragedStoppingDistance: 2
+  enragedAttackDistance: 2
 --- !u!60 &8191527491223057242
 PolygonCollider2D:
   m_ObjectHideFlags: 0

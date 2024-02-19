@@ -13,10 +13,10 @@ public class InkShot : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        Vector3 direction = player.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
+        // rb = GetComponent<Rigidbody2D>();
+        // player = GameObject.FindGameObjectWithTag("Player");
+        // Vector3 direction = player.transform.position - transform.position;
+        // rb.velocity = new Vector2(direction.x, direction.y).normalized;
         RotateTowardsPlayer(); // Rotate the spear to face the player at the start
     }
 

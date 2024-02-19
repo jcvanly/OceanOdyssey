@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6189647295299260402, guid: c9bb57e24ee321742ac30d115826f7ac, type: 3}
   shootingCooldown: 2
-  maxHealth: 30
+  maxHealth: 10
   currentHealth: 0
 --- !u!212 &4823978509036937036
 SpriteRenderer:

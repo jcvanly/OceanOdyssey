@@ -213,7 +213,7 @@ MonoBehaviour:
   maxHealth: 450
   currentHealth: 0
   numberOfShots: 20
-  timeBetweenShots: 0.1
+  timeBetweenShots: 0.5
   inkSpotShootInterval: 8
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
   healthBar: {fileID: 0}
