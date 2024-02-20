@@ -5,13 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class Destroyer : MonoBehaviour
 {
-    public GameObject player; // Reference to your player GameObject
-    public GameObject heartCanvas; // Reference to your heart canvas GameObject
-    public Camera mainCamera; // Reference to your main camera GameObject
+    private GameObject player; // Reference to the player GameObject
+    private GameObject heartCanvas; // Reference to the heart canvas GameObject
+    private Camera mainCamera; // Reference to the main camera GameObject
+
+    private void Start()
+    {
+        FindPlayerObjects();
+    }
+
+    private void FindPlayerObjects()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        heartCanvas = GameObject.FindGameObjectWithTag("HeartCanvas");
+        mainCamera = Camera.main; // Assuming the main camera is tagged as "MainCamera"
+    }
 
     public void DestroyPlayerAndCanvas()
     {
-
         if (player != null)
         {
             Destroy(player);
@@ -21,11 +32,10 @@ public class Destroyer : MonoBehaviour
         {
             Destroy(heartCanvas);
         }
+
         if (mainCamera != null)
         {
-            Destroy(mainCamera.gameObject); 
-        }
+            Destroy(mainCamera.gameObject);
+       }
     }
-
-
 }

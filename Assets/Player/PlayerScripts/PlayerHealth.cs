@@ -20,12 +20,16 @@ public class PlayerHealth : MonoBehaviour
     private AudioSource soundEffects;
     public AudioClip sound;
 
+    public GameObject player; // Reference to your player GameObject
+    public GameObject heartCanvas; // Reference to your heart canvas GameObject
+    public Camera mainCamera; // Reference to your main camera GameObject
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         health = maxHealth;
         originalColor = playerSr.color;
-       // DontDestroyOnLoad(gameObject);
+        FindPlayerObjects();
+        // DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -74,6 +78,7 @@ public class PlayerHealth : MonoBehaviour
         {
             playerSr.enabled = false;
             playerMovement.enabled = false;
+            DestroyPlayerAndCanvas();
             GameOverScript.showGameOver();
         }
         else
@@ -92,4 +97,33 @@ public class PlayerHealth : MonoBehaviour
         playerSr.color = originalColor;
         flashOnDamage = false;
     }
+
+    public void DestroyPlayerAndCanvas()
+    {
+
+        if (player != null)
+        {
+            Destroy(player);
+        }
+
+        if (heartCanvas != null)
+        {
+            Destroy(heartCanvas);
+        }
+
+        if (mainCamera != null)
+        {
+            Destroy(mainCamera.gameObject);
+        }
+    }
+
+
+    private void FindPlayerObjects()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        heartCanvas = GameObject.FindGameObjectWithTag("HeartCanvas");
+        //  mainCamera = Camera.main; // Assuming the main camera is tagged as "MainCamera"
+    }
+
+
 }

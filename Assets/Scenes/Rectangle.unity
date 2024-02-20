@@ -150,7 +150,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fc03c384fe6ea1149a4d1a5876d43fd2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ba623640fc791da408a033b43ee7d25a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.35
   m_Pitch: 1
@@ -41757,9 +41757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe520a29a3e0b646804a312c1c1ab5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  heartCanvas: {fileID: 0}
-  mainCamera: {fileID: 0}
 --- !u!114 &1233531042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41831,11 +41828,11 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1233531046
 RectTransform:
@@ -42531,6 +42528,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 969916127}
+  - {fileID: 1233531046}
   - {fileID: 1319049161}
   - {fileID: 2082147372}
   - {fileID: 1604989061}
@@ -42540,4 +42538,3 @@ SceneRoots:
   - {fileID: 648898121}
   - {fileID: 100925721}
   - {fileID: 1866640839}
-  - {fileID: 1233531046}

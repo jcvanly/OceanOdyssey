@@ -20,6 +20,7 @@ TagManager:
   - pickupsound
   - SoundEffects
   - MiniLobster
+  - HeartCanvas
   layers:
   - Default
   - TransparentFX

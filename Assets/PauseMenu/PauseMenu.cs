@@ -41,8 +41,8 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1.0f;
-        destroyer.DestroyPlayerAndCanvas();
         SceneManager.LoadScene("TitleScreen");
+        destroyer.DestroyPlayerAndCanvas();
     }
 
     public void QuitMenu()
