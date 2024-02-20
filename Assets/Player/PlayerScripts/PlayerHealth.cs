@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
 
     public SpriteRenderer playerSr;
     public PlayerMovement playerMovement;
-    // Start is called before the first frame update
-    public float flashDuration = .4f;
+
+    public float flashDuration = 0.4f;
     private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
     private float damageTime;
@@ -23,13 +23,17 @@ public class PlayerHealth : MonoBehaviour
     public GameObject player; // Reference to your player GameObject
     public GameObject heartCanvas; // Reference to your heart canvas GameObject
     public Camera mainCamera; // Reference to your main camera GameObject
-    void Start()
+
+    public float invincibilityDuration = 2f; // Duration of invincibility frames in seconds
+    private bool isInvincible = false; // Flag to track if the player is currently invincible
+    private float invincibilityEndTime; // Time when invincibility ends
+
+    private void Start()
     {
         DontDestroyOnLoad(gameObject);
         health = maxHealth;
         originalColor = playerSr.color;
         FindPlayerObjects();
-        // DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -37,23 +41,36 @@ public class PlayerHealth : MonoBehaviour
         PlayerPrefs.SetInt("PlayerHealth", health);
         currTime = Time.time;
 
-        if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
+        if (flashOnDamage)
         {
-            resetColor();
-        }
-        else if (flashOnDamage == true)
-        {
-            if(playerSr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            if (playerSr.color == originalColor && currTime >= (timeLastFlash + 0.1f))
             {
                 timeLastFlash = currTime;
                 playerSr.color = damageColor;
             }
-            else if (playerSr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            else if (playerSr.color == damageColor && currTime >= (timeLastFlash + 0.1f))
             {
                 timeLastFlash = currTime;
                 playerSr.color = originalColor;
             }
+
+            if (currTime >= (damageTime + flashDuration))
+            {
+                flashOnDamage = false;
+                playerSr.color = originalColor; // Restore original color after flashing
+            }
         }
+        else if (isInvincible)
+        {
+            playerSr.color = Color.green; // Set player color to green during invincibility
+        }
+
+        if (isInvincible && Time.time >= invincibilityEndTime)
+        {
+            isInvincible = false;
+            playerSr.color = originalColor; // Restore original color
+        }
+
         GameObject soundObject = GameObject.FindWithTag("SoundEffects");
         if (soundObject != null)
         {
@@ -65,42 +82,45 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
-    public void TakeDamage(int amount) // how much damage the player takes
+    public void TakeDamage(int amount)
     {
+        if (!isInvincible) // Only take damage if not already invincible
+        {
+            health -= amount;
+            if (soundEffects != null)
+            {
+                soundEffects.PlayOneShot(sound);
+            }
+            if (health <= 0)
+            {
+                playerSr.enabled = false;
+                playerMovement.enabled = false;
+                DestroyPlayerAndCanvas();
+                GameOverScript.showGameOver();
+            }
+            else
+            {
+                currTime = Time.time;
+                flashOnDamage = true;
+                damageTime = currTime;
+                timeLastFlash = currTime;
+                playerSr.color = damageColor;
 
-        health -= amount;
-        if (soundEffects != null)
-        {
-            soundEffects.PlayOneShot(sound);
+                // Set invincibility
+                isInvincible = true;
+                invincibilityEndTime = Time.time + invincibilityDuration;
+            }
         }
-        if (health <= 0)
-        {
-            playerSr.enabled = false;
-            playerMovement.enabled = false;
-            DestroyPlayerAndCanvas();
-            GameOverScript.showGameOver();
-        }
-        else
-        {
-            currTime = Time.time;
-            flashOnDamage = true;
-            damageTime = currTime;
-            timeLastFlash = currTime;
-            playerSr.color = damageColor;
-        }
-
     }
 
-    public void resetColor()
+    private void resetColor()
     {
         playerSr.color = originalColor;
         flashOnDamage = false;
     }
 
-    public void DestroyPlayerAndCanvas()
+    private void DestroyPlayerAndCanvas()
     {
-
         if (player != null)
         {
             Destroy(player);
@@ -117,13 +137,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-
     private void FindPlayerObjects()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         heartCanvas = GameObject.FindGameObjectWithTag("HeartCanvas");
-        //  mainCamera = Camera.main; // Assuming the main camera is tagged as "MainCamera"
     }
-
-
 }
