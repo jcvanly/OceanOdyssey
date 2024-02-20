@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5779690744376380445}
   - component: {fileID: 6295754352323815400}
   - component: {fileID: 2721591978091721285}
+  - component: {fileID: 7950779744015030346}
   m_Layer: 11
   m_Name: Speed Power UP (MINOR)
   m_TagString: Untagged
@@ -135,3 +136,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.17, y: 0.34}
   m_Direction: 0
+--- !u!114 &7950779744015030346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5858498842445802810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeUpCounterText: {fileID: 0}
+  speedUpCounterText: {fileID: 0}
+  ShootCoolDownCounterText: {fileID: 0}
+  HealthUpCounterText: {fileID: 0}
+  NetSpeedUpCounterText: {fileID: 0}
+  PermHealthUpCounterText: {fileID: 0}

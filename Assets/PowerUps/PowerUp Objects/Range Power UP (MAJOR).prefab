@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9111676383948114662}
   - component: {fileID: 6127332306790036559}
   - component: {fileID: 4107761080556081932}
+  - component: {fileID: 8961484280650888123}
   m_Layer: 11
   m_Name: Range Power UP (MAJOR)
   m_TagString: Untagged
@@ -135,3 +136,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.18, y: 0.34}
   m_Direction: 0
+--- !u!114 &8961484280650888123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832668224905634782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeUpCounterText: {fileID: 0}
+  speedUpCounterText: {fileID: 0}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1863604326382092241}
   - component: {fileID: 953551646206105907}
   - component: {fileID: 8424912021512874403}
+  - component: {fileID: 1677836354786708357}
   m_Layer: 11
   m_Name: Shoot Cooldown DOWN (MAJOR)
   m_TagString: Untagged
@@ -135,3 +136,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: ac288133228ea92438976d9bdcdc98ac, type: 2}
   sound: {fileID: 8300000, guid: 490bfbc72255342408984f60044487de, type: 3}
+--- !u!114 &1677836354786708357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368534435725132346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeUpCounterText: {fileID: 0}
+  speedUpCounterText: {fileID: 0}
+  ShootCoolDownCounterText: {fileID: 0}
+  HealthUpCounterText: {fileID: 0}
+  NetSpeedUpCounterText: {fileID: 0}
+  PermHealthUpCounterText: {fileID: 0}

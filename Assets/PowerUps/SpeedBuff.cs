@@ -11,14 +11,13 @@ public class SpeedBuff : PowerupEffect
     {
         target.GetComponent<PlayerMovement>().moveSpeed += amount;
         target.GetComponent<SpriteRenderer>().color = Color.yellow;
-
         if (notificationText != null)
         {
             notificationText.text = "+ " + amount + " speed";
             notificationText.gameObject.SetActive(true);
             target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
         }
-
+        PowerUpCounter.instance.IncreaseCounter("SpeedUp");
     }
     private IEnumerator HideNotification(TextMeshProUGUI notificationText)
     {

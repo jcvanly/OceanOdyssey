@@ -17,6 +17,7 @@ public class NetSpeedBuff : PowerupEffect
             notificationText.gameObject.SetActive(true);
             target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
         }
+        PowerUpCounter.instance.IncreaseCounter("NetSpeedUp");
     }
     private IEnumerator HideNotification(TextMeshProUGUI notificationText)
     {

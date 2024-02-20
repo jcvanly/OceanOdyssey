@@ -6,7 +6,6 @@ using UnityEngine;
 public class ShootCooldownBuff : PowerupEffect
 {
     public float amount;
-
     public override void Apply(GameObject target, TextMeshProUGUI notificationText)
     {
         target.GetComponent<Shooting>().shootCooldown -= amount;
@@ -16,9 +15,8 @@ public class ShootCooldownBuff : PowerupEffect
             notificationText.gameObject.SetActive(true);
             target.GetComponent<MonoBehaviour>().StartCoroutine(HideNotification(notificationText));
         }
-
+        PowerUpCounter.instance.IncreaseCounter("ShootCoolDown");
     }
-
     private IEnumerator HideNotification(TextMeshProUGUI notificationText)
     {
         yield return new WaitForSeconds(2f);
@@ -28,5 +26,4 @@ public class ShootCooldownBuff : PowerupEffect
             notificationText.text = "";
         }
     }
-
 }
