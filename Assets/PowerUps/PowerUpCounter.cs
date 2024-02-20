@@ -9,28 +9,42 @@ public class PowerUpCounter : MonoBehaviour
     private Dictionary<string, int> powerUpCounters = new Dictionary<string, int>();
 
     // Text objects to display counters for each type of powerup
-    public TMP_Text rangeUpCounterText;
-    public TMP_Text speedUpCounterText;
-    public TMP_Text ShootCoolDownCounterText;
-    public TMP_Text HealthUpCounterText;
-    public TMP_Text NetSpeedUpCounterText;
-    public TMP_Text PermHealthUpCounterText;
+    private TMP_Text rangeUpCounterText;
+    private TMP_Text speedUpCounterText;
+    private TMP_Text shootCoolDownCounterText;
+    private TMP_Text healthUpCounterText;
+    private TMP_Text netSpeedUpCounterText;
+    private TMP_Text permHealthUpCounterText;
 
     public static PowerUpCounter instance;
+    private int RangeUp;
+    private int HealthUp;
+    private int SpeedUp;
+    private int ShootCoolDown;
+    private int NetSpeedUp;
+    private int PermHealthUp;
 
     private void Awake()
     {
-        instance = this; 
+        instance = this;
+
+        // Find and assign the text objects by tag
+        rangeUpCounterText = GameObject.FindGameObjectWithTag("RangeUpCounter").GetComponent<TMP_Text>();
+        speedUpCounterText = GameObject.FindGameObjectWithTag("SpeedUpCounter").GetComponent<TMP_Text>();
+        shootCoolDownCounterText = GameObject.FindGameObjectWithTag("ShootCoolDownCounter").GetComponent<TMP_Text>();
+        healthUpCounterText = GameObject.FindGameObjectWithTag("HealthUpCounter").GetComponent<TMP_Text>();
+        netSpeedUpCounterText = GameObject.FindGameObjectWithTag("NetSpeedUpCounter").GetComponent<TMP_Text>();
+        permHealthUpCounterText = GameObject.FindGameObjectWithTag("PermHealthUpCounter").GetComponent<TMP_Text>();
     }
+
     void Start()
     {
-        powerUpCounters["RangeUp"] = 0;
-        powerUpCounters["SpeedUp"] = 0;
-        powerUpCounters["ShootCoolDown"] = 0;
-        powerUpCounters["HealthUp"] = 0;
-        powerUpCounters["NetSpeedUp"] = 0;
-        powerUpCounters["PermHealthUp"] = 0;
-
+        powerUpCounters["RangeUp"] = RangeUp;
+        powerUpCounters["SpeedUp"] = SpeedUp;
+        powerUpCounters["ShootCoolDown"] = ShootCoolDown;
+        powerUpCounters["HealthUp"] = HealthUp;
+        powerUpCounters["NetSpeedUp"] = NetSpeedUp;
+        powerUpCounters["PermHealthUp"] = PermHealthUp;
         UpdateCountersText("RangeUp");
         UpdateCountersText("SpeedUp");
         UpdateCountersText("ShootCoolDown");
@@ -38,14 +52,40 @@ public class PowerUpCounter : MonoBehaviour
         UpdateCountersText("NetSpeedUp");
         UpdateCountersText("PermHealthUp");
     }
+
     public void IncreaseCounter(string powerUpType)
     {
         if (powerUpCounters.ContainsKey(powerUpType))
         {
             powerUpCounters[powerUpType]++;
             UpdateCountersText(powerUpType);
+            if (powerUpType == "RangeUp")
+            {
+                RangeUp++;
+}
+            else if (powerUpType == "SpeedUp")
+            {
+                SpeedUp++;
+            }
+            else if (powerUpType == "HealthUp")
+            {
+                HealthUp++;
+            }
+            else if (powerUpType == "NetSpeedUp")
+            {
+                NetSpeedUp++;
+            }
+            else if (powerUpType == "ShootCoolDown")
+            {
+                ShootCoolDown++;
+            }
+            else if (powerUpType == "PermHealthUp")
+            {
+                PermHealthUp++;
+            }
         }
     }
+
     void UpdateCountersText(string powerUpType)
     {
         if (powerUpType == "RangeUp")
@@ -58,19 +98,19 @@ public class PowerUpCounter : MonoBehaviour
         }
         else if (powerUpType == "HealthUp")
         {
-            HealthUpCounterText.text = powerUpCounters["HealthUp"].ToString();
+            healthUpCounterText.text = powerUpCounters["HealthUp"].ToString();
         }
         else if (powerUpType == "NetSpeedUp")
         {
-            NetSpeedUpCounterText.text = powerUpCounters["NetSpeedUp"].ToString();
+            netSpeedUpCounterText.text = powerUpCounters["NetSpeedUp"].ToString();
         }
         else if (powerUpType == "ShootCoolDown")
         {
-            ShootCoolDownCounterText.text = powerUpCounters["ShootCoolDown"].ToString();
+            shootCoolDownCounterText.text = powerUpCounters["ShootCoolDown"].ToString();
         }
         else if (powerUpType == "PermHealthUp")
         {
-            PermHealthUpCounterText.text = powerUpCounters["PermHealthUp"].ToString();
+            permHealthUpCounterText.text = powerUpCounters["PermHealthUp"].ToString();
         }
     }
 }

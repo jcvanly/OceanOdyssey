@@ -21,6 +21,12 @@ TagManager:
   - SoundEffects
   - MiniLobster
   - HeartCanvas
+  - RangeUpCounter
+  - SpeedUpCounter
+  - ShootCoolDownCounter
+  - HealthUpCounter
+  - NetSpeedUpCounter
+  - PermHealthUpCounter
   layers:
   - Default
   - TransparentFX

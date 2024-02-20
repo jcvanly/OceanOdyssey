@@ -908,6 +908,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6da88d42d9273842989f871942a32cf, type: 3}
+--- !u!1001 &358361603
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.7623918
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.413547
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508975125268593665, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_Name
+      value: Health Power UP (MAJOR) (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
 --- !u!1 &399397522
 GameObject:
   m_ObjectHideFlags: 0
@@ -54575,12 +54632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeUpCounterText: {fileID: 650408559}
-  speedUpCounterText: {fileID: 238384083}
-  ShootCoolDownCounterText: {fileID: 1467910163}
-  HealthUpCounterText: {fileID: 1303286593}
-  NetSpeedUpCounterText: {fileID: 2036554048}
-  PermHealthUpCounterText: {fileID: 1277672851}
 --- !u!1001 &1597149171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55242,6 +55293,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5776291673850038905, guid: 9ebd4b75a2bd100429acb2f5a83f054a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8110334759316031825, guid: 9ebd4b75a2bd100429acb2f5a83f054a, type: 3}
       propertyPath: m_Name
       value: SceneTransition
@@ -55349,12 +55404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeUpCounterText: {fileID: 650408559}
-  speedUpCounterText: {fileID: 238384083}
-  ShootCoolDownCounterText: {fileID: 1467910163}
-  HealthUpCounterText: {fileID: 1303286593}
-  NetSpeedUpCounterText: {fileID: 2036554048}
-  PermHealthUpCounterText: {fileID: 1277672851}
 --- !u!1 &1830601084
 GameObject:
   m_ObjectHideFlags: 0
@@ -56268,6 +56317,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HEALTH
       objectReference: {fileID: 0}
+    - target: {fileID: 890956756057977542, guid: bbfdae0d4b630154184bbcb45646f911, type: 3}
+      propertyPath: m_TagString
+      value: HealthUpCounter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56365,6 +56418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PERM HEALTH
       objectReference: {fileID: 0}
+    - target: {fileID: 5621607189437325112, guid: cff515ee65e0abb46928e0daba09e8cf, type: 3}
+      propertyPath: m_TagString
+      value: PermHealthUpCounter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56378,6 +56435,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 705748371}
     m_Modifications:
+    - target: {fileID: 1638841654627753307, guid: ed0a8571ecaa23c419ed85d74ab4ac99, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3808730324108579339, guid: ed0a8571ecaa23c419ed85d74ab4ac99, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -56671,6 +56732,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 705748371}
     m_Modifications:
+    - target: {fileID: 5328637083303897194, guid: 7d92cc02a085d134784872369e27a6a6, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7001458511434297214, guid: 7d92cc02a085d134784872369e27a6a6, type: 3}
       propertyPath: m_Name
       value: SPEED
@@ -57038,3 +57103,4 @@ SceneRoots:
   - {fileID: 1929735795}
   - {fileID: 419754926}
   - {fileID: 1180294559}
+  - {fileID: 358361603}
