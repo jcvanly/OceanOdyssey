@@ -17,8 +17,6 @@ public class PlayerHealth : MonoBehaviour
     private float timeLastFlash;
     private float currTime;
     private bool flashOnDamage = false;
-    private AudioSource soundEffects;
-    public AudioClip sound;
 
     public GameObject player; // Reference to your player GameObject
     public GameObject heartCanvas; // Reference to your heart canvas GameObject
@@ -28,6 +26,11 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvincible = false; // Flag to track if the player is currently invincible
     private float invincibilityEndTime; // Time when invincibility ends
 
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -70,16 +73,6 @@ public class PlayerHealth : MonoBehaviour
             isInvincible = false;
             playerSr.color = originalColor; // Restore original color
         }
-
-        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
-        if (soundObject != null)
-        {
-            soundEffects = soundObject.GetComponent<AudioSource>();
-        }
-        else
-        {
-            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
-        }
     }
 
     public void TakeDamage(int amount)
@@ -87,10 +80,7 @@ public class PlayerHealth : MonoBehaviour
         if (!isInvincible) // Only take damage if not already invincible
         {
             health -= amount;
-            if (soundEffects != null)
-            {
-                soundEffects.PlayOneShot(sound);
-            }
+            audioManager.PlaySFX(audioManager.takeDamage);
             if (health <= 0)
             {
                 playerSr.enabled = false;

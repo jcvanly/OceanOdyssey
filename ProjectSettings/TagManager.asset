@@ -27,6 +27,7 @@ TagManager:
   - HealthUpCounter
   - NetSpeedUpCounter
   - PermHealthUpCounter
+  - Audio
   layers:
   - Default
   - TransparentFX

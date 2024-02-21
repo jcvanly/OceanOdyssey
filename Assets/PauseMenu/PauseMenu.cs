@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public Destroyer destroyer;
+
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -23,30 +28,30 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-
     public void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        audioManager.PlaySFX(audioManager.pause);
     }
-
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         GameIsPaused = false;
+        audioManager.PlaySFX(audioManager.unpause);
     }
-
     public void LoadMenu()
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");
         destroyer.DestroyPlayerAndCanvas();
+        audioManager.PlaySFX(audioManager.mainMenu);
     }
-
     public void QuitMenu()
     {
+        audioManager.PlaySFX(audioManager.quit);
         Debug.Log("Quiting Game.");
         Application.Quit();
     }

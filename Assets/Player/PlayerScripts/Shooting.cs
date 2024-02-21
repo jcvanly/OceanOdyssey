@@ -6,32 +6,23 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    private AudioSource soundEffects; 
-    public AudioClip sound;
 
     public float bulletSpeed = 25f;
     public float bulletRange = 15f;
     public float shootCooldown = 0.03f;
     private float shootTimer = 0f;
 
-
+    AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Update()
     {
-        GameObject soundObject = GameObject.FindWithTag("SoundEffects");
-        if (soundObject != null)
-        {
-            soundEffects = soundObject.GetComponent<AudioSource>();
-        }
-        else
-        {
-            Debug.LogWarning("No GameObject with tag 'SoundEffects' found.");
-        }
-
         if (shootTimer > 0)
         {
             shootTimer -= Time.deltaTime;
         }
-
         if (Input.GetButtonDown("Fire1") && shootTimer <= 0)
         {
             Shoot();
@@ -48,9 +39,6 @@ public class Shooting : MonoBehaviour
         rb.velocity = direction * bulletSpeed;
         Destroy(bullet, bulletRange / bulletSpeed);
 
-        if (soundEffects != null)
-        {
-            soundEffects.PlayOneShot(sound);
-        }
+        audioManager.PlaySFX(audioManager.shootNoise);
     }
 }
