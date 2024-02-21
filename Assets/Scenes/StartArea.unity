@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shoot Cooldown DOWN (MAJOR) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 368534435725132346, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1677836354786708357, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
       propertyPath: rangeUpCounterText
       value: 
@@ -290,6 +294,10 @@ PrefabInstance:
     - target: {fileID: 1832668224905634782, guid: 72c7cd222cb24304bb9f4021057fb029, type: 3}
       propertyPath: m_Name
       value: Range Power UP (MAJOR) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832668224905634782, guid: 72c7cd222cb24304bb9f4021057fb029, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2727393970134148033, guid: 72c7cd222cb24304bb9f4021057fb029, type: 3}
       propertyPath: m_LocalPosition.x
@@ -903,6 +911,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Net Speed Power UP (MAJOR)
       objectReference: {fileID: 0}
+    - target: {fileID: 5996449964199883297, guid: c6da88d42d9273842989f871942a32cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -959,6 +971,10 @@ PrefabInstance:
     - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
       propertyPath: m_Name
       value: Health Power UP (MAJOR) (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1184,6 +1200,10 @@ PrefabInstance:
     - target: {fileID: 5858498842445802810, guid: 8be9154dceedb754da6534c0b4a60b95, type: 3}
       propertyPath: m_Name
       value: Speed Power UP (MINOR)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858498842445802810, guid: 8be9154dceedb754da6534c0b4a60b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7496525642147072732, guid: 8be9154dceedb754da6534c0b4a60b95, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1822,6 +1842,10 @@ PrefabInstance:
     - target: {fileID: 1180617881649123619, guid: 70dd2ed43ad0e2846ac27472673a5989, type: 3}
       propertyPath: m_Name
       value: PERM Health  UP (MAJOR)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180617881649123619, guid: 70dd2ed43ad0e2846ac27472673a5989, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3449185723777389774, guid: 70dd2ed43ad0e2846ac27472673a5989, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37333,6 +37357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Health Power UP (MAJOR) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37413,6 +37441,10 @@ PrefabInstance:
     - target: {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
       propertyPath: m_Name
       value: Health Power UP (MINOR)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -54580,6 +54612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Range Power UP (MINOR)
       objectReference: {fileID: 0}
+    - target: {fileID: 8038961770682418465, guid: 17527e6c879a6c74d95778826b8b2935, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -54596,6 +54632,10 @@ PrefabInstance:
     - target: {fileID: 368534435725132346, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
       propertyPath: m_Name
       value: Shoot Cooldown DOWN (MAJOR)
+      objectReference: {fileID: 0}
+    - target: {fileID: 368534435725132346, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1677836354786708357, guid: cc1b142d21785f043ab74cefe07cd1dd, type: 3}
       propertyPath: rangeUpCounterText
@@ -55214,6 +55254,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Net Speed Power UP (MINOR)
       objectReference: {fileID: 0}
+    - target: {fileID: 6574374632272980863, guid: a6f39265a72c51144bea54d1796ed391, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8880050106807876293, guid: a6f39265a72c51144bea54d1796ed391, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.356194
@@ -55438,6 +55482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PERM Health  UP (MINOR)
       objectReference: {fileID: 0}
+    - target: {fileID: 4064500992448070763, guid: 2e083846ffd452d46a25e62fb87683f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6591101066428686738, guid: 2e083846ffd452d46a25e62fb87683f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.10211742
@@ -55622,6 +55670,10 @@ PrefabInstance:
     - target: {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
       propertyPath: m_Name
       value: Speed Power UP (MAJOR) (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3771429969642506271, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6039082211974300496, guid: 8f2846ff448b0be428d1306107ebb46f, type: 3}
       propertyPath: rangeUpCounterText
@@ -56092,6 +56144,10 @@ PrefabInstance:
     - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
       propertyPath: m_Name
       value: Health Power UP (MAJOR)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
