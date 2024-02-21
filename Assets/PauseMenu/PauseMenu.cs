@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");
-        destroyer.DestroyPlayerAndCanvas();
+        destroyer.Destroy();
         audioManager.PlaySFX(audioManager.mainMenu);
     }
     public void QuitMenu()
