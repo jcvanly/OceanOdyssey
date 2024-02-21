@@ -17,7 +17,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip unpause;
     public AudioClip mainMenu;
     public AudioClip quit;
-
+    public AudioClip titleScreenBackground;
+    public AudioClip mainMenuStart;
+    public AudioClip mainMenuCredit;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);

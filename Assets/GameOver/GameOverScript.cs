@@ -14,8 +14,8 @@ public class GameOverScript : MonoBehaviour
     }
     public void restartLevel()
     {
-        audioManager = audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-        Destroy(audioManager.gameObject);
+        //audioManager = audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        //Destroy(audioManager.gameObject);
         SceneManager.LoadScene("StartArea");
     }
     public void QuitGame()
