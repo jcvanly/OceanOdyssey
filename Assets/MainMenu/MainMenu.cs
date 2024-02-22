@@ -16,11 +16,18 @@ public class MainMenu : MonoBehaviour
     }
     public void Credits()
     {
+
         audioManager.PlaySFX(audioManager.mainMenuCredit);
+        SceneManager.LoadScene("Credits");
     }
     public void QuitGame()
     {
         audioManager.PlaySFX(audioManager.quit);
         Application.Quit();
+    }
+    
+    public void Back() 
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 }
