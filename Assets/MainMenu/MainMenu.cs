@@ -28,6 +28,11 @@ public class MainMenu : MonoBehaviour
     
     public void Back() 
     {
+        //audioManager = audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        if (audioManager != null)
+        {
+            Destroy(audioManager.gameObject);
+        }
         SceneManager.LoadScene("TitleScreen");
     }
 }
