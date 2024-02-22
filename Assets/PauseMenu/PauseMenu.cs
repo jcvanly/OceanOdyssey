@@ -8,7 +8,6 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
     public Destroyer destroyer;
-
     AudioManager audioManager;
     private void Awake()
     {
@@ -44,6 +43,14 @@ public class PauseMenu : MonoBehaviour
     }
     public void LoadMenu()
     {
+         if (GlobalEnemyManager.TotalEnemies != 0)
+        {
+            for (int i = 0; i <= GlobalEnemyManager.TotalEnemies; i++)
+            {
+                GlobalEnemyManager.EnemyDied();
+                GlobalEnemyManager.EnemyDied();
+            }
+        }
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");
         destroyer.Destroy();

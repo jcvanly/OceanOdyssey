@@ -9,6 +9,7 @@ public class SceneTransition : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log(GlobalEnemyManager.TotalEnemies);
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
             if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
