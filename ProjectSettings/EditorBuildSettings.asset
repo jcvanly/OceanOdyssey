@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 070f4292436f74bcbbb82bce07651db2
+  - enabled: 1
+    path: Assets/Scenes/Whale.unity
+    guid: f45cb25e44179ab4a9b0ce5cc99302e2
   m_configObjects: {}

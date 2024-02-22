@@ -14,7 +14,6 @@ public class LobsterQueen : MonoBehaviour
     public Transform[] waypoints; // Array to hold the Transform of the 4 waypoints
     public float stopTime = 1f; // Time to stop at each waypoint
     private int currentWaypointIndex = 0; // Index to track the current target waypoint
-    private bool isMoving = true; // Flag to control movement
     public GameObject miniLobsterPrefab; // Reference to the mini lobster prefab
     public Transform spawnPoint; // The point from where mini lobsters will be spawned
      public Image fadePanel;
