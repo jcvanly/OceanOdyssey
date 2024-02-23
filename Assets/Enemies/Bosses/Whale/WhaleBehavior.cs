@@ -28,44 +28,65 @@ public class WhaleBehavior : MonoBehaviour
     public PlayerHealth playerHealth;
     public Transform player; // Reference to the player's transform
     private Rigidbody2D rb;
-    private bool isCharging = false; // To prevent concurrent charges
+    private float lastAttackTime = -1000; // Initialize to allow immediate attack
+    private List<GameObject> projectilePool;
+    public int poolSize = 32; // Adjust based on your needs
+    private int currentProjectileIndex = 0;
+    public GameObject whiteCirclePrefab; // Assign this in the Inspector
+    private GameObject whiteCircleInstance;
+    public GameObject lightningPrefab; // Assign this in the Inspector
+
 
 
 
     void Start()
 {
+    InitializeProjectilePool();
     HideVictoryScreen();
-    currentHealth = maxHealth;
-    currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
-    UpdateWeatherIcon(); // Apply initial weather effect
-    StartCoroutine(WeatherCycle());
-    player = GameObject.FindGameObjectWithTag("Player").transform;
-    playerHealth = player.GetComponent<PlayerHealth>();
-    rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+        currentHealth = maxHealth;
+        currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
+        UpdateWeatherIcon(); // Apply initial weather effect
+        StartCoroutine(WeatherCycle());
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
 }
 
 
     void Update()
     {
-        if (currentWeather == WeatherType.Rain && currentHealth > 0)
+        if (currentWeather == WeatherType.Rain)
         {
-            //StartCoroutine(RainPhaseAttack());
+            if (whiteCircleInstance == null)
+            {
+                // Instantiate the white circle above the player
+                whiteCircleInstance = Instantiate(whiteCirclePrefab, player.position + Vector3.up * 2, Quaternion.identity);
+            }
+            else
+            {
+                // Move the white circle towards the player's position
+                whiteCircleInstance.transform.position = Vector3.MoveTowards(whiteCircleInstance.transform.position, player.position, Time.deltaTime * 2f);
+            }
+        }
+        else
+        {
+            // Optional: Destroy or deactivate the white circle when it's not raining
+            if (whiteCircleInstance != null)
+            {
+                Destroy(whiteCircleInstance);
+            }
         }
 
-        if (currentWeather == WeatherType.Sun && currentHealth > 0)
-    {
-        // Regain 10 HP but do not exceed maxHealth
-        currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
-        healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
-        
-        // Call your solar beam attack method here, ensure there's a cooldown
-        if (!isCharging) // Assuming isCharging is used to prevent continuous attacks
+        if (currentWeather == WeatherType.Sun && currentHealth > 0 && Time.time > lastAttackTime + attackDelay)
         {
-            StartCoroutine(SolarBeamAttack());
+            StartCoroutine(ShootProjectilesGradually());
+            lastAttackTime = Time.time;
+            // Regain 10 HP but do not exceed maxHealth
+            currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
+            healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
         }
     }
 
-    }
     IEnumerator WeatherCycle()
     {
         while (true)
@@ -130,29 +151,49 @@ void UpdateWeatherIcon()
     weatherFilterPanel.color = filterColor; // Update the panel's color
 }
 
-IEnumerator SolarBeamAttack()
-{
-    Debug.Log("firing solar beam");
-    isCharging = true;
-
-    // Instantiate the solar beam projectile
-    GameObject solarBeam = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-
-    // Calculate direction towards the player
-    Vector2 direction = (playerTransform.position - transform.position).normalized;
-
-    // Get the Rigidbody2D component of the solar beam and apply force
-    Rigidbody2D rb = solarBeam.GetComponent<Rigidbody2D>();
-    if (rb != null)
+ void InitializeProjectilePool()
     {
-        rb.AddForce(direction * chargeSpeed, ForceMode2D.Impulse);
+        projectilePool = new List<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            proj.SetActive(false); // Start with the projectile deactivated
+            projectilePool.Add(proj);
+        }
     }
 
-    // Wait for a delay before allowing another attack
-    yield return new WaitForSeconds(attackDelay);
+    GameObject GetPooledProjectile()
+    {
+        GameObject proj = projectilePool[currentProjectileIndex];
+        currentProjectileIndex = (currentProjectileIndex + 1) % poolSize;
+        proj.SetActive(true); // Activate the projectile
+        return proj;
+    }
 
-    isCharging = false;
-}
+    IEnumerator ShootProjectilesGradually()
+    {
+        float angleStep = 360f / 16;
+        float angle = 0;
+
+        for (int i = 0; i < 16; i++)
+        {
+            GameObject tmpObj = GetPooledProjectile();
+            tmpObj.transform.position = transform.position; // Reset position to whale's position
+
+            float projectileDirXposition = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180);
+            float projectileDirYposition = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180);
+            Vector3 projectileVector = new Vector3(projectileDirXposition, projectileDirYposition, 0);
+            Vector3 projectileMoveDirection = (projectileVector - transform.position).normalized * chargeSpeed;
+
+            tmpObj.GetComponent<Rigidbody2D>().velocity = new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
+            tmpObj.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(projectileMoveDirection.y, projectileMoveDirection.x) * Mathf.Rad2Deg);
+
+            angle += angleStep;
+
+            yield return new WaitForSeconds(0.05f); // Delay between each projectile spawn to spread out the performance impact
+        }
+    }
+
 
 
     void OnTriggerEnter2D(Collider2D collider)
