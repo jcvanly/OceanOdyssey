@@ -35,6 +35,14 @@ public class WhaleBehavior : MonoBehaviour
     public GameObject whiteCirclePrefab; // Assign this in the Inspector
     private GameObject whiteCircleInstance;
     public GameObject lightningPrefab; // Assign this in the Inspector
+    private bool _lightningCoroutineRunning = false;
+    private float lastWindForceTime = 0f;
+    private float windForceInterval = 2f; // Adjust the interval as needed
+    private Vector2 windDirection = Vector2.zero;
+    private bool isWindActive = false;
+    public PhysicsMaterial2D icyMaterial;
+
+
 
 
 
@@ -77,13 +85,41 @@ public class WhaleBehavior : MonoBehaviour
             }
         }
 
+        if (currentWeather == WeatherType.Rain && whiteCircleInstance != null && !_lightningCoroutineRunning)
+        {
+            StartCoroutine(LightningStrikes());
+        }
+
+        else if ((currentWeather != WeatherType.Rain || whiteCircleInstance == null) && _lightningCoroutineRunning)
+        {
+            StopCoroutine(LightningStrikes());
+            _lightningCoroutineRunning = false;
+        }
+
+
         if (currentWeather == WeatherType.Sun && currentHealth > 0 && Time.time > lastAttackTime + attackDelay)
         {
-            StartCoroutine(ShootProjectilesGradually());
+            StartCoroutine(ShootFireBalls());
             lastAttackTime = Time.time;
             // Regain 10 HP but do not exceed maxHealth
             currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
             healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
+        }
+
+
+        if (currentWeather == WeatherType.Wind)
+        {
+            ApplyWindForceToPlayer();
+        }
+
+
+        if (currentWeather == WeatherType.Snow)
+        {
+            ApplyIcyConditions();
+        }
+        else
+        {
+            RemoveIcyConditions();
         }
     }
 
@@ -170,7 +206,19 @@ void UpdateWeatherIcon()
         return proj;
     }
 
-    IEnumerator ShootProjectilesGradually()
+    IEnumerator LightningStrikes()
+    {
+        _lightningCoroutineRunning = true;
+        while (whiteCircleInstance != null && currentWeather == WeatherType.Rain)
+        {
+            // Instantiate the lightning effect at the white circle's position
+            Instantiate(lightningPrefab, whiteCircleInstance.transform.position, Quaternion.identity);
+
+            yield return new WaitForSeconds(2f); // Wait for 2 seconds before the next strike
+        }
+        _lightningCoroutineRunning = false;
+    }
+    IEnumerator ShootFireBalls()
     {
         float angleStep = 360f / 16;
         float angle = 0;
@@ -193,6 +241,63 @@ void UpdateWeatherIcon()
             yield return new WaitForSeconds(0.05f); // Delay between each projectile spawn to spread out the performance impact
         }
     }
+
+    void ApplyWindForceToPlayer()
+    {
+        if (!isWindActive || Time.time > lastWindForceTime + windForceInterval)
+        {
+            // Set a new random direction for the wind
+            windDirection = new Vector2(Random.Range(-15f, 15f), Random.Range(-15f, 15f)); // Smaller values for a gradual push
+            isWindActive = true;
+            lastWindForceTime = Time.time;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (currentWeather == WeatherType.Wind && isWindActive)
+        {
+                    Debug.Log($"Applying wind force: {windDirection}");
+            Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                playerRb.AddForce(windDirection * 2f, ForceMode2D.Force); // Adjust force multiplier as needed
+            }
+        }
+    }
+
+    void ApplyIcyConditions()
+    {
+
+    Collider2D playerCollider = player.GetComponent<Collider2D>();
+    if (playerCollider != null)
+    {
+        playerCollider.sharedMaterial = icyMaterial; // icyMaterial should have very low friction
+    }
+
+    Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+    if (playerRb != null)
+    {
+        playerRb.drag = 0.01f; // Lower or remove drag to increase slipperiness
+    }
+    }
+
+    void RemoveIcyConditions()
+    {
+        // Reset to default material or drag
+        Collider2D playerCollider = player.GetComponent<Collider2D>();
+        if (playerCollider != null)
+        {
+            playerCollider.sharedMaterial = null; // Assuming null resets to default
+        }
+
+        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+        if (playerRb != null)
+        {
+            playerRb.drag = 0; // Reset drag
+        }
+    }
+
 
 
 
@@ -218,17 +323,6 @@ void UpdateWeatherIcon()
 
     void Die()
     {
-        
-        // Destroy all ink spots. Assuming you have a tag "InkSpot" for all ink spot objects
-        foreach (GameObject inkSpot in GameObject.FindGameObjectsWithTag("InkSpot"))
-        {
-            Destroy(inkSpot);
-        }
-
-        foreach (GameObject tentacle in GameObject.FindGameObjectsWithTag("Tentacle"))
-        {
-            Destroy(tentacle);
-        }
 
         GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("HealthBar");
         if (healthBarGameObject != null) {
@@ -238,7 +332,6 @@ void UpdateWeatherIcon()
         }
 
 
-        GlobalEnemyManager.KrakenDefeated = true;
 
         StartCoroutine(FadeToBlack());
 
