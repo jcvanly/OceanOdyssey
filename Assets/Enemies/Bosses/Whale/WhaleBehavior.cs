@@ -9,7 +9,7 @@ public class WhaleBehavior : MonoBehaviour
     public GameObject projectilePrefab;
     public int maxHealth = 100;
     public int currentHealth;
-    private Transform playerTransform;
+    public Transform playerTransform; // Make sure to assign the player's transform in the inspector
     public WhaleHealth healthBar;
     public Image fadePanel;
     public float fadeDuration = 2f;
@@ -23,6 +23,14 @@ public class WhaleBehavior : MonoBehaviour
     private GameObject currentWeatherEffect;
     private enum WeatherType { Rain, Sun, Wind, Snow }
     private WeatherType currentWeather = WeatherType.Rain; // Start with Rain
+    public float chargeSpeed = 10f;
+    public float attackDelay = 2f; // Time between attacks
+    public PlayerHealth playerHealth;
+    public Transform player; // Reference to the player's transform
+    private Rigidbody2D rb;
+    private bool isCharging = false; // To prevent concurrent charges
+
+
 
     void Start()
 {
@@ -31,20 +39,39 @@ public class WhaleBehavior : MonoBehaviour
     currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
     UpdateWeatherIcon(); // Apply initial weather effect
     StartCoroutine(WeatherCycle());
+    player = GameObject.FindGameObjectWithTag("Player").transform;
+    playerHealth = player.GetComponent<PlayerHealth>();
+    rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
 }
 
 
     void Update()
     {
+        if (currentWeather == WeatherType.Rain && currentHealth > 0)
+        {
+            //StartCoroutine(RainPhaseAttack());
+        }
 
+        if (currentWeather == WeatherType.Sun && currentHealth > 0)
+    {
+        // Regain 10 HP but do not exceed maxHealth
+        currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
+        
+        // Call your solar beam attack method here, ensure there's a cooldown
+        if (!isCharging) // Assuming isCharging is used to prevent continuous attacks
+        {
+            StartCoroutine(SolarBeamAttack());
+        }
     }
 
+    }
     IEnumerator WeatherCycle()
     {
         while (true)
         {
             // Change weather every 10 seconds
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             ChangeWeather();
         }
     }
@@ -103,7 +130,29 @@ void UpdateWeatherIcon()
     weatherFilterPanel.color = filterColor; // Update the panel's color
 }
 
+IEnumerator SolarBeamAttack()
+{
+    Debug.Log("firing solar beam");
+    isCharging = true;
 
+    // Instantiate the solar beam projectile
+    GameObject solarBeam = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+    // Calculate direction towards the player
+    Vector2 direction = (playerTransform.position - transform.position).normalized;
+
+    // Get the Rigidbody2D component of the solar beam and apply force
+    Rigidbody2D rb = solarBeam.GetComponent<Rigidbody2D>();
+    if (rb != null)
+    {
+        rb.AddForce(direction * chargeSpeed, ForceMode2D.Impulse);
+    }
+
+    // Wait for a delay before allowing another attack
+    yield return new WaitForSeconds(attackDelay);
+
+    isCharging = false;
+}
 
 
     void OnTriggerEnter2D(Collider2D collider)

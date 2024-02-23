@@ -99,9 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d0251a98903cf4f81f4c364bee1082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6426527251555192821, guid: f6cfc05031df599439c09c9af848f8a1, type: 3}
   maxHealth: 100
   currentHealth: 0
+  playerTransform: {fileID: 0}
   healthBar: {fileID: 0}
   fadePanel: {fileID: 0}
   fadeDuration: 2
@@ -115,6 +116,11 @@ MonoBehaviour:
   weatherFilterPanel: {fileID: 0}
   rainParticleSystemPrefab: {fileID: 3691888533313389901, guid: 0e4a2b5a49a66f04494059d875337ca1, type: 3}
   snowParticleSystemPrefab: {fileID: 2158619808239789573, guid: ea43ac88ab82cbf47a42de5642ba88e1, type: 3}
+  chargeSpeed: 10
+  attackDelay: 2
+  lightningBoltPrefab: {fileID: 0}
+  playerHealth: {fileID: 0}
+  player: {fileID: 0}
 --- !u!60 &6117902877807135189
 PolygonCollider2D:
   m_ObjectHideFlags: 0
