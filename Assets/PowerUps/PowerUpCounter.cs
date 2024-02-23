@@ -5,6 +5,9 @@ using TMPro;
 
 public class PowerUpCounter : MonoBehaviour
 {
+    // Singleton instance
+    public static PowerUpCounter instance;
+
     // Dictionary to store counters for each type of powerup
     private Dictionary<string, int> powerUpCounters = new Dictionary<string, int>();
 
@@ -16,7 +19,6 @@ public class PowerUpCounter : MonoBehaviour
     private TMP_Text netSpeedUpCounterText;
     private TMP_Text permHealthUpCounterText;
 
-    public static PowerUpCounter instance;
     private int RangeUp;
     private int HealthUp;
     private int SpeedUp;
@@ -26,7 +28,16 @@ public class PowerUpCounter : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keeps the object alive between scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Ensures that only one instance exists
+            return;
+        }
 
         // Find and assign the text objects by tag
         rangeUpCounterText = GameObject.FindGameObjectWithTag("RangeUpCounter").GetComponent<TMP_Text>();
@@ -62,7 +73,7 @@ public class PowerUpCounter : MonoBehaviour
             if (powerUpType == "RangeUp")
             {
                 RangeUp++;
-}
+            }
             else if (powerUpType == "SpeedUp")
             {
                 SpeedUp++;

@@ -51,10 +51,10 @@ public class PauseMenu : MonoBehaviour
                 GlobalEnemyManager.EnemyDied();
             }
         }
+        audioManager.PlaySFX(audioManager.mainMenu);
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");
         destroyer.Destroy();
-        audioManager.PlaySFX(audioManager.mainMenu);
     }
     public void QuitMenu()
     {
