@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class WhaleBehavior : MonoBehaviour
 {
     public GameObject projectilePrefab;
+    public int maxFireballs = 48; 
     public int maxHealth = 100;
     public int currentHealth;
-    public Transform playerTransform; // Make sure to assign the player's transform in the inspector
+    public Transform playerTransform; 
     public WhaleHealth healthBar;
     public Image fadePanel;
     public float fadeDuration = 2f;
@@ -17,7 +18,7 @@ public class WhaleBehavior : MonoBehaviour
     public GameObject nextIslandButton;
     public Image weatherIcon; // Reference to the UI element that will display the weather icons
     public Sprite sunIcon, rainIcon, snowIcon, windIcon; // References to the weather icon Sprites
-    public Image weatherFilterPanel; // Add this line
+    public Image weatherFilterPanel; 
     public GameObject rainParticleSystemPrefab;
     public GameObject snowParticleSystemPrefab;
     private GameObject currentWeatherEffect;
@@ -30,7 +31,7 @@ public class WhaleBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private float lastAttackTime = -1000; // Initialize to allow immediate attack
     private List<GameObject> projectilePool;
-    public int poolSize = 32; // Adjust based on your needs
+    public int poolSize = 32;
     private int currentProjectileIndex = 0;
     public GameObject whiteCirclePrefab; // Assign this in the Inspector
     private GameObject whiteCircleInstance;
@@ -46,25 +47,20 @@ public class WhaleBehavior : MonoBehaviour
     public GameObject icyGroundPrefab; // Assign this in the Inspector
     private GameObject icyGroundInstance;
 
-
-
-
-
-
-
-
     void Start()
-{
-    InitializeProjectilePool();
-    HideVictoryScreen();
-        currentHealth = maxHealth;
-        currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
-        UpdateWeatherIcon(); // Apply initial weather effect
-        StartCoroutine(WeatherCycle());
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerHealth = player.GetComponent<PlayerHealth>();
-        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
-}
+    {    
+
+        InitializeProjectilePool();
+        HideVictoryScreen();
+            currentHealth = maxHealth;
+            currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
+            UpdateWeatherIcon(); // Apply initial weather effect
+            StartCoroutine(WeatherCycle());
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerHealth = player.GetComponent<PlayerHealth>();
+            rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+
+    }
 
 
     void Update()
@@ -84,7 +80,6 @@ public class WhaleBehavior : MonoBehaviour
         }
         else
         {
-            // Optional: Destroy or deactivate the white circle when it's not raining
             if (whiteCircleInstance != null)
             {
                 Destroy(whiteCircleInstance);
@@ -105,8 +100,14 @@ public class WhaleBehavior : MonoBehaviour
 
         if (currentWeather == WeatherType.Sun && currentHealth > 0 && Time.time > lastAttackTime + attackDelay)
         {
-            StartCoroutine(ShootFireBalls());
-            lastAttackTime = Time.time;
+            if (currentWeather == WeatherType.Sun && currentHealth > 0)
+            {
+                if (Time.time > lastAttackTime + attackDelay)
+                {
+                    StartCoroutine(ShootFireBalls());
+                    lastAttackTime = Time.time; 
+                }
+            }
             // Regain 10 HP but do not exceed maxHealth
             currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
             healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
@@ -135,7 +136,7 @@ public class WhaleBehavior : MonoBehaviour
         }
         else if (currentWeather != WeatherType.Snow && _iceShardCoroutineRunning)
         {
-            StopAllCoroutines(); // This stops all coroutines; consider a more selective approach if you have other important coroutines running
+            StopAllCoroutines(); 
             _iceShardCoroutineRunning = false;
         }
     }
@@ -152,6 +153,22 @@ public class WhaleBehavior : MonoBehaviour
 
     void ChangeWeather()
     {
+
+        // Check if the current weather is Snow and clean up ice shards
+        if (currentWeather == WeatherType.Snow)
+        {
+            StopCoroutine(SpawnIceShards()); // Stop spawning new ice shards
+            _iceShardCoroutineRunning = false;
+            // Optionally, destroy all existing ice shards
+            foreach (var iceShard in FindObjectsOfType(typeof(GameObject)) as GameObject[])
+            {
+                if (iceShard.CompareTag("IceShard")) // Make sure your ice shards have a tag you can check for
+                {
+                    Destroy(iceShard);
+                }
+            }
+        }
+
         // Cycle through the weather types
         Debug.Log("changing weather");
         currentWeather = (WeatherType)(((int)currentWeather + 1) % System.Enum.GetValues(typeof(WeatherType)).Length);
@@ -255,9 +272,11 @@ void UpdateWeatherIcon()
 
             angle += angleStep;
 
-            yield return new WaitForSeconds(0.05f); // Delay between each projectile spawn to spread out the performance impact
+            yield return new WaitForSeconds(0.05f); // This controls the delay between each fireball in a volley
         }
     }
+
+
 
     void ApplyWindForceToPlayer()
     {
@@ -278,7 +297,7 @@ void UpdateWeatherIcon()
             Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
             if (playerRb != null)
             {
-                playerRb.AddForce(windDirection * 2f, ForceMode2D.Force); // Adjust force multiplier as needed
+                playerRb.AddForce(windDirection * 4f, ForceMode2D.Force); // Adjust force multiplier as needed
             }
         }
     }
@@ -331,10 +350,12 @@ void UpdateWeatherIcon()
         while (currentWeather == WeatherType.Snow)
         {
             GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
+            iceShard.tag = "IceShard"; // Ensure this matches the tag you created
             StartCoroutine(MoveIceShardToPlayer(iceShard));
-            yield return new WaitForSeconds(2f); // Adjust the spawn rate as needed
+            yield return new WaitForSeconds(2f);
         }
     }
+
 
     IEnumerator MoveIceShardToPlayer(GameObject iceShard)
     {

@@ -28,6 +28,7 @@ TagManager:
   - NetSpeedUpCounter
   - PermHealthUpCounter
   - Audio
+  - IceShard
   layers:
   - Default
   - TransparentFX
