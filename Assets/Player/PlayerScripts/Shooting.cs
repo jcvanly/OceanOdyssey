@@ -34,11 +34,14 @@ public class Shooting : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        Vector2 targetPosition = firePoint.position + firePoint.right * bulletRange;
-        Vector2 direction = (targetPosition - (Vector2)firePoint.position).normalized;
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mousePosition - (Vector2)firePoint.position).normalized;
         rb.velocity = direction * bulletSpeed;
         Destroy(bullet, bulletRange / bulletSpeed);
 
-        audioManager.PlaySFX(audioManager.shootNoise);
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.shootNoise);
+        }
     }
 }

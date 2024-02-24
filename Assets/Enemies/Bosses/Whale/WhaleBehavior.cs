@@ -41,6 +41,12 @@ public class WhaleBehavior : MonoBehaviour
     private Vector2 windDirection = Vector2.zero;
     private bool isWindActive = false;
     public PhysicsMaterial2D icyMaterial;
+    public GameObject iceShardPrefab; // Assign this in the Inspector
+    private bool _iceShardCoroutineRunning = false;
+    public GameObject icyGroundPrefab; // Assign this in the Inspector
+    private GameObject icyGroundInstance;
+
+
 
 
 
@@ -120,6 +126,17 @@ public class WhaleBehavior : MonoBehaviour
         else
         {
             RemoveIcyConditions();
+        }
+
+        if (currentWeather == WeatherType.Snow && !_iceShardCoroutineRunning)
+        {
+            StartCoroutine(SpawnIceShards());
+            _iceShardCoroutineRunning = true;
+        }
+        else if (currentWeather != WeatherType.Snow && _iceShardCoroutineRunning)
+        {
+            StopAllCoroutines(); // This stops all coroutines; consider a more selective approach if you have other important coroutines running
+            _iceShardCoroutineRunning = false;
         }
     }
 
@@ -268,37 +285,82 @@ void UpdateWeatherIcon()
 
     void ApplyIcyConditions()
     {
+        Debug.Log("Applying Icy Conditions");
+        if (icyGroundInstance == null) // Ensure only one instance is created
+        {
+            // Define the middle of the area or a fixed position for the ice rectangle
+            // This could be a predefined Vector3 position or calculated based on the level layout
+            // For example, setting it to the center of the camera view or a specific location
+            Vector3 icyGroundPosition = CalculateIcyGroundPosition();
 
-    Collider2D playerCollider = player.GetComponent<Collider2D>();
-    if (playerCollider != null)
-    {
-        playerCollider.sharedMaterial = icyMaterial; // icyMaterial should have very low friction
+            // Instantiate the icy ground at the calculated position
+            icyGroundInstance = Instantiate(icyGroundPrefab, icyGroundPosition, Quaternion.identity);
+        }
     }
 
-    Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-    if (playerRb != null)
+    Vector3 CalculateIcyGroundPosition()
     {
-        playerRb.drag = 0.01f; // Lower or remove drag to increase slipperiness
-    }
+        // Example: Place the ice rectangle in the center of the camera's viewport
+        // This assumes your game is 2D and uses an orthographic camera
+        if (Camera.main != null)
+        {
+            Vector3 centerPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
+            centerPoint.z = 0; // Ensure the z position is set correctly for your game's depth usage
+            return centerPoint;
+        }
+
+        // Fallback position if no camera is found
+        return new Vector3(0, 0, 0);
     }
 
     void RemoveIcyConditions()
     {
-        // Reset to default material or drag
-        Collider2D playerCollider = player.GetComponent<Collider2D>();
-        if (playerCollider != null)
+        Debug.Log("Removing Icy Conditions");
+        // Destroy the icy ground instance
+        if (icyGroundInstance != null)
         {
-            playerCollider.sharedMaterial = null; // Assuming null resets to default
-        }
-
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
-        {
-            playerRb.drag = 0; // Reset drag
+            Destroy(icyGroundInstance);
+            icyGroundInstance = null;
         }
     }
 
 
+
+    IEnumerator SpawnIceShards()
+    {
+        while (currentWeather == WeatherType.Snow)
+        {
+            GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
+            StartCoroutine(MoveIceShardToPlayer(iceShard));
+            yield return new WaitForSeconds(2f); // Adjust the spawn rate as needed
+        }
+    }
+
+    IEnumerator MoveIceShardToPlayer(GameObject iceShard)
+    {
+        Vector3 start = iceShard.transform.position;
+        Vector3 end = player.position;
+
+        while (iceShard != null && Vector3.Distance(iceShard.transform.position, end) > 0.1f)
+        {
+            iceShard.transform.position = Vector3.MoveTowards(iceShard.transform.position, end, Time.deltaTime * 5f); // Adjust speed as needed
+            yield return null;
+        }
+
+        if (iceShard != null)
+        {
+            iceShard.GetComponent<Rigidbody2D>().velocity = Vector2.zero; // Stop the shard
+        }
+    }
+
+
+void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerMovement>().ExitIce();
+        }
+    }
 
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -308,6 +370,7 @@ void UpdateWeatherIcon()
             TakeDamage(10); // Assuming each hit decreases 10 health
             Destroy(collider.gameObject); // Destroy the projectile
         }
+        
     }
 
     public void TakeDamage(int damage)

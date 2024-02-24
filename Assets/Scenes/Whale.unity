@@ -20182,63 +20182,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140764214}
   m_CullTransparentMesh: 1
---- !u!1001 &466087356
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -7.4291964
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.8761138
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6705110559093387884, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
 --- !u!1 &586553669
 GameObject:
   m_ObjectHideFlags: 0
@@ -56108,6 +56051,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: icyMaterial
+      value: 
+      objectReference: {fileID: 6200000, guid: ffefc33793609214891ceddc04918f04, type: 2}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: victoryText
       value: 
       objectReference: {fileID: 1944245675}
@@ -56115,6 +56062,14 @@ PrefabInstance:
       propertyPath: weatherIcon
       value: 
       objectReference: {fileID: 1501578903}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: iceShardPrefab
+      value: 
+      objectReference: {fileID: 1181193127380449106, guid: ca30afca0ae6ca44ebb22eba05b7f5db, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: icyGroundPrefab
+      value: 
+      objectReference: {fileID: 8813288812000183659, guid: d51c03590497df947ae95d2fe27d099d, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: lightningPrefab
       value: 
@@ -56220,4 +56175,3 @@ SceneRoots:
   - {fileID: 1536614055}
   - {fileID: 1181640733}
   - {fileID: 992323700}
-  - {fileID: 466087356}
