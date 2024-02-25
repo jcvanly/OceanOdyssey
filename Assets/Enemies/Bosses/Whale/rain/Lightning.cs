@@ -11,4 +11,17 @@ public class Lightning : MonoBehaviour
     {
         Destroy(gameObject, lifetime); // Destroy the lightning after 'lifetime' seconds
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Puddle")) // Ensure your puddles are tagged appropriately
+        {
+            // Call a method on the puddle to change its appearance
+            Puddle puddle = other.GetComponent<Puddle>();
+            if (puddle != null)
+            {
+                puddle.Electrify();
+            }
+        }
+    }
 }

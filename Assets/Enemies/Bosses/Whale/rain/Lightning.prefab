@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5085376967043767975}
   - component: {fileID: 1174235963074867027}
   - component: {fileID: 8945162408714163393}
+  - component: {fileID: 8770016877159277126}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -337,3 +338,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa700ab6bfad8b24ea0e1199ced8530a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 0.5
+--- !u!50 &8770016877159277126
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6428854361535942364}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
