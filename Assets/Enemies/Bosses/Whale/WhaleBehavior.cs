@@ -56,6 +56,11 @@ public class WhaleBehavior : MonoBehaviour
     private List<GameObject> puddles = new List<GameObject>();
     public Vector2 spawnAreaMin = new Vector2(-5, -5); // Bottom-left corner of the spawn area
     public Vector2 spawnAreaMax = new Vector2(5, 5); // Top-right corner of the spawn area
+    public Material heatWaveMaterial; // Add this line to reference the HeatWave material
+    public GameObject whalePrefab; // Prefab of the whale to create mirages
+    private List<GameObject> mirageWhales = new List<GameObject>(); // List to keep track of mirage whales
+    private bool isMirageActive = false; // Flag to indicate if mirage is active
+
 
 
     void Start()
@@ -197,6 +202,9 @@ public class WhaleBehavior : MonoBehaviour
             }
         }
 
+
+        
+
         // Cycle through the weather types
         Debug.Log("changing weather");
         currentWeather = (WeatherType)(((int)currentWeather + 1) % System.Enum.GetValues(typeof(WeatherType)).Length);
@@ -224,6 +232,7 @@ void UpdateWeatherIcon()
     {
         case WeatherType.Sun:
             StopAndClearPuddles();
+            ApplyHeatWaveMaterial();
             weatherIcon.sprite = sunIcon;
             filterColor = new Color(1f, 0.64f, 0f, 0.3f);
             // No particle effect for sunny weather
@@ -243,6 +252,7 @@ void UpdateWeatherIcon()
             currentWeatherEffect = Instantiate(snowParticleSystemPrefab, spawnPosition, Quaternion.identity);
             break;
         case WeatherType.Wind:
+            RevertToOriginalMaterial();
             weatherIcon.sprite = windIcon;
             filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
             
@@ -252,6 +262,25 @@ void UpdateWeatherIcon()
 
     weatherFilterPanel.color = filterColor; // Update the panel's color
 }
+void ApplyHeatWaveMaterial()
+    {
+        Renderer whaleRenderer = GetComponent<Renderer>(); // Get the Renderer component of the whale
+        if (whaleRenderer != null)
+        {
+            whaleRenderer.material = heatWaveMaterial; // Apply the HeatWave material
+        }
+    }
+
+    void RevertToOriginalMaterial()
+    {
+        // Assuming you have a reference to the original material
+        Renderer whaleRenderer = GetComponent<Renderer>();
+        if (whaleRenderer != null)
+        {
+            // Apply the original material
+            // whaleRenderer.material = originalMaterial;
+        }
+    }
 
  void InitializeProjectilePool()
     {
@@ -292,13 +321,32 @@ void UpdateWeatherIcon()
         _lightningCoroutineRunning = false;
     }
 
-    void StartPuddles() {
+void StartPuddles() {
     StopAndClearPuddles(); // Ensure starting fresh
-    for (int i = 0; i < 3; i++) {
-        GameObject puddle = Instantiate(puddlePrefab, RandomPuddlePosition(), Quaternion.identity);
-        puddles.Add(puddle);
-        StartCoroutine(GrowPuddle(puddle));
+
+    // Define corner positions for puddles
+    Vector3[] cornerPositions = new Vector3[]
+    {
+        new Vector3(spawnAreaMin.x, spawnAreaMin.y, 0), // Bottom-left corner
+        new Vector3(spawnAreaMax.x, spawnAreaMin.y, 0), // Bottom-right corner
+        new Vector3(spawnAreaMin.x, spawnAreaMax.y, 0), // Top-left corner
+        new Vector3(spawnAreaMax.x, spawnAreaMax.y, 0), // Top-right corner
+    };
+
+    // Spawn puddles at each corner
+    foreach (var position in cornerPositions)
+    {
+        SpawnPuddleAtPosition(position);
     }
+
+    // Spawn a puddle directly under the whale
+    SpawnPuddleAtPosition(transform.position);
+}
+
+void SpawnPuddleAtPosition(Vector3 position) {
+    GameObject puddle = Instantiate(puddlePrefab, position, Quaternion.identity);
+    puddles.Add(puddle);
+    StartCoroutine(GrowPuddle(puddle));
 }
 
 void StopAndClearPuddles() {
@@ -352,7 +400,6 @@ IEnumerator GrowPuddle(GameObject puddle) {
             yield return new WaitForSeconds(0.05f); // This controls the delay between each fireball in a volley
         }
     }
-
 
 
     void ApplyWindForceToPlayer()

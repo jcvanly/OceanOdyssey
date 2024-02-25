@@ -20315,6 +20315,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140764214}
   m_CullTransparentMesh: 1
+--- !u!1001 &241684429
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.646201
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2080712
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3654732074604707092, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705110559093387884, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
 --- !u!1 &285231741
 GameObject:
   m_ObjectHideFlags: 0
@@ -57090,6 +57147,10 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5058175191330423315, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: sunIcon
       value: 
@@ -57155,6 +57216,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6428854361535942364, guid: 4077db38745c7804881b6cda52a251e2, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: heatWaveMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3bc8b90a5fca0f1468d4027a340d6e0d, type: 2}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: nextIslandButton
       value: 
       objectReference: {fileID: 114216450}
@@ -57178,6 +57243,10 @@ PrefabInstance:
       propertyPath: lightningBoltPrefab
       value: 
       objectReference: {fileID: 3187712170392995084, guid: 450ae3db5318928479cf707836cc7b37, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: heatDistortionEffect
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: rotatingObjectPrefab
       value: 
@@ -57260,3 +57329,4 @@ SceneRoots:
   - {fileID: 1536614055}
   - {fileID: 1181640733}
   - {fileID: 992323700}
+  - {fileID: 241684429}
