@@ -16,6 +16,14 @@ public class GameOverScript : MonoBehaviour
     {
         //audioManager = audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         //Destroy(audioManager.gameObject);
+        if (GlobalEnemyManager.TotalEnemies != 0)
+        {
+            for (int i = 0; i <= GlobalEnemyManager.TotalEnemies; i++)
+            {
+                GlobalEnemyManager.EnemyDied();
+                GlobalEnemyManager.EnemyDied();
+            }
+        }
         SceneManager.LoadScene("StartArea");
     }
     public void QuitGame()
