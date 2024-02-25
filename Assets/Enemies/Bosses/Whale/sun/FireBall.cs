@@ -14,14 +14,13 @@ public class FireBall : MonoBehaviour
     void Update()
     {
         currTime = Time.time;
-        if(currTime - spawnTime >= 5f)
+        if(currTime - spawnTime >= 3f)
         {
             Destroy(gameObject);
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Bullet collided with: " + collision.gameObject.name);
         Destroy(gameObject);
     }
 }

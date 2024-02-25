@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5918147264066143362}
   - component: {fileID: 6624999640227945227}
   - component: {fileID: 2973698846458206758}
+  - component: {fileID: 6028538644841373401}
   m_Layer: 7
   m_Name: fireball
-  m_TagString: CoralCanonShot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -284845621
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4f2fee60bb610f9418f32d688f50d867, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -291,3 +292,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6028538644841373401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7436684572472676356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158b858d6d7229e45be50f296a9a53c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

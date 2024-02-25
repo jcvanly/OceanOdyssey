@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6426527251555192821, guid: f6cfc05031df599439c09c9af848f8a1, type: 3}
+  maxFireballs: 48
   maxHealth: 100
   currentHealth: 0
   playerTransform: {fileID: 0}
@@ -118,9 +119,20 @@ MonoBehaviour:
   snowParticleSystemPrefab: {fileID: 2158619808239789573, guid: ea43ac88ab82cbf47a42de5642ba88e1, type: 3}
   chargeSpeed: 10
   attackDelay: 2
-  lightningBoltPrefab: {fileID: 0}
   playerHealth: {fileID: 0}
   player: {fileID: 0}
+  poolSize: 32
+  lightningPrefab: {fileID: 0}
+  icyMaterial: {fileID: 0}
+  iceShardPrefab: {fileID: 0}
+  icyGroundPrefab: {fileID: 0}
+  orbPrefab: {fileID: 0}
+  cloudPrefab: {fileID: 0}
+  puddlePrefab: {fileID: 0}
+  spawnAreaMin: {x: -5, y: -5}
+  spawnAreaMax: {x: 5, y: 5}
+  heatWaveMaterial: {fileID: 0}
+  whalePrefab: {fileID: 1118131853722620535, guid: 2000d4c6e94931b4cbcf4c9a51f576e4, type: 3}
 --- !u!60 &6117902877807135189
 PolygonCollider2D:
   m_ObjectHideFlags: 0

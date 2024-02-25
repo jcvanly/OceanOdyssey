@@ -129,6 +129,13 @@ public class WhaleBehavior : MonoBehaviour
                     StartCoroutine(ShootFireBalls());
                     lastAttackTime = Time.time; 
                 }
+
+                if(isMirageActive == false)
+                {CreateMirageWhales();
+                isMirageActive = true;
+                }
+                
+                
             }
             
         }
@@ -136,6 +143,8 @@ public class WhaleBehavior : MonoBehaviour
 
         if (currentWeather == WeatherType.Wind)
         {
+            DestroyMirageWhales();
+            isMirageActive = false;
             ApplyWindForceToPlayer();
         }
 
@@ -277,8 +286,8 @@ void ApplyHeatWaveMaterial()
         Renderer whaleRenderer = GetComponent<Renderer>();
         if (whaleRenderer != null)
         {
-            // Apply the original material
-            // whaleRenderer.material = originalMaterial;
+            Material defaultMaterial = new Material(Shader.Find("Sprites/Default"));
+            whaleRenderer.material = defaultMaterial;
         }
     }
 
@@ -329,8 +338,8 @@ void StartPuddles() {
     {
         new Vector3(spawnAreaMin.x, spawnAreaMin.y, 0), // Bottom-left corner
         new Vector3(spawnAreaMax.x, spawnAreaMin.y, 0), // Bottom-right corner
-        new Vector3(spawnAreaMin.x, spawnAreaMax.y, 0), // Top-left corner
-        new Vector3(spawnAreaMax.x, spawnAreaMax.y, 0), // Top-right corner
+        new Vector3(spawnAreaMin.x -3, spawnAreaMax.y, + 6), // Top-left corner
+        new Vector3(spawnAreaMax.x + 3, spawnAreaMax.y, + 6), // Top-right corner
     };
 
     // Spawn puddles at each corner
@@ -356,13 +365,6 @@ void StopAndClearPuddles() {
     }
     puddles.Clear();
 }
-
-Vector3 RandomPuddlePosition() {
-    float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
-    float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
-    return new Vector3(x, y, 0); // Assuming a 2D game; adjust z if necessary
-}
-
 IEnumerator GrowPuddle(GameObject puddle) {
     Vector3 originalScale = puddle.transform.localScale;
     Vector3 targetScale = originalScale * 3; // Example target scale, adjust as needed
@@ -376,7 +378,27 @@ IEnumerator GrowPuddle(GameObject puddle) {
         yield return null;
     }
 }
+void CreateMirageWhales()
+    {
+        for (int i = 0; i < 3; i++) // Create 3 mirage whales
+        {
+            GameObject mirage = Instantiate(whalePrefab, new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), Quaternion.identity);
+            mirageWhales.Add(mirage);
+            // Optionally, make mirages semi-transparent or visually distinct
+            Color mirageColor = mirage.GetComponent<SpriteRenderer>().color;
+            mirageColor.a = 0.5f; // Half transparency
+            mirage.GetComponent<SpriteRenderer>().color = mirageColor;
+        }
+    }
 
+    void DestroyMirageWhales()
+    {
+        foreach (GameObject mirage in mirageWhales)
+        {
+            Destroy(mirage);
+        }
+        mirageWhales.Clear();
+    }
     IEnumerator ShootFireBalls()
     {
         float angleStep = 360f / 16;

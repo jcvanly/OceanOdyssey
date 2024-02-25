@@ -57192,6 +57192,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1501578903}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: whalePrefab
+      value: 
+      objectReference: {fileID: 3798684533114851966, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: puddlePrefab
       value: 
       objectReference: {fileID: 4710238028659815799, guid: e2b34524ff6af1949bb69ab3b34fec28, type: 3}
