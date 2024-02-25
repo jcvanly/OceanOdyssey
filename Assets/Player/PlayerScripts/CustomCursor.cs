@@ -15,6 +15,7 @@ public class CustomCursor : MonoBehaviour
     }
 
     void Awake() {
+        DontDestroyOnLoad(gameObject);
         mainCamera = Camera.main;
     }
 

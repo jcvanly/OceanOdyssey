@@ -46,19 +46,31 @@ public class WhaleBehavior : MonoBehaviour
     private bool _iceShardCoroutineRunning = false;
     public GameObject icyGroundPrefab; // Assign this in the Inspector
     private GameObject icyGroundInstance;
+    public GameObject orbPrefab; // Assign in Inspector
+    private List<GameObject> orbs = new List<GameObject>();
+    private bool areOrbsActive = false;
+    private float minOrbitRadius = 2f; // Minimum orbit radius
+    private float maxOrbitRadius = 5f; // Maximum orbit radius
+    private float expansionSpeed = 2f; // Speed of expansion and contraction
+    public GameObject cloudPrefab; // Assign this in the Inspector instead of whiteCirclePrefab
+    private GameObject cloudInstance;
+
 
     void Start()
     {    
 
         InitializeProjectilePool();
+        InitializeOrbs();
         HideVictoryScreen();
-            currentHealth = maxHealth;
-            currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
-            UpdateWeatherIcon(); // Apply initial weather effect
-            StartCoroutine(WeatherCycle());
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            playerHealth = player.GetComponent<PlayerHealth>();
-            rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+        currentHealth = maxHealth;
+        currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
+        UpdateWeatherIcon(); // Apply initial weather effect
+        StartCoroutine(WeatherCycle());
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+        
+
 
     }
 
@@ -67,22 +79,22 @@ public class WhaleBehavior : MonoBehaviour
     {
         if (currentWeather == WeatherType.Rain)
         {
-            if (whiteCircleInstance == null)
+            if (cloudInstance == null)
             {
-                // Instantiate the white circle above the player
-                whiteCircleInstance = Instantiate(whiteCirclePrefab, player.position + Vector3.up * 2, Quaternion.identity);
+                // Instantiate the cloud above the player with a slight offset
+                cloudInstance = Instantiate(cloudPrefab, player.position + new Vector3(0, 3, 0), Quaternion.identity);
             }
             else
             {
-                // Move the white circle towards the player's position
-                whiteCircleInstance.transform.position = Vector3.MoveTowards(whiteCircleInstance.transform.position, player.position, Time.deltaTime * 2f);
+                // Follow the player with the same offset as when instantiated
+                cloudInstance.transform.position = Vector3.MoveTowards(cloudInstance.transform.position, player.position + new Vector3(0, 3, 0), Time.deltaTime * 2f);
             }
         }
         else
         {
-            if (whiteCircleInstance != null)
+            if (cloudInstance != null)
             {
-                Destroy(whiteCircleInstance);
+                Destroy(cloudInstance);
             }
         }
 
@@ -117,6 +129,18 @@ public class WhaleBehavior : MonoBehaviour
         if (currentWeather == WeatherType.Wind)
         {
             ApplyWindForceToPlayer();
+        }
+
+        if (currentWeather == WeatherType.Wind && !areOrbsActive)
+        {
+            StartCoroutine(ActivateOrbs());
+            areOrbsActive = true;
+        }
+        else if (currentWeather != WeatherType.Wind && areOrbsActive)
+        {
+            StopCoroutine(ActivateOrbs());
+            DeactivateOrbs();
+            areOrbsActive = false;
         }
 
 
@@ -243,15 +267,16 @@ void UpdateWeatherIcon()
     IEnumerator LightningStrikes()
     {
         _lightningCoroutineRunning = true;
-        while (whiteCircleInstance != null && currentWeather == WeatherType.Rain)
+        while (cloudInstance != null && currentWeather == WeatherType.Rain)
         {
-            // Instantiate the lightning effect at the white circle's position
-            Instantiate(lightningPrefab, whiteCircleInstance.transform.position, Quaternion.identity);
+            // Instantiate the lightning effect at the cloud's position
+            Instantiate(lightningPrefab, cloudInstance.transform.position, Quaternion.identity);
 
             yield return new WaitForSeconds(2f); // Wait for 2 seconds before the next strike
         }
         _lightningCoroutineRunning = false;
     }
+
     IEnumerator ShootFireBalls()
     {
         float angleStep = 360f / 16;
@@ -299,6 +324,66 @@ void UpdateWeatherIcon()
             {
                 playerRb.AddForce(windDirection * 4f, ForceMode2D.Force); // Adjust force multiplier as needed
             }
+        }
+    }
+
+    void InitializeOrbs()
+    {
+        orbs.Clear(); // Clear existing orbs list to reset if needed
+        for (int i = 0; i < 8; i++) // Increase number of orbs to 8
+        {
+            GameObject orb = Instantiate(orbPrefab, transform.position, Quaternion.identity);
+            orb.SetActive(false);
+            orbs.Add(orb);
+        }
+    }
+
+
+    IEnumerator ActivateOrbs()
+    {
+        float rotationSpeed = 50f; // Speed at which the orbs rotate around the whale
+        float time = 0f;
+
+        while (currentWeather == WeatherType.Wind)
+        {
+            float totalAngle = time * rotationSpeed; // Total rotation angle based on time
+            float orbitRadius = Mathf.Lerp(minOrbitRadius, maxOrbitRadius, (Mathf.Sin(time * expansionSpeed) + 1) / 2); // Oscillate radius
+
+            for (int i = 0; i < orbs.Count; i++)
+            {
+                float angleStep = 360f / orbs.Count;
+                float angle = totalAngle + i * angleStep; // Calculate the angle for each orb, including rotation
+                angle *= Mathf.Deg2Rad; // Convert to radians for Mathf.Cos and Mathf.Sin
+
+                Vector3 orbPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * orbitRadius;
+                orbs[i].SetActive(true);
+                orbs[i].transform.position = transform.position + orbPosition;
+
+                // Calculate rotation so that orb is vertical on the sides and horizontal on the top and bottom
+                float rotationAngle = Mathf.Rad2Deg * angle - 90; // Adjust rotation based on orbit position
+                orbs[i].transform.rotation = Quaternion.Euler(0, 0, rotationAngle);
+            }
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        DeactivateOrbs(); // Ensure orbs are deactivated when coroutine stops
+    }
+
+
+
+    Vector3 CalculateOrbPosition(float angle, float radius)
+    {
+        // Calculate position based on the current angle and radius
+        return transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * radius, Mathf.Sin(angle * Mathf.Deg2Rad) * radius, 0);
+    }
+
+    void DeactivateOrbs()
+    {
+        foreach (GameObject orb in orbs)
+        {
+            orb.SetActive(false);
         }
     }
 

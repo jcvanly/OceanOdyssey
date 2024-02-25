@@ -20352,7 +20352,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1a5ae858680be744eba1b02a7dfb0234, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -56031,6 +56031,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1548021280}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: orbPrefab
+      value: 
+      objectReference: {fileID: 5361748268505725936, guid: 7ee21fc9f5d727a43b51bb910ec21820, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: cloudPrefab
+      value: 
+      objectReference: {fileID: 5963055010220578532, guid: f903bbea8316019418b9985d23ce2609, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: icyMaterial
       value: 
