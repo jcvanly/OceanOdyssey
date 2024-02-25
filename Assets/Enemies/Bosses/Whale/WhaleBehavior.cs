@@ -33,8 +33,6 @@ public class WhaleBehavior : MonoBehaviour
     private List<GameObject> projectilePool;
     public int poolSize = 32;
     private int currentProjectileIndex = 0;
-    public GameObject whiteCirclePrefab; // Assign this in the Inspector
-    private GameObject whiteCircleInstance;
     public GameObject lightningPrefab; // Assign this in the Inspector
     private bool _lightningCoroutineRunning = false;
     private float lastWindForceTime = 0f;
@@ -52,8 +50,12 @@ public class WhaleBehavior : MonoBehaviour
     private float minOrbitRadius = 2f; // Minimum orbit radius
     private float maxOrbitRadius = 5f; // Maximum orbit radius
     private float expansionSpeed = 2f; // Speed of expansion and contraction
-    public GameObject cloudPrefab; // Assign this in the Inspector instead of whiteCirclePrefab
+    public GameObject cloudPrefab; 
     private GameObject cloudInstance;
+    public GameObject puddlePrefab; // Assign this in the Inspector
+    private List<GameObject> puddles = new List<GameObject>();
+    public Vector2 spawnAreaMin = new Vector2(-5, -5); // Bottom-left corner of the spawn area
+    public Vector2 spawnAreaMax = new Vector2(5, 5); // Top-right corner of the spawn area
 
 
     void Start()
@@ -69,9 +71,6 @@ public class WhaleBehavior : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerHealth = player.GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
-        
-
-
     }
 
 
@@ -89,7 +88,13 @@ public class WhaleBehavior : MonoBehaviour
                 // Follow the player with the same offset as when instantiated
                 cloudInstance.transform.position = Vector3.MoveTowards(cloudInstance.transform.position, player.position + new Vector3(0, 3, 0), Time.deltaTime * 2f);
             }
+
+            if (currentHealth > 0)
+            {
+                HealWhale(); // Call a method to heal the whale
+            }
         }
+
         else
         {
             if (cloudInstance != null)
@@ -98,21 +103,21 @@ public class WhaleBehavior : MonoBehaviour
             }
         }
 
-        if (currentWeather == WeatherType.Rain && whiteCircleInstance != null && !_lightningCoroutineRunning)
+        if (currentWeather == WeatherType.Rain && !_lightningCoroutineRunning)
         {
             StartCoroutine(LightningStrikes());
         }
 
-        else if ((currentWeather != WeatherType.Rain || whiteCircleInstance == null) && _lightningCoroutineRunning)
+        else if ((currentWeather != WeatherType.Rain) && _lightningCoroutineRunning)
         {
             StopCoroutine(LightningStrikes());
             _lightningCoroutineRunning = false;
         }
 
 
-        if (currentWeather == WeatherType.Sun && currentHealth > 0 && Time.time > lastAttackTime + attackDelay)
+        if (currentWeather == WeatherType.Sun && Time.time > lastAttackTime + attackDelay)
         {
-            if (currentWeather == WeatherType.Sun && currentHealth > 0)
+            if (currentWeather == WeatherType.Sun)
             {
                 if (Time.time > lastAttackTime + attackDelay)
                 {
@@ -120,9 +125,7 @@ public class WhaleBehavior : MonoBehaviour
                     lastAttackTime = Time.time; 
                 }
             }
-            // Regain 10 HP but do not exceed maxHealth
-            currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
-            healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
+            
         }
 
 
@@ -171,6 +174,7 @@ public class WhaleBehavior : MonoBehaviour
         {
             // Change weather every 10 seconds
             yield return new WaitForSeconds(10f);
+            Debug.Log("Changing weather...");
             ChangeWeather();
         }
     }
@@ -219,6 +223,7 @@ void UpdateWeatherIcon()
     switch (currentWeather)
     {
         case WeatherType.Sun:
+            StopAndClearPuddles();
             weatherIcon.sprite = sunIcon;
             filterColor = new Color(1f, 0.64f, 0f, 0.3f);
             // No particle effect for sunny weather
@@ -228,6 +233,8 @@ void UpdateWeatherIcon()
             filterColor = new Color(0f, 0.5f, 1f, 0.3f);
             // Adjust spawn position to account for particle system size/shape if necessary
             currentWeatherEffect = Instantiate(rainParticleSystemPrefab, spawnPosition, Quaternion.identity);
+            StartPuddles();
+
             break;
         case WeatherType.Snow:
             weatherIcon.sprite = snowIcon;
@@ -238,6 +245,7 @@ void UpdateWeatherIcon()
         case WeatherType.Wind:
             weatherIcon.sprite = windIcon;
             filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+            
             // Consider adding a wind effect or leave it as is for wind
             break;
     }
@@ -264,6 +272,13 @@ void UpdateWeatherIcon()
         return proj;
     }
 
+    void HealWhale()
+    {
+        // Heal the whale by 10 HP but do not exceed maxHealth
+        currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
+        healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
+        // Optionally, reset or adjust the healing interval if needed
+    }
     IEnumerator LightningStrikes()
     {
         _lightningCoroutineRunning = true;
@@ -276,6 +291,43 @@ void UpdateWeatherIcon()
         }
         _lightningCoroutineRunning = false;
     }
+
+    void StartPuddles() {
+    StopAndClearPuddles(); // Ensure starting fresh
+    for (int i = 0; i < 3; i++) {
+        GameObject puddle = Instantiate(puddlePrefab, RandomPuddlePosition(), Quaternion.identity);
+        puddles.Add(puddle);
+        StartCoroutine(GrowPuddle(puddle));
+    }
+}
+
+void StopAndClearPuddles() {
+    //StopAllCoroutines(); // Stop growing
+    foreach (var puddle in puddles) {
+        Destroy(puddle);
+    }
+    puddles.Clear();
+}
+
+Vector3 RandomPuddlePosition() {
+    float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
+    float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+    return new Vector3(x, y, 0); // Assuming a 2D game; adjust z if necessary
+}
+
+IEnumerator GrowPuddle(GameObject puddle) {
+    Vector3 originalScale = puddle.transform.localScale;
+    Vector3 targetScale = originalScale * 3; // Example target scale, adjust as needed
+
+    float elapsedTime = 0;
+    float growDuration = 10f; // Duration of growth, adjust as needed
+
+    while (currentWeather == WeatherType.Rain && elapsedTime < growDuration) {
+        puddle.transform.localScale = Vector3.Lerp(originalScale, targetScale, (elapsedTime / growDuration));
+        elapsedTime += Time.deltaTime;
+        yield return null;
+    }
+}
 
     IEnumerator ShootFireBalls()
     {
