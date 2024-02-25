@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public static class GlobalEnemyManager
 {
     public static int TotalEnemies { get; private set; } = 0;
@@ -31,4 +30,13 @@ public static class GlobalEnemyManager
     {
         ScenesVisited++;
     }
+
+    public static void DecreaseScenesVisited()
+    {
+        if (ScenesVisited > 0)
+        {
+            ScenesVisited--;
+        }
+    }
+
 }

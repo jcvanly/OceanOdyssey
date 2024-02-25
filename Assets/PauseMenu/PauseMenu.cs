@@ -51,6 +51,15 @@ public class PauseMenu : MonoBehaviour
                 GlobalEnemyManager.EnemyDied();
             }
         }
+
+        if (GlobalEnemyManager.ScenesVisited != 0)
+        {
+            for (int i = 0; i <= GlobalEnemyManager.ScenesVisited; i++)
+            {
+                GlobalEnemyManager.DecreaseScenesVisited();
+                GlobalEnemyManager.DecreaseScenesVisited();
+            }
+        }
         audioManager.PlaySFX(audioManager.mainMenu);
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");

@@ -29,6 +29,7 @@ TagManager:
   - PermHealthUpCounter
   - Audio
   - IceShard
+  - crosshair
   layers:
   - Default
   - TransparentFX

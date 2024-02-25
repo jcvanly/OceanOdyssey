@@ -9,6 +9,7 @@ public class Destroyer : MonoBehaviour
     private GameObject heartCanvas; // Reference to the heart canvas GameObject
     private Camera mainCamera; // Reference to the main camera GameObject
     private AudioManager audioManager;
+    private GameObject crosshair;
     private void Start()
     {
         FindPlayerObjects();
@@ -19,6 +20,7 @@ public class Destroyer : MonoBehaviour
         heartCanvas = GameObject.FindGameObjectWithTag("HeartCanvas");
         mainCamera = Camera.main;
         audioManager = audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        crosshair = GameObject.FindGameObjectWithTag("crosshair");
     }
 
     public void Destroy()
@@ -38,6 +40,10 @@ public class Destroyer : MonoBehaviour
         if (audioManager != null)
         {
             Destroy(audioManager.gameObject);
+        }
+        if(crosshair != null)
+        {
+            Destroy(crosshair);
         }
     }
 }
