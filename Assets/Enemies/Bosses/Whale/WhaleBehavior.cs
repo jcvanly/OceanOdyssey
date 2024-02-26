@@ -261,7 +261,7 @@ void UpdateWeatherIcon()
             currentWeatherEffect = Instantiate(snowParticleSystemPrefab, spawnPosition, Quaternion.identity);
             break;
         case WeatherType.Wind:
-            transform.position = originalPosition; // Move the whale back to its original position
+            StartCoroutine(MoveWhaleToOriginalPosition());
             RevertToOriginalMaterial();
             weatherIcon.sprite = windIcon;
             filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
@@ -314,7 +314,7 @@ void ApplyHeatWaveMaterial()
     void HealWhale()
     {
         // Heal the whale by 10 HP but do not exceed maxHealth
-        currentHealth = Mathf.Min(currentHealth + 10, maxHealth);
+        currentHealth = Mathf.Min(currentHealth + 1, maxHealth);
         healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
         // Optionally, reset or adjust the healing interval if needed
     }
@@ -324,9 +324,11 @@ void ApplyHeatWaveMaterial()
         while (cloudInstance != null && currentWeather == WeatherType.Rain)
         {
             // Instantiate the lightning effect at the cloud's position
+            
             Instantiate(lightningPrefab, cloudInstance.transform.position, Quaternion.identity);
 
-            yield return new WaitForSeconds(2f); // Wait for 2 seconds before the next strike
+            yield return new WaitForSeconds(.25f); // Wait for 2 seconds before the next strike
+            yield return new WaitForSeconds(1.25f);
         }
         _lightningCoroutineRunning = false;
     }
@@ -381,47 +383,71 @@ IEnumerator GrowPuddle(GameObject puddle) {
 }
 void CreateMirageWhales()
 {
-    // Randomly select one of the spawn points for the real whale
+    Vector3 centerPosition = transform.position; // Center position where all whales start
+    
+    // Determine the random index for the real whale to move to one of the spawn points
     int realWhaleIndex = Random.Range(0, spawnPoints.Length);
 
+    List<int> usedIndices = new List<int>(); // To keep track of used spawn points
+
+    // First, move the real whale
+    Vector3 targetPositionForReal = spawnPoints[realWhaleIndex].position;
+    StartCoroutine(MoveWhaleToPosition(transform, targetPositionForReal)); // Move the real whale
+    usedIndices.Add(realWhaleIndex); // Mark the real whale's target as used
+
+    // Now, handle the mirages
     for (int i = 0; i < spawnPoints.Length; i++)
     {
-        if (i == realWhaleIndex)
-        {
-            // Position the real whale at one of the spawn points randomly
-            this.transform.position = spawnPoints[i].position;
-            continue;
-        }
+        if (i == realWhaleIndex) continue; // Skip the spawn point used by the real whale
 
-        // Create mirages at the other spawn points
-        GameObject mirage = Instantiate(whalePrefab, spawnPoints[i].position, Quaternion.identity);
+        GameObject mirage = Instantiate(whalePrefab, centerPosition, Quaternion.identity); // Instantiate mirage at center
 
-        // Optionally, make mirages semi-transparent or visually distinct
         var spriteRenderer = mirage.GetComponent<SpriteRenderer>();
-        
         if (spriteRenderer != null)
         {
             Color mirageColor = spriteRenderer.color;
-            mirageColor.a = 0.5f; // Half transparency
+            mirageColor.a = 0.5f; // Make mirage semi-transparent
             spriteRenderer.color = mirageColor;
         }
-        
-        Rigidbody2D rb = mirage.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.gravityScale = 0;
-            rb.isKinematic = true; // Prevents them from being moved by physics
-        }
 
-        Collider2D collider = mirage.GetComponent<Collider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = true; // Changes collisions to triggers, preventing physics responses
-        }
-
-        mirageWhales.Add(mirage);
+        StartCoroutine(MoveWhaleToPosition(mirage.transform, spawnPoints[i].position)); // Move mirage to its spawn point
+        mirageWhales.Add(mirage); // Add to list for tracking
     }
 }
+
+IEnumerator MoveWhaleToPosition(Transform whale, Vector3 targetPosition)
+{
+    float duration = 2.0f; // Duration of the movement
+    float elapsed = 0f;
+    Vector3 startPosition = whale.position;
+
+    while (elapsed < duration)
+    {
+        whale.position = Vector3.Lerp(startPosition, targetPosition, elapsed / duration);
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    whale.position = targetPosition; // Ensure it ends exactly at the target position
+}
+
+IEnumerator MoveWhaleToOriginalPosition()
+{
+    float duration = 2.0f; // Duration of the movement, adjust as needed
+    Vector3 startPosition = transform.position;
+    float elapsed = 0f;
+
+    while (elapsed < duration)
+    {
+        transform.position = Vector3.Lerp(startPosition, originalPosition, elapsed / duration);
+        elapsed += Time.deltaTime;
+        yield return null;
+    }
+
+    transform.position = originalPosition; // Ensure it ends exactly at the original position
+}
+
+
 
 void DestroyMirageWhales()
 {
