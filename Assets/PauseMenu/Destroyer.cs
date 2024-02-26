@@ -37,10 +37,10 @@ public class Destroyer : MonoBehaviour
         {
             Destroy(mainCamera.gameObject);
         }
-        if (audioManager != null)
-        {
-            Destroy(audioManager.gameObject);
-        }
+        //if (audioManager != null)
+        //{
+         //   Destroy(audioManager.gameObject);
+       // }
         if(crosshair != null)
         {
             Destroy(crosshair);
