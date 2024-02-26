@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void EnterIce() {
     isOnIce = true;
-    rb.drag = 0.01f; // Lower drag for more slide
+    rb.drag = 0.005f; // Lower drag for more slide
     }
 
     // Call this method when exiting ice

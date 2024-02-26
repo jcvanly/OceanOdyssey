@@ -61,13 +61,14 @@ public class WhaleBehavior : MonoBehaviour
     private List<GameObject> mirageWhales = new List<GameObject>(); // List to keep track of mirage whales
     private bool isMirageActive = false; // Flag to indicate if mirage is active
     public Transform[] spawnPoints; // Assign in the Inspector, ensure this matches the desired positions
+    private Vector3 originalPosition;
 
 
 
 
     void Start()
     {    
-
+        originalPosition = transform.position; // Store the original position
         InitializeProjectilePool();
         InitializeOrbs();
         HideVictoryScreen();
@@ -213,9 +214,6 @@ public class WhaleBehavior : MonoBehaviour
             }
         }
 
-
-        
-
         // Cycle through the weather types
         Debug.Log("changing weather");
         currentWeather = (WeatherType)(((int)currentWeather + 1) % System.Enum.GetValues(typeof(WeatherType)).Length);
@@ -263,6 +261,7 @@ void UpdateWeatherIcon()
             currentWeatherEffect = Instantiate(snowParticleSystemPrefab, spawnPosition, Quaternion.identity);
             break;
         case WeatherType.Wind:
+            transform.position = originalPosition; // Move the whale back to its original position
             RevertToOriginalMaterial();
             weatherIcon.sprite = windIcon;
             filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
@@ -589,10 +588,31 @@ void DestroyMirageWhales()
     {
         while (currentWeather == WeatherType.Snow)
         {
+            // Instantiate the ice shard at the whale's position or a specified spawn point
             GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
-            iceShard.tag = "IceShard"; // Ensure this matches the tag you created
-            StartCoroutine(MoveIceShardToPlayer(iceShard));
-            yield return new WaitForSeconds(2f);
+            iceShard.tag = "IceShard"; // Make sure this tag exists and is assigned to the ice shard prefab
+
+            Rigidbody2D rb = iceShard.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                // Calculate direction towards the player
+                Vector2 directionToPlayer = (player.position - transform.position).normalized;
+
+                // Apply velocity in the direction to the player
+                rb.velocity = directionToPlayer * chargeSpeed; // Use your charge speed variable for projectile speed
+
+                // Optionally, you can adjust the rotation of the ice shard to face the player
+                float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
+                iceShard.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+
+            Collider2D collider = iceShard.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                collider.sharedMaterial = icyMaterial; // Apply your bouncy physics material to make it bounce
+            }
+
+            yield return new WaitForSeconds(2f); // Adjust the time between shots as needed
         }
     }
 
@@ -601,16 +621,11 @@ void DestroyMirageWhales()
     {
         Vector3 start = iceShard.transform.position;
         Vector3 end = player.position;
-
+        
         while (iceShard != null && Vector3.Distance(iceShard.transform.position, end) > 0.1f)
         {
-            iceShard.transform.position = Vector3.MoveTowards(iceShard.transform.position, end, Time.deltaTime * 5f); // Adjust speed as needed
+            iceShard.transform.position = Vector3.MoveTowards(iceShard.transform.position, end, Time.deltaTime * 5f);
             yield return null;
-        }
-
-        if (iceShard != null)
-        {
-            iceShard.GetComponent<Rigidbody2D>().velocity = Vector2.zero; // Stop the shard
         }
     }
 
