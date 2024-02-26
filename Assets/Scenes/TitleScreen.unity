@@ -2142,7 +2142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 566163497}
   SFXSource: {fileID: 1273142659}
-  background: {fileID: 8300000, guid: e8dc8f6acae632742a27da68867fd78d, type: 3}
   collectPowerUp: {fileID: 8300000, guid: ba39bf8baf6d13046889b2d64822381a, type: 3}
   shootNoise: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
   takeDamage: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
@@ -2154,6 +2153,14 @@ MonoBehaviour:
   titleScreenBackground: {fileID: 8300000, guid: ba947731bb3309245b8b0ba023189eba, type: 3}
   mainMenuStart: {fileID: 8300000, guid: d6445601b65a5ac4391ea482c012820f, type: 3}
   mainMenuCredit: {fileID: 8300000, guid: 3e80b7f792dfd5940a009b8c92026119, type: 3}
+  background: {fileID: 8300000, guid: e8dc8f6acae632742a27da68867fd78d, type: 3}
+  background2: {fileID: 8300000, guid: e918531f885aa51428e4d8c445b30c0b, type: 3}
+  background3: {fileID: 8300000, guid: 0a50c79264b8a214e83c1371697c620f, type: 3}
+  creditsMusic: {fileID: 8300000, guid: 18867f839e91aa942ac7eb7c84d80a94, type: 3}
+  titleScreenMusic: {fileID: 8300000, guid: fc1b39fcaf3fd2d46b12969492d90f98, type: 3}
+  whaleBossMusic: {fileID: 8300000, guid: 1a5ae858680be744eba1b02a7dfb0234, type: 3}
+  kingQueenBossMusic: {fileID: 8300000, guid: eaab77b15341be84487bcad9cdb65297, type: 3}
+  krakenBossMusic: {fileID: 8300000, guid: 731f69ef7820ef2409b91f4c9f68f3b7, type: 3}
 --- !u!4 &1435888396
 Transform:
   m_ObjectHideFlags: 0
