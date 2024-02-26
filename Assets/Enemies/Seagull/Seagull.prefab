@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
-  damage: 2
+  damage: 0
 --- !u!114 &3844429128743502249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ef79bb203901e4bbc1ea25d9e10c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 8300000, guid: 566d2ea6240b489479a6e9fd608c2621, type: 3}
   powerUpPrefabs:
   - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
   - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}

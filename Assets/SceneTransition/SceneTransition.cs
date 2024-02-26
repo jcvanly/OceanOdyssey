@@ -24,7 +24,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
-                if (GlobalEnemyManager.ScenesVisited >= 11)
+                if (GlobalEnemyManager.ScenesVisited >= 10)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }

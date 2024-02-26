@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d0251a98903cf4f81f4c364bee1082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6426527251555192821, guid: f6cfc05031df599439c09c9af848f8a1, type: 3}
-  maxFireballs: 48
+  fireBall: {fileID: 7436684572472676356, guid: 257aaafc0579e4845bc54132ac43f1ef, type: 3}
+  shootInterval: 2
   maxHealth: 100
   currentHealth: 0
   playerTransform: {fileID: 0}

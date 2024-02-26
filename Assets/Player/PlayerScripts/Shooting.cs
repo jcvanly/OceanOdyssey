@@ -19,15 +19,19 @@ public class Shooting : MonoBehaviour
     }
     void Update()
     {
+
         if (shootTimer > 0)
         {
             shootTimer -= Time.deltaTime;
         }
-        if (Input.GetButtonDown("Fire1") && shootTimer <= 0)
+        // Change this to GetButton to allow for auto-shooting while the mouse button is held down
+        if (Input.GetButton("Fire1") && shootTimer <= 0)
         {
             Shoot();
-            shootTimer = shootCooldown;
+            shootTimer = shootCooldown; // Reset the timer after each shot
         }
+        
+
     }
 
     void Shoot()

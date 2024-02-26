@@ -59783,6 +59783,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 150562adf46e2804fad9038345a1eae2, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: fireBall
+      value: 
+      objectReference: {fileID: 7436684572472676356, guid: 257aaafc0579e4845bc54132ac43f1ef, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: snowIcon
       value: 
       objectReference: {fileID: 21300000, guid: e2db5619fefd8c342bde61d757642049, type: 3}
