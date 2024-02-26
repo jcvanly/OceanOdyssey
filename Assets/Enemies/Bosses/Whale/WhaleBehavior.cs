@@ -54,12 +54,14 @@ public class WhaleBehavior : MonoBehaviour
     private GameObject cloudInstance;
     public GameObject puddlePrefab; // Assign this in the Inspector
     private List<GameObject> puddles = new List<GameObject>();
-    public Vector2 spawnAreaMin = new Vector2(-5, -5); // Bottom-left corner of the spawn area
-    public Vector2 spawnAreaMax = new Vector2(5, 5); // Top-right corner of the spawn area
+    public Vector2 spawnAreaMin = new Vector2(-5, -3); // Bottom-left corner of the spawn area
+    public Vector2 spawnAreaMax = new Vector2(5, 3); // Top-right corner of the spawn area
     public Material heatWaveMaterial; // Add this line to reference the HeatWave material
     public GameObject whalePrefab; // Prefab of the whale to create mirages
     private List<GameObject> mirageWhales = new List<GameObject>(); // List to keep track of mirage whales
     private bool isMirageActive = false; // Flag to indicate if mirage is active
+    public Transform[] spawnPoints; // Assign in the Inspector, ensure this matches the desired positions
+
 
 
 
@@ -336,10 +338,10 @@ void StartPuddles() {
     // Define corner positions for puddles
     Vector3[] cornerPositions = new Vector3[]
     {
-        new Vector3(spawnAreaMin.x, spawnAreaMin.y, 0), // Bottom-left corner
-        new Vector3(spawnAreaMax.x, spawnAreaMin.y, 0), // Bottom-right corner
-        new Vector3(spawnAreaMin.x -3, spawnAreaMax.y, + 6), // Top-left corner
-        new Vector3(spawnAreaMax.x + 3, spawnAreaMax.y, + 6), // Top-right corner
+        new Vector3(spawnAreaMin.x-3, spawnAreaMin.y, -5), // Bottom-left corner
+        new Vector3(spawnAreaMax.x+3, spawnAreaMin.y, -5), // Bottom-right corner
+        new Vector3(spawnAreaMin.x -3, spawnAreaMax.y, + 10), // Top-left corner
+        new Vector3(spawnAreaMax.x + 3, spawnAreaMax.y, + 10), // Top-right corner
     };
 
     // Spawn puddles at each corner
@@ -379,26 +381,58 @@ IEnumerator GrowPuddle(GameObject puddle) {
     }
 }
 void CreateMirageWhales()
-    {
-        for (int i = 0; i < 3; i++) // Create 3 mirage whales
-        {
-            GameObject mirage = Instantiate(whalePrefab, new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), Quaternion.identity);
-            mirageWhales.Add(mirage);
-            // Optionally, make mirages semi-transparent or visually distinct
-            Color mirageColor = mirage.GetComponent<SpriteRenderer>().color;
-            mirageColor.a = 0.5f; // Half transparency
-            mirage.GetComponent<SpriteRenderer>().color = mirageColor;
-        }
-    }
+{
+    // Randomly select one of the spawn points for the real whale
+    int realWhaleIndex = Random.Range(0, spawnPoints.Length);
 
-    void DestroyMirageWhales()
+    for (int i = 0; i < spawnPoints.Length; i++)
     {
-        foreach (GameObject mirage in mirageWhales)
+        if (i == realWhaleIndex)
         {
-            Destroy(mirage);
+            // Position the real whale at one of the spawn points randomly
+            this.transform.position = spawnPoints[i].position;
+            continue;
         }
-        mirageWhales.Clear();
+
+        // Create mirages at the other spawn points
+        GameObject mirage = Instantiate(whalePrefab, spawnPoints[i].position, Quaternion.identity);
+
+        // Optionally, make mirages semi-transparent or visually distinct
+        var spriteRenderer = mirage.GetComponent<SpriteRenderer>();
+        
+        if (spriteRenderer != null)
+        {
+            Color mirageColor = spriteRenderer.color;
+            mirageColor.a = 0.5f; // Half transparency
+            spriteRenderer.color = mirageColor;
+        }
+        
+        Rigidbody2D rb = mirage.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.gravityScale = 0;
+            rb.isKinematic = true; // Prevents them from being moved by physics
+        }
+
+        Collider2D collider = mirage.GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.isTrigger = true; // Changes collisions to triggers, preventing physics responses
+        }
+
+        mirageWhales.Add(mirage);
     }
+}
+
+void DestroyMirageWhales()
+{
+    foreach (GameObject mirage in mirageWhales)
+    {
+        Destroy(mirage);
+    }
+    mirageWhales.Clear();
+}
+
     IEnumerator ShootFireBalls()
     {
         float angleStep = 360f / 16;

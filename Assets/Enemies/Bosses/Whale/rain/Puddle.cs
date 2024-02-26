@@ -9,6 +9,9 @@ public class Puddle : MonoBehaviour
     public float minSpeed = 2f; // Minimum speed the player can be reduced to
     public int damage = 10; // Damage to deal to the player
     private bool isElectrified = false; // Flag to check if the puddle is electrified
+    public PlayerHealth playerHealth;
+
+    
 
     private void Awake()
     {
@@ -21,7 +24,7 @@ public class Puddle : MonoBehaviour
         isElectrified = true;
         spriteRenderer.color = electrifiedColor;
         // Revert back to the original color after 1 second
-        Invoke(nameof(RevertColor), 1f);
+        Invoke(nameof(RevertColor), .5f);
     }
 
     void RevertColor()
@@ -42,10 +45,8 @@ public class Puddle : MonoBehaviour
                 
                 // If the puddle is electrified, deal damage
                 if (isElectrified)
-                {
-                    // Assuming the player has a method to take damage
-                    // Replace 'PlayerHealth' with the actual component name that handles health
-                    collision.gameObject.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+                {           
+                    playerHealth.TakeDamage(1); // Adjust damage value as necessary
                 }
             }
         }

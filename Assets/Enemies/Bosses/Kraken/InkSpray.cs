@@ -15,7 +15,6 @@ public class InkSpray : MonoBehaviour
             if (playerMovement != null)
             {
                 // Reduce speed but ensure it doesn't go below a minimum speed
-                //change to - when not testing
                 playerMovement.moveSpeed = Mathf.Max(playerMovement.moveSpeed - speedReduction, minSpeed);
             }
         }
