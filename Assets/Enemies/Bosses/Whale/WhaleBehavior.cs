@@ -29,10 +29,6 @@
         public PlayerHealth playerHealth;
         public Transform player; // Reference to the player's transform
         private Rigidbody2D rb;
-        private float lastAttackTime = -1000; // Initialize to allow immediate attack
-        private List<GameObject> projectilePool;
-        public int poolSize = 32;
-        private int currentProjectileIndex = 0;
         public GameObject lightningPrefab; // Assign this in the Inspector
         private bool _lightningCoroutineRunning = false;
         private float lastWindForceTime = 0f;
@@ -62,6 +58,9 @@
         private bool isMirageActive = false; // Flag to indicate if mirage is active
         public Transform[] spawnPoints; // Assign in the Inspector, ensure this matches the desired positions
         private Vector3 originalPosition;
+        public int amountHealed = 0;
+        private float healRate = 1.0f; // Time in seconds between each heal
+        private float lastHealTime = 0;
 
         void Start()
         {    
@@ -78,7 +77,6 @@
             rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
         }
 
-
         void Update()
         {
             if (currentWeather == WeatherType.Rain)
@@ -94,9 +92,9 @@
                     cloudInstance.transform.position = Vector3.MoveTowards(cloudInstance.transform.position, player.position + new Vector3(0, 3, 0), Time.deltaTime * 2f);
                 }
 
-                if (currentHealth > 0)
+                if (currentWeather == WeatherType.Rain && Time.time - lastHealTime >= healRate && amountHealed < 10)
                 {
-                    HealWhale(); // Call a method to heal the whale
+                    HealWhale();
                 }
             }
 
@@ -122,10 +120,15 @@
 
             if (currentWeather == WeatherType.Sun)
             {
-                if (currentWeather == WeatherType.Sun && shootTimer <= 0)
+
+                shootTimer -= Time.deltaTime;
+
+                // Check if shootTimer is less than or equal to 0
+                if (shootTimer <= 0)
                 {
-                    shootFireball(); // Call the Shoot method
-                    shootTimer = shootInterval; // Reset the shoot timer
+                    shootFireball(); // Shoot fireball
+                    // Reset the shootTimer to shootInterval
+                    shootTimer = shootInterval;
                 }
 
                 if(isMirageActive == false)
@@ -142,6 +145,7 @@
                 DestroyMirageWhales();
                 isMirageActive = false;
                 ApplyWindForceToPlayer();
+                
             }
 
             if (currentWeather == WeatherType.Wind && !areOrbsActive)
@@ -233,6 +237,7 @@
         switch (currentWeather)
         {
             case WeatherType.Sun:
+                
                 StopAndClearPuddles();
                 ApplyHeatWaveMaterial();
                 weatherIcon.sprite = sunIcon;
@@ -252,9 +257,10 @@
                 filterColor = new Color(1f, 1f, 1f, 0.3f);
                 // Adjust spawn position to account for particle system size/shape if necessary
                 currentWeatherEffect = Instantiate(snowParticleSystemPrefab, spawnPosition, Quaternion.identity);
+                StartCoroutine(MoveWhaleToOriginalPosition());
+
                 break;
             case WeatherType.Wind:
-                StartCoroutine(MoveWhaleToOriginalPosition());
                 RevertToOriginalMaterial();
                 weatherIcon.sprite = windIcon;
                 filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
@@ -297,11 +303,28 @@
         }
         void HealWhale()
         {
-            // Heal the whale by 10 HP but do not exceed maxHealth
-            currentHealth = Mathf.Min(currentHealth + 1, maxHealth);
-            healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
-            // Optionally, reset or adjust the healing interval if needed
+            
+            // Assuming you want to heal up to 10 HP during the rain, spread over time
+            if (currentHealth < maxHealth)
+            {
+                int healAmount = 1; // Heal 1 HP at a time
+                currentHealth += healAmount;
+                currentHealth = Mathf.Min(currentHealth, maxHealth); // Ensure we don't exceed maxHealth
+                amountHealed += healAmount;
+                lastHealTime = Time.time; // Update the last heal time
+
+                healthBar.UpdateHealthBar(currentHealth, maxHealth); // Update the health bar
+                Debug.Log("current Health is: " + currentHealth);
+            }
+
+            // Reset amountHealed when not raining or after reaching the heal cap
+            if (currentWeather != WeatherType.Rain || amountHealed >= 10)
+            {
+                amountHealed = 0;
+            }
+            
         }
+
         IEnumerator LightningStrikes()
         {
             _lightningCoroutineRunning = true;
@@ -398,7 +421,6 @@
             mirageWhales.Add(mirage); // Add to list for tracking
         }
     }
-
     IEnumerator MoveWhaleToPosition(Transform whale, Vector3 targetPosition)
     {
         float duration = 2.0f; // Duration of the movement
@@ -414,7 +436,6 @@
 
         whale.position = targetPosition; // Ensure it ends exactly at the target position
     }
-
     IEnumerator MoveWhaleToOriginalPosition()
     {
         float duration = 2.0f; // Duration of the movement, adjust as needed
@@ -430,7 +451,6 @@
 
         transform.position = originalPosition; // Ensure it ends exactly at the original position
     }
-
     void DestroyMirageWhales()
     {
         foreach (GameObject mirage in mirageWhales)
@@ -440,7 +460,27 @@
         mirageWhales.Clear();
     }
 
-        
+    void MoveTowardsPlayer()
+    {
+        if (player != null)
+        {
+            float desiredDistance = 5f; // The desired distance from the player. Adjust as needed.
+            float moveSpeed = 2f; // Reduced speed. Adjust to make the whale move slower.
+            
+            Vector2 direction = (player.position - transform.position).normalized;
+            float distance = Vector2.Distance(transform.position, player.position);
+
+            if (distance > desiredDistance)
+            {
+                // Move only if the distance is greater than the desired distance
+                Vector2 newPosition = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+                rb.MovePosition(newPosition);
+            }
+        }
+    }
+
+
+
         void ApplyWindForceToPlayer()
         {
             if (!isWindActive || Time.time > lastWindForceTime + windForceInterval)
@@ -451,12 +491,13 @@
                 lastWindForceTime = Time.time;
             }
         }
-
         void FixedUpdate()
-        {
+        {   
             if (currentWeather == WeatherType.Wind && isWindActive)
             {
-                        Debug.Log($"Applying wind force: {windDirection}");
+                MoveTowardsPlayer();
+
+                Debug.Log($"Applying wind force: {windDirection}");
                 Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
                 if (playerRb != null)
                 {
@@ -464,7 +505,6 @@
                 }
             }
         }
-
         void InitializeOrbs()
         {
             orbs.Clear(); // Clear existing orbs list to reset if needed
@@ -475,8 +515,6 @@
                 orbs.Add(orb);
             }
         }
-
-
         IEnumerator ActivateOrbs()
         {
             float rotationSpeed = 50f; // Speed at which the orbs rotate around the whale
@@ -508,15 +546,6 @@
 
             DeactivateOrbs(); // Ensure orbs are deactivated when coroutine stops
         }
-
-
-
-        Vector3 CalculateOrbPosition(float angle, float radius)
-        {
-            // Calculate position based on the current angle and radius
-            return transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * radius, Mathf.Sin(angle * Mathf.Deg2Rad) * radius, 0);
-        }
-
         void DeactivateOrbs()
         {
             foreach (GameObject orb in orbs)
@@ -524,7 +553,6 @@
                 orb.SetActive(false);
             }
         }
-
         void ApplyIcyConditions()
         {
             Debug.Log("Applying Icy Conditions");
@@ -539,7 +567,6 @@
                 icyGroundInstance = Instantiate(icyGroundPrefab, icyGroundPosition, Quaternion.identity);
             }
         }
-
         Vector3 CalculateIcyGroundPosition()
         {
             // Example: Place the ice rectangle in the center of the camera's viewport
@@ -554,7 +581,6 @@
             // Fallback position if no camera is found
             return new Vector3(0, 0, 0);
         }
-
         void RemoveIcyConditions()
         {
             Debug.Log("Removing Icy Conditions");
@@ -565,9 +591,6 @@
                 icyGroundInstance = null;
             }
         }
-
-
-
         IEnumerator SpawnIceShards()
         {
             while (currentWeather == WeatherType.Snow)
@@ -600,20 +623,6 @@
             }
         }
 
-
-        IEnumerator MoveIceShardToPlayer(GameObject iceShard)
-        {
-            Vector3 start = iceShard.transform.position;
-            Vector3 end = player.position;
-            
-            while (iceShard != null && Vector3.Distance(iceShard.transform.position, end) > 0.1f)
-            {
-                iceShard.transform.position = Vector3.MoveTowards(iceShard.transform.position, end, Time.deltaTime * 5f);
-                yield return null;
-            }
-        }
-
-
     void OnTriggerExit2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -621,8 +630,6 @@
                 other.GetComponent<PlayerMovement>().ExitIce();
             }
         }
-
-
         void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.gameObject.CompareTag("PlayerProjectile"))
@@ -632,7 +639,6 @@
             }
             
         }
-
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
@@ -643,7 +649,6 @@
                 Die();
             }
         }
-
         void Die()
         {
 
@@ -657,7 +662,6 @@
             StartCoroutine(FadeToBlack());
 
         }
-
         public IEnumerator FadeToBlack()
         {
             float elapsedTime = 0f;
@@ -677,7 +681,6 @@
             Destroy(gameObject);  
             
         }
-
         public void ShowVictoryScreen()
         {
             victoryText.SetActive(true);
