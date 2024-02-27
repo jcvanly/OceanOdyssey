@@ -56,7 +56,7 @@
         public GameObject whalePrefab; // Prefab of the whale to create mirages
         private List<GameObject> mirageWhales = new List<GameObject>(); // List to keep track of mirage whales
         private bool isMirageActive = false; // Flag to indicate if mirage is active
-        public Transform[] spawnPoints; // Assign in the Inspector, ensure this matches the desired positions
+        public Transform[] spawnPoints; 
         private Vector3 originalPosition;
         public int amountHealed = 0;
         private float healRate = 1.0f; // Time in seconds between each heal
@@ -69,7 +69,7 @@
             InitializeOrbs();
             HideVictoryScreen();
             currentHealth = maxHealth;
-            currentWeather = WeatherType.Rain; // Ensure this is set before calling UpdateWeatherIcon
+            currentWeather = WeatherType.Rain;
             UpdateWeatherIcon(); // Apply initial weather effect
             StartCoroutine(WeatherCycle());
             player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -201,10 +201,9 @@
             {
                 StopCoroutine(SpawnIceShards()); // Stop spawning new ice shards
                 _iceShardCoroutineRunning = false;
-                // Optionally, destroy all existing ice shards
                 foreach (var iceShard in FindObjectsOfType(typeof(GameObject)) as GameObject[])
                 {
-                    if (iceShard.CompareTag("IceShard")) // Make sure your ice shards have a tag you can check for
+                    if (iceShard.CompareTag("IceShard"))
                     {
                         Destroy(iceShard);
                     }
@@ -221,7 +220,6 @@
     {
         Color filterColor = Color.clear; // Default to clear
 
-        // Destroy the current weather effect if it exists
         if (currentWeatherEffect != null)
         {
             Destroy(currentWeatherEffect);
@@ -229,10 +227,8 @@
 
         Camera mainCamera = Camera.main;
         float topOfScreen = mainCamera.orthographicSize;
-        Vector3 spawnPosition = mainCamera.transform.position 
-                                + new Vector3(0, topOfScreen, 0);
-        // Ensure the spawn position's z-coordinate is set appropriately to be visible
-        spawnPosition.z = 0; // Adjust this value if necessary to match your 2D setup
+        Vector3 spawnPosition = mainCamera.transform.position + new Vector3(0, topOfScreen, 0);
+        spawnPosition.z = 0; 
 
         switch (currentWeather)
         {
@@ -242,12 +238,10 @@
                 ApplyHeatWaveMaterial();
                 weatherIcon.sprite = sunIcon;
                 filterColor = new Color(1f, 0.64f, 0f, 0.3f);
-                // No particle effect for sunny weather
                 break;
             case WeatherType.Rain:
                 weatherIcon.sprite = rainIcon;
                 filterColor = new Color(0f, 0.5f, 1f, 0.3f);
-                // Adjust spawn position to account for particle system size/shape if necessary
                 currentWeatherEffect = Instantiate(rainParticleSystemPrefab, spawnPosition, Quaternion.identity);
                 StartPuddles();
 
@@ -255,7 +249,6 @@
             case WeatherType.Snow:
                 weatherIcon.sprite = snowIcon;
                 filterColor = new Color(1f, 1f, 1f, 0.3f);
-                // Adjust spawn position to account for particle system size/shape if necessary
                 currentWeatherEffect = Instantiate(snowParticleSystemPrefab, spawnPosition, Quaternion.identity);
                 StartCoroutine(MoveWhaleToOriginalPosition());
 
@@ -265,7 +258,6 @@
                 weatherIcon.sprite = windIcon;
                 filterColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
                 
-                // Consider adding a wind effect or leave it as is for wind
                 break;
         }
 
@@ -309,7 +301,7 @@
             {
                 int healAmount = 1; // Heal 1 HP at a time
                 currentHealth += healAmount;
-                currentHealth = Mathf.Min(currentHealth, maxHealth); // Ensure we don't exceed maxHealth
+                currentHealth = Mathf.Min(currentHealth, maxHealth); // Ensure don't exceed maxHealth
                 amountHealed += healAmount;
                 lastHealTime = Time.time; // Update the last heal time
 
@@ -326,46 +318,59 @@
         }
 
         IEnumerator LightningStrikes()
+{
+    _lightningCoroutineRunning = true;
+    while (cloudInstance != null && currentWeather == WeatherType.Rain)
+    {
+        // Calculate the spawn position so that the top of the lightning sprite appears to come from the bottom of the cloud.
+        SpriteRenderer cloudSpriteRenderer = cloudInstance.GetComponent<SpriteRenderer>();
+        if (cloudSpriteRenderer != null)
         {
-            _lightningCoroutineRunning = true;
-            while (cloudInstance != null && currentWeather == WeatherType.Rain)
-            {
-                // Instantiate the lightning effect at the cloud's position
-                
-                Instantiate(lightningPrefab, cloudInstance.transform.position, Quaternion.identity);
+            Vector3 cloudBottom = cloudInstance.transform.position - new Vector3(0, cloudSpriteRenderer.bounds.extents.y, 0);
+            // Instantiate the lightning prefab at the calculated position.
+            GameObject lightning = Instantiate(lightningPrefab, cloudBottom, Quaternion.identity);
 
-                yield return new WaitForSeconds(.25f); // Wait for 2 seconds before the next strike
-                yield return new WaitForSeconds(1.25f);
-            }
-            _lightningCoroutineRunning = false;
+            // Set the parent of the lightning GameObject to the cloud instance.
+            lightning.transform.SetParent(cloudInstance.transform);
+
+            lightning.transform.localPosition = new Vector3(0, -cloudSpriteRenderer.bounds.extents.y, 0);
         }
 
-    void StartPuddles() {
-        StopAndClearPuddles(); // Ensure starting fresh
+        // Wait for the next lightning strike.
+        yield return new WaitForSeconds(.25f); // Short delay before the next strike.
+        yield return new WaitForSeconds(1.25f); // Longer delay for a more natural effect.
+    }
+    _lightningCoroutineRunning = false;
+}
 
-        // Define corner positions for puddles
-        Vector3[] cornerPositions = new Vector3[]
-        {
-            new Vector3(spawnAreaMin.x-3, spawnAreaMin.y, -5), // Bottom-left corner
-            new Vector3(spawnAreaMax.x+3, spawnAreaMin.y, -5), // Bottom-right corner
-            new Vector3(spawnAreaMin.x -3, spawnAreaMax.y, + 10), // Top-left corner
-            new Vector3(spawnAreaMax.x + 3, spawnAreaMax.y, + 10), // Top-right corner
-        };
 
-        // Spawn puddles at each corner
-        foreach (var position in cornerPositions)
+    void StartPuddles()
+    {
+        StopAndClearPuddles(); // Clear existing puddles first
+
+        int puddleCount = 10; // Number of puddles to spawn
+
+        for (int i = 0; i < puddleCount; i++)
         {
-            SpawnPuddleAtPosition(position);
+            Vector3 randomPosition = GetRandomPositionInSpawnArea();
+            SpawnPuddleAtPosition(randomPosition);
         }
-
-        // Spawn a puddle directly under the whale
-        SpawnPuddleAtPosition(transform.position);
     }
 
-    void SpawnPuddleAtPosition(Vector3 position) {
+    Vector3 GetRandomPositionInSpawnArea()
+    {
+        float randomX = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
+        float randomY = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+
+        // Assuming you're working in 2D and Z is irrelevant, set Z to a fixed value, like 0 or the Z of your arena
+        return new Vector3(randomX, randomY, 0); // Adjust Z as needed
+    }
+
+    void SpawnPuddleAtPosition(Vector3 position)
+    {
         GameObject puddle = Instantiate(puddlePrefab, position, Quaternion.identity);
         puddles.Add(puddle);
-        StartCoroutine(GrowPuddle(puddle));
+        StartCoroutine(GrowPuddle(puddle)); // Assuming you want the puddles to grow over time
     }
 
     void StopAndClearPuddles() {
@@ -377,10 +382,10 @@
     }
     IEnumerator GrowPuddle(GameObject puddle) {
         Vector3 originalScale = puddle.transform.localScale;
-        Vector3 targetScale = originalScale * 3; // Example target scale, adjust as needed
+        Vector3 targetScale = originalScale * 3; 
 
         float elapsedTime = 0;
-        float growDuration = 10f; // Duration of growth, adjust as needed
+        float growDuration = 10f; // Duration of growth
 
         while (currentWeather == WeatherType.Rain && elapsedTime < growDuration) {
             puddle.transform.localScale = Vector3.Lerp(originalScale, targetScale, (elapsedTime / growDuration));
@@ -402,7 +407,7 @@
         StartCoroutine(MoveWhaleToPosition(transform, targetPositionForReal)); // Move the real whale
         usedIndices.Add(realWhaleIndex); // Mark the real whale's target as used
 
-        // Now, handle the mirages
+        // handle the mirages
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             if (i == realWhaleIndex) continue; // Skip the spawn point used by the real whale
@@ -418,7 +423,7 @@
             }
 
             StartCoroutine(MoveWhaleToPosition(mirage.transform, spawnPoints[i].position)); // Move mirage to its spawn point
-            mirageWhales.Add(mirage); // Add to list for tracking
+            mirageWhales.Add(mirage); 
         }
     }
     IEnumerator MoveWhaleToPosition(Transform whale, Vector3 targetPosition)
@@ -438,7 +443,7 @@
     }
     IEnumerator MoveWhaleToOriginalPosition()
     {
-        float duration = 2.0f; // Duration of the movement, adjust as needed
+        float duration = 2.0f; // Duration of the movement
         Vector3 startPosition = transform.position;
         float elapsed = 0f;
 
@@ -464,8 +469,8 @@
     {
         if (player != null)
         {
-            float desiredDistance = 5f; // The desired distance from the player. Adjust as needed.
-            float moveSpeed = 2f; // Reduced speed. Adjust to make the whale move slower.
+            float desiredDistance = 6f; // The desired distance from the player
+            float moveSpeed = 2f; // Adjust whale speed
             
             Vector2 direction = (player.position - transform.position).normalized;
             float distance = Vector2.Distance(transform.position, player.position);
@@ -507,7 +512,7 @@
         }
         void InitializeOrbs()
         {
-            orbs.Clear(); // Clear existing orbs list to reset if needed
+            orbs.Clear(); // Clear existing orbs to reset
             for (int i = 0; i < 8; i++) // Increase number of orbs to 8
             {
                 GameObject orb = Instantiate(orbPrefab, transform.position, Quaternion.identity);
@@ -558,23 +563,19 @@
             Debug.Log("Applying Icy Conditions");
             if (icyGroundInstance == null) // Ensure only one instance is created
             {
-                // Define the middle of the area or a fixed position for the ice rectangle
-                // This could be a predefined Vector3 position or calculated based on the level layout
-                // For example, setting it to the center of the camera view or a specific location
+                // Define the middle of the arena
                 Vector3 icyGroundPosition = CalculateIcyGroundPosition();
 
-                // Instantiate the icy ground at the calculated position
+                // Create the icy ground at the calculated position
                 icyGroundInstance = Instantiate(icyGroundPrefab, icyGroundPosition, Quaternion.identity);
             }
         }
         Vector3 CalculateIcyGroundPosition()
         {
-            // Example: Place the ice rectangle in the center of the camera's viewport
-            // This assumes your game is 2D and uses an orthographic camera
             if (Camera.main != null)
             {
                 Vector3 centerPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
-                centerPoint.z = 0; // Ensure the z position is set correctly for your game's depth usage
+                centerPoint.z = 0;
                 return centerPoint;
             }
 
@@ -595,9 +596,8 @@
         {
             while (currentWeather == WeatherType.Snow)
             {
-                // Instantiate the ice shard at the whale's position or a specified spawn point
                 GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
-                iceShard.tag = "IceShard"; // Make sure this tag exists and is assigned to the ice shard prefab
+                iceShard.tag = "IceShard";
 
                 Rigidbody2D rb = iceShard.GetComponent<Rigidbody2D>();
                 if (rb != null)
@@ -606,9 +606,8 @@
                     Vector2 directionToPlayer = (player.position - transform.position).normalized;
 
                     // Apply velocity in the direction to the player
-                    rb.velocity = directionToPlayer * chargeSpeed; // Use your charge speed variable for projectile speed
+                    rb.velocity = directionToPlayer * chargeSpeed; 
 
-                    // Optionally, you can adjust the rotation of the ice shard to face the player
                     float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
                     iceShard.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 }
@@ -616,7 +615,7 @@
                 Collider2D collider = iceShard.GetComponent<Collider2D>();
                 if (collider != null)
                 {
-                    collider.sharedMaterial = icyMaterial; // Apply your bouncy physics material to make it bounce
+                    collider.sharedMaterial = icyMaterial; // Apply bouncy physics material
                 }
 
                 yield return new WaitForSeconds(2f); // Adjust the time between shots as needed
@@ -642,7 +641,7 @@
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
-            healthBar.UpdateHealthBar(currentHealth, maxHealth); // This method needs to be implemented in your HealthBar script
+            healthBar.UpdateHealthBar(currentHealth, maxHealth); 
 
             if (currentHealth <= 0)
             {
@@ -687,7 +686,6 @@
             nextIslandButton.SetActive(true);
         }
 
-        // Optionally, if you want to be able to hide them again
         public void HideVictoryScreen()
         {
             victoryText.SetActive(false);
