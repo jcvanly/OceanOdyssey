@@ -24,7 +24,7 @@
         private GameObject currentWeatherEffect;
         private enum WeatherType { Rain, Sun, Wind, Snow }
         private WeatherType currentWeather = WeatherType.Rain; // Start with Rain
-        public float chargeSpeed = 10f;
+        public float iceChargeSpeed = 3f;
         public float attackDelay = 2f; // Time between attacks
         public PlayerHealth playerHealth;
         public Transform player; // Reference to the player's transform
@@ -345,17 +345,42 @@
 
 
     void StartPuddles()
+{
+    StopAndClearPuddles(); // Clear existing puddles first
+
+    int puddleCount = 10; // Number of puddles to spawn
+    float minDistanceApart = 1.5f; // Minimum distance between puddles
+
+    for (int i = 0; i < puddleCount; i++)
     {
-        StopAndClearPuddles(); // Clear existing puddles first
+        Vector3 randomPosition = GetRandomPositionInSpawnArea();
+        bool isTooClose;
 
-        int puddleCount = 10; // Number of puddles to spawn
-
-        for (int i = 0; i < puddleCount; i++)
+        // Attempt up to 10 times to find a suitable position that isn't too close to other puddles
+        int attempts = 0;
+        do
         {
-            Vector3 randomPosition = GetRandomPositionInSpawnArea();
+            isTooClose = false;
+            foreach (GameObject existingPuddle in puddles)
+            {
+                if (Vector3.Distance(randomPosition, existingPuddle.transform.position) < minDistanceApart)
+                {
+                    isTooClose = true;
+                    randomPosition = GetRandomPositionInSpawnArea();
+                    break; // Exit the foreach loop and try a new position
+                }
+            }
+            attempts++;
+        } while (isTooClose && attempts < 10);
+
+        // If a suitable position is found, spawn the puddle
+        if (!isTooClose)
+        {
             SpawnPuddleAtPosition(randomPosition);
         }
     }
+}
+
 
     Vector3 GetRandomPositionInSpawnArea()
     {
@@ -415,12 +440,12 @@
             GameObject mirage = Instantiate(whalePrefab, centerPosition, Quaternion.identity); // Instantiate mirage at center
 
             var spriteRenderer = mirage.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                Color mirageColor = spriteRenderer.color;
-                mirageColor.a = 0.5f; // Make mirage semi-transparent
-                spriteRenderer.color = mirageColor;
-            }
+            // if (spriteRenderer != null)
+            // {
+            //     Color mirageColor = spriteRenderer.color;
+            //     mirageColor.a = 0.5f; // Make mirage semi-transparent
+            //     spriteRenderer.color = mirageColor;
+            // }
 
             StartCoroutine(MoveWhaleToPosition(mirage.transform, spawnPoints[i].position)); // Move mirage to its spawn point
             mirageWhales.Add(mirage); 
@@ -606,7 +631,7 @@
                     Vector2 directionToPlayer = (player.position - transform.position).normalized;
 
                     // Apply velocity in the direction to the player
-                    rb.velocity = directionToPlayer * chargeSpeed; 
+                    rb.velocity = directionToPlayer * iceChargeSpeed; 
 
                     float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
                     iceShard.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -650,6 +675,9 @@
         }
         void Die()
         {
+            
+            weatherIcon.enabled = false; 
+            weatherFilterPanel.enabled = false;
 
             GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("HealthBar");
             if (healthBarGameObject != null) {
