@@ -17,6 +17,7 @@ public class SmallSquid : MonoBehaviour
     private SpriteRenderer enemySr;
     private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
+    private Color currColor;
     private float damageTime;
     private float timeLastFlash;
     private float currTime;
@@ -33,6 +34,7 @@ public class SmallSquid : MonoBehaviour
     void Update()
     {
         inkSpotTimer -= Time.deltaTime;
+        currTime = Time.time;
         if (inkSpotTimer <= 0)
         {
             StartCoroutine(ShootInkSpot());
@@ -42,16 +44,19 @@ public class SmallSquid : MonoBehaviour
         if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
         {
             resetColor();
+            Debug.Log("ss reset color");
         }
 
         else if (flashOnDamage == true)
         {
-            if(enemySr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            currColor = enemySr.color;
+
+            if(currColor == originalColor && currTime >= (timeLastFlash + .1f))
             {
                 timeLastFlash = currTime;
                 enemySr.color = damageColor;
             }
-            else if (enemySr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            else if (currColor == damageColor && currTime >= (timeLastFlash + .1f))
             {
                 timeLastFlash = currTime;
                 enemySr.color = originalColor;
@@ -106,11 +111,6 @@ public class SmallSquid : MonoBehaviour
                 isDead = true;
             }
 
-            if (currentHealth <= 0)
-            {
-                enemyDeath.Die();
-                isDead = true;
-            }
             else
             {
                 currTime = Time.time;
