@@ -263,7 +263,7 @@ IEnumerator PerformSideSlash()
     void Die()
     {
         CrabIsAlive = false; // Ensure this flag is set to false
-    
+        GlobalEnemyManager.CrabDefeated = true;
         StopAllCoroutines();
 
         GameObject healthBarGameObject = GameObject.FindGameObjectWithTag("CrabHealth");
@@ -277,6 +277,7 @@ IEnumerator PerformSideSlash()
         GlobalEnemyManager.CrabDead = true;
 
         if (GlobalEnemyManager.CrabAndLobsterDead()) {
+            Debug.Log("crab showing black screen");
             ShowVictoryScreen();
             StartCoroutine(FadeToBlack());
         } else {

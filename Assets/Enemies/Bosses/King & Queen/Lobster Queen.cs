@@ -144,8 +144,10 @@ public class LobsterQueen : MonoBehaviour
         GlobalEnemyManager.LobsterDead = true;
 
         if (GlobalEnemyManager.CrabAndLobsterDead()) {
+            Debug.Log("lobster showing black screen");
             ShowVictoryScreen();
             StartCoroutine(FadeToBlack());
+            DestroyAllMiniLobsters();
         } else {
             DestroyAllMiniLobsters(); // Destroy all mini lobsters
             Destroy(gameObject); // Destroy the Lobster Queen

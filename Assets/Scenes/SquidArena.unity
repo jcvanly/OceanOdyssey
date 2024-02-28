@@ -4740,7 +4740,7 @@ PrefabInstance:
       objectReference: {fileID: 1723720443}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: maxHealth
-      value: 350
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: victoryText
@@ -56898,6 +56898,22 @@ PrefabInstance:
     - target: {fileID: 1895816730899426411, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
       propertyPath: m_TagString
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3434323947943219612, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3434323947943219612, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3434323947943219612, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3434323947943219612, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -486
       objectReference: {fileID: 0}
     - target: {fileID: 4187920590426599772, guid: 41ee17d7128f4c44f9ba1085209b3199, type: 3}
       propertyPath: m_Camera
