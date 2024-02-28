@@ -19593,7 +19593,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e396ac551eb8e1c43a0255ec909828d2, type: 3}
---- !u!1 &1397396651
+--- !u!1 &1408875362
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19601,10 +19601,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1397396655}
-  - component: {fileID: 1397396654}
-  - component: {fileID: 1397396653}
-  - component: {fileID: 1397396652}
+  - component: {fileID: 1408875366}
+  - component: {fileID: 1408875365}
+  - component: {fileID: 1408875364}
+  - component: {fileID: 1408875363}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -19612,33 +19612,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1397396652
+--- !u!114 &1408875363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397396651}
+  m_GameObject: {fileID: 1408875362}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fe520a29a3e0b646804a312c1c1ab5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &1397396653
+--- !u!81 &1408875364
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397396651}
+  m_GameObject: {fileID: 1408875362}
   m_Enabled: 1
---- !u!20 &1397396654
+--- !u!20 &1408875365
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397396651}
+  m_GameObject: {fileID: 1408875362}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
@@ -19683,13 +19683,13 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &1397396655
+--- !u!4 &1408875366
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397396651}
+  m_GameObject: {fileID: 1408875362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
@@ -46884,7 +46884,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1397396655}
+  - {fileID: 1408875366}
   - {fileID: 1679280418}
   - {fileID: 193431831}
   - {fileID: 1624119021}
