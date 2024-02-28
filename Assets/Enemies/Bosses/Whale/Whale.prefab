@@ -117,7 +117,7 @@ MonoBehaviour:
   weatherFilterPanel: {fileID: 0}
   rainParticleSystemPrefab: {fileID: 3691888533313389901, guid: 0e4a2b5a49a66f04494059d875337ca1, type: 3}
   snowParticleSystemPrefab: {fileID: 2158619808239789573, guid: ea43ac88ab82cbf47a42de5642ba88e1, type: 3}
-  chargeSpeed: 10
+  iceChargeSpeed: 3
   attackDelay: 2
   playerHealth: {fileID: 0}
   player: {fileID: 0}
@@ -134,6 +134,10 @@ MonoBehaviour:
   whalePrefab: {fileID: 1118131853722620535, guid: 2000d4c6e94931b4cbcf4c9a51f576e4, type: 3}
   spawnPoints: []
   amountHealed: 0
+  normalSprite: {fileID: 21300000, guid: 76765f9685f2fd043bf9dbf96daa9c78, type: 3}
+  enragedSprite: {fileID: 21300000, guid: 3c0feb234dd54b9499bbfdae954914ef, type: 3}
+  isEnraged: 0
+  tornadoPrefab: {fileID: 9077732843197199709, guid: 770eb3d0b58e88f44aa22461b2a84d69, type: 3}
 --- !u!60 &6117902877807135189
 PolygonCollider2D:
   m_ObjectHideFlags: 0

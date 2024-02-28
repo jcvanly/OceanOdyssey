@@ -65,4 +65,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stony Shore Square.unity
     guid: b28908f438463034d8983eae36d3baff
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore Pillars.unity
+    guid: 14f3fad5399dbff458f46f134d29c38b
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore 5.unity
+    guid: 64b981f77b8144148abea95052a7feee
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore 6.unity
+    guid: 73d8779cfa9d1e84ebc88a0e7b013d8e
   m_configObjects: {}

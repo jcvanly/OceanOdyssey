@@ -5,6 +5,8 @@
 
     public class WhaleBehavior : MonoBehaviour
     {
+        private bool shootDiagonal = true;
+
         public GameObject fireBall;
         public float shootInterval = 2f;
         private float shootTimer;
@@ -24,7 +26,7 @@
         private GameObject currentWeatherEffect;
         private enum WeatherType { Rain, Sun, Wind, Snow }
         private WeatherType currentWeather = WeatherType.Rain; // Start with Rain
-        public float iceChargeSpeed = 3f;
+        public float iceChargeSpeed = 2f;
         public float attackDelay = 2f; // Time between attacks
         public PlayerHealth playerHealth;
         public Transform player; // Reference to the player's transform
@@ -44,7 +46,7 @@
         private List<GameObject> orbs = new List<GameObject>();
         private bool areOrbsActive = false;
         private float minOrbitRadius = 2f; // Minimum orbit radius
-        private float maxOrbitRadius = 5f; // Maximum orbit radius
+        private float maxOrbitRadius = 7f; // Maximum orbit radius
         private float expansionSpeed = 2f; // Speed of expansion and contraction
         public GameObject cloudPrefab; 
         private GameObject cloudInstance;
@@ -61,6 +63,13 @@
         public int amountHealed = 0;
         private float healRate = 1.0f; // Time in seconds between each heal
         private float lastHealTime = 0;
+        public Sprite normalSprite; 
+        public Sprite enragedSprite; 
+        public bool isEnraged = false; // Tracks whether the whale is enraged
+        public GameObject tornadoPrefab; // Assign this in the Unity Inspector
+
+        private float tornadoShootTimer = 5f; // Time between tornado shots when enraged and raining
+        private float lastTornadoShotTime = 0f;
 
         void Start()
         {    
@@ -111,12 +120,21 @@
                 StartCoroutine(LightningStrikes());
             }
 
+            if (isEnraged && currentWeather == WeatherType.Rain)
+                {
+                    // Check if it's time to shoot a tornado
+                    if (Time.time > lastTornadoShotTime + tornadoShootTimer)
+                    {
+                        ShootTornadoAtPlayer();
+                        lastTornadoShotTime = Time.time; // Reset the timer
+                    }
+                }
+
             else if ((currentWeather != WeatherType.Rain) && _lightningCoroutineRunning)
             {
                 StopCoroutine(LightningStrikes());
                 _lightningCoroutineRunning = false;
             }
-
 
             if (currentWeather == WeatherType.Sun)
             {
@@ -265,14 +283,29 @@
     }
 
     void shootFireball()
+{
+    float speed = 5f;
+    if (shootDiagonal)
     {
-        float speed = 5f;
         // Shooting in all diagonal directions
         Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1).normalized * speed;
         Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, -1).normalized * speed;
         Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1).normalized * speed;
-        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, -1).normalized * speed;  
+        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, -1).normalized * speed;
     }
+    else
+    {
+        // Shooting in cardinal directions
+        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 0).normalized * speed;
+        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 0).normalized * speed;
+        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(0, 1).normalized * speed;
+        Instantiate(fireBall, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1).normalized * speed;
+    }
+
+    // Toggle the firing pattern for the next call
+    shootDiagonal = !shootDiagonal;
+}
+
 
     void ApplyHeatWaveMaterial()
         {
@@ -317,6 +350,13 @@
             
         }
 
+        void ShootTornadoAtPlayer()
+        {
+            GameObject tornado = Instantiate(tornadoPrefab, transform.position, Quaternion.identity);
+        }
+
+
+
         IEnumerator LightningStrikes()
 {
     _lightningCoroutineRunning = true;
@@ -348,7 +388,7 @@
 {
     StopAndClearPuddles(); // Clear existing puddles first
 
-    int puddleCount = 10; // Number of puddles to spawn
+    int puddleCount = 15; // Number of puddles to spawn
     float minDistanceApart = 1.5f; // Minimum distance between puddles
 
     for (int i = 0; i < puddleCount; i++)
@@ -405,7 +445,7 @@
     }
     IEnumerator GrowPuddle(GameObject puddle) {
         Vector3 originalScale = puddle.transform.localScale;
-        Vector3 targetScale = originalScale * 3; 
+        Vector3 targetScale = originalScale * 3.5f; 
 
         float elapsedTime = 0;
         float growDuration = 10f; // Duration of growth
@@ -435,15 +475,12 @@
         {
             if (i == realWhaleIndex) continue; // Skip the spawn point used by the real whale
 
-            GameObject mirage = Instantiate(whalePrefab, centerPosition, Quaternion.identity); // Instantiate mirage at center
-
-            var spriteRenderer = mirage.GetComponent<SpriteRenderer>();
-            // if (spriteRenderer != null)
-            // {
-            //     Color mirageColor = spriteRenderer.color;
-            //     mirageColor.a = 0.5f; // Make mirage semi-transparent
-            //     spriteRenderer.color = mirageColor;
-            // }
+            GameObject mirage = Instantiate(whalePrefab, centerPosition, Quaternion.identity);
+            WhaleMirage mirageScript = mirage.GetComponent<WhaleMirage>();
+            if (mirageScript != null)
+            {
+                mirageScript.mainWhale = this; // 'this' refers to the current instance of WhaleBehavior
+            }
 
             StartCoroutine(MoveWhaleToPosition(mirage.transform, spawnPoints[i].position)); // Move mirage to its spawn point
             mirageWhales.Add(mirage); 
@@ -629,7 +666,7 @@
                     Vector2 directionToPlayer = (player.position - transform.position).normalized;
 
                     // Apply velocity in the direction to the player
-                    rb.velocity = directionToPlayer * iceChargeSpeed; 
+                    rb.velocity = directionToPlayer * iceChargeSpeed * 2f; 
 
                     float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
                     iceShard.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -666,10 +703,25 @@
             currentHealth -= damage;
             healthBar.UpdateHealthBar(currentHealth, maxHealth); 
 
+            // Check if the whale is not already enraged and if health is at or below 50%
+            if (!isEnraged && currentHealth <= maxHealth / 2)
+            {
+                BecomeEnraged();
+            }
+
             if (currentHealth <= 0)
             {
                 Die();
             }
+        }
+
+        void BecomeEnraged()
+        {
+            isEnraged = true;
+            // Change the whale's sprite to the enraged version
+            GetComponent<SpriteRenderer>().sprite = enragedSprite;
+        
+            Debug.Log("The whale is now enraged!");
         }
         void Die()
         {

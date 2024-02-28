@@ -14,7 +14,7 @@ public class FireBall : MonoBehaviour
     void Update()
     {
         currTime = Time.time;
-        if(currTime - spawnTime >= 2f)
+        if(currTime - spawnTime >= 1f)
         {
             Destroy(gameObject);
         }

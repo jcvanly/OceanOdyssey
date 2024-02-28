@@ -62595,6 +62595,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: maxHealth
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: orbPrefab
       value: 
       objectReference: {fileID: 5361748268505725936, guid: 7ee21fc9f5d727a43b51bb910ec21820, type: 3}
@@ -62626,6 +62630,10 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: tornadoPrefab
+      value: 
+      objectReference: {fileID: 9077732843197199709, guid: 770eb3d0b58e88f44aa22461b2a84d69, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: iceShardPrefab
       value: 
