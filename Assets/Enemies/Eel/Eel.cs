@@ -11,7 +11,7 @@ public class Eel : MonoBehaviour
     public int currentHealth; // Current health of the enemy
     //public Image healthBar; // Reference to the UI health bar
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
-    public float flashDuration = .4f;
+    public float flashDuration = .2f;
     private SpriteRenderer eelSr;
     private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
@@ -22,6 +22,7 @@ public class Eel : MonoBehaviour
 
     private float shootTimer;
     private bool isDead = false;
+    private Color currColor;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class Eel : MonoBehaviour
     {
         shootTimer -= Time.deltaTime;
         currTime = Time.time;
+        currColor = eelSr.color;
 
         if (shootTimer <= 0)
         {
@@ -49,12 +51,12 @@ public class Eel : MonoBehaviour
         }
         else if (flashOnDamage == true)
         {
-            if(eelSr.color == originalColor && currTime >= (timeLastFlash + .1f))
+            if(currColor == originalColor && currTime >= (timeLastFlash + .1f))
             {
                 timeLastFlash = currTime;
                 eelSr.color = damageColor;
             }
-            else if (eelSr.color == damageColor && currTime >= (timeLastFlash + .1f))
+            else if (currColor == damageColor && currTime >= (timeLastFlash + .1f))
             {
                 timeLastFlash = currTime;
                 eelSr.color = originalColor;
@@ -69,7 +71,8 @@ public class Eel : MonoBehaviour
         Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1).normalized * speed;
         Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, -1).normalized * speed;
         Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1).normalized * speed;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, -1).normalized * speed;  }
+        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, -1).normalized * speed;  
+    }
     
     void OnTriggerEnter2D(Collider2D collider)
     {

@@ -44,7 +44,6 @@ public class SmallSquid : MonoBehaviour
         if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
         {
             resetColor();
-            Debug.Log("ss reset color");
         }
 
         else if (flashOnDamage == true)
