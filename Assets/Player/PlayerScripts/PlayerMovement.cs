@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 mousePos;
     private bool isOnIce = false;
     private float originalDrag;
+    public float iceAccelerationFactor = 2f; // Adjust this value to control acceleration on ice
+    public float iceSpeedMultiplier = 1.5f; // Adjust this value to increase speed on ice
+
 
     void Start()
     {
@@ -62,12 +65,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void EnterIce() {
     isOnIce = true;
-    rb.drag = 0.005f; // Lower drag for more slide
+    rb.drag = 0.0005f; // Lower drag for more slide
+    moveSpeed *= iceSpeedMultiplier; // Temporarily increase the move speed on ice
+
     }
 
     // Call this method when exiting ice
     public void ExitIce() {
         isOnIce = false;
         rb.drag = originalDrag; // Restore original drag
+        moveSpeed /= iceSpeedMultiplier; // Reset the move speed when exiting ice
+
     }
 }

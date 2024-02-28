@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         currTime = Time.time;
-        if(currTime - spawnTime >= 5f)
+        if(currTime - spawnTime >= 3f)
         {
             Destroy(gameObject);
         }

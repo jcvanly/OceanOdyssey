@@ -24,7 +24,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
-                if (GlobalEnemyManager.ScenesVisited >= 0)
+                if (GlobalEnemyManager.ScenesVisited >= 3)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }
@@ -35,7 +35,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-                if (GlobalEnemyManager.ScenesVisited >= 3)
+                if (GlobalEnemyManager.ScenesVisited >= 5)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }
@@ -64,7 +64,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-            randomSceneIndex = Random.Range(18, 20);
+            randomSceneIndex = Random.Range(18, 23);
             }
         }
         while (randomSceneIndex == currentSceneIndex);
@@ -80,7 +80,7 @@ public class SceneTransition : MonoBehaviour
         int specificSceneIndex = 0;
 
         if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
-            specificSceneIndex = 2;
+            specificSceneIndex = 15;
         }
 
         if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
@@ -88,7 +88,7 @@ public class SceneTransition : MonoBehaviour
         }
 
         if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-            specificSceneIndex = 15;
+            specificSceneIndex = 2;
         }
 
         Debug.Log("Loading specific scene index: " + specificSceneIndex);

@@ -14,7 +14,7 @@ public class PufferfishShot : MonoBehaviour
     void Update()
     {
         currTime = Time.time;
-        if(currTime - spawnTime >= 5f)
+        if(currTime - spawnTime >= 2.5f)
         {
             Destroy(gameObject);
         }

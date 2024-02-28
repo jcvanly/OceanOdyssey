@@ -50,8 +50,8 @@
         private GameObject cloudInstance;
         public GameObject puddlePrefab; // Assign this in the Inspector
         private List<GameObject> puddles = new List<GameObject>();
-        public Vector2 spawnAreaMin = new Vector2(-5, -3); // Bottom-left corner of the spawn area
-        public Vector2 spawnAreaMax = new Vector2(5, 3); // Top-right corner of the spawn area
+        public Vector2 spawnAreaMin = new Vector2(-100, -3); // Bottom-left corner of the spawn area
+        public Vector2 spawnAreaMax = new Vector2(100, 3); // Top-right corner of the spawn area
         public Material heatWaveMaterial; // Add this line to reference the HeatWave material
         public GameObject whalePrefab; // Prefab of the whale to create mirages
         private List<GameObject> mirageWhales = new List<GameObject>(); // List to keep track of mirage whales
@@ -384,11 +384,9 @@
 
     Vector3 GetRandomPositionInSpawnArea()
     {
-        float randomX = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
-        float randomY = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
-
-        // Assuming you're working in 2D and Z is irrelevant, set Z to a fixed value, like 0 or the Z of your arena
-        return new Vector3(randomX, randomY, 0); // Adjust Z as needed
+        float randomX = Random.Range(-9, 9);
+        float randomY = Random.Range(-3, 3);
+        return new Vector3(randomX, randomY, 0); 
     }
 
     void SpawnPuddleAtPosition(Vector3 position)
