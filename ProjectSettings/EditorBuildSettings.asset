@@ -56,4 +56,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 20f9976deefc772449d5093374eb496e
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore Start.unity
+    guid: 2d588c485a325ff45b638988bd9da1ef
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore Sectios.unity
+    guid: a8962ff7af89e344786437e6ab464ff2
+  - enabled: 1
+    path: Assets/Scenes/Stony Shore Square.unity
+    guid: b28908f438463034d8983eae36d3baff
   m_configObjects: {}

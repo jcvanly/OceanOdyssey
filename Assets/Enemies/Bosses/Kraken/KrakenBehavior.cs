@@ -246,7 +246,6 @@ IEnumerator SpawnAndRetractTentacleSequence(Vector2 direction)
         nextIslandButton.SetActive(true);
     }
 
-    // Optionally, if you want to be able to hide them again
     public void HideVictoryScreen()
     {
         victoryText.SetActive(false);
