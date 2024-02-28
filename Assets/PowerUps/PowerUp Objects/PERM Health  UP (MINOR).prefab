@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4357697253724467544}
   m_Layer: 11
   m_Name: PERM Health  UP (MINOR)
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupEffect: {fileID: 11400000, guid: 2805f1b21c9ba084bb2a601e20ec422c, type: 2}
-  sound: {fileID: 8300000, guid: ba39bf8baf6d13046889b2d64822381a, type: 3}
 --- !u!70 &1528875822675047744
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,9 +147,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c917afc347be6d842ba37b9f655437da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeUpCounterText: {fileID: 7263782512261926526, guid: a9d2211d67c1fb744a8f07f33640c5f8, type: 3}
-  speedUpCounterText: {fileID: 5328637083303897194, guid: 7d92cc02a085d134784872369e27a6a6, type: 3}
-  ShootCoolDownCounterText: {fileID: 1638841654627753307, guid: ed0a8571ecaa23c419ed85d74ab4ac99, type: 3}
-  HealthUpCounterText: {fileID: 6962833815450831715, guid: bbfdae0d4b630154184bbcb45646f911, type: 3}
-  NetSpeedUpCounterText: {fileID: 1640607535914120092, guid: e09c7af675ea0de4a9d4deb45272988e, type: 3}
-  PermHealthUpCounterText: {fileID: 3266762463973613607, guid: cff515ee65e0abb46928e0daba09e8cf, type: 3}

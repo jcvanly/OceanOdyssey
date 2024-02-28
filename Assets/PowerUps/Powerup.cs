@@ -7,10 +7,13 @@ public class Powerup : MonoBehaviour
 {
     public PowerupEffect powerupEffect;
     AudioManager audioManager;
+
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        DontDestroyOnLoad(gameObject); // Make the power-up object persistent
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
@@ -19,10 +22,10 @@ public class Powerup : MonoBehaviour
         {
             TextMeshProUGUI notificationText = canvas.GetComponentInChildren<TextMeshProUGUI>();
             if (notificationText != null)
-            {  
+            {
                 powerupEffect.Apply(collision.gameObject, notificationText);
-                audioManager.PlaySFX(audioManager.collectPowerUp);   
-            }      
+                audioManager.PlaySFX(audioManager.collectPowerUp);
+            }
         }
     }
 }

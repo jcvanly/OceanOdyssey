@@ -30,6 +30,8 @@ TagManager:
   - Audio
   - IceShard
   - crosshair
+  - Puddle
+  - Powerup
   layers:
   - Default
   - TransparentFX
