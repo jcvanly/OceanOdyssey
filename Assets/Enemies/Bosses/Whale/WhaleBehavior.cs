@@ -104,8 +104,8 @@
             {
                 if (cloudInstance == null)
                 {
-                    // Instantiate the cloud above the player with a slight offset
-                    cloudInstance = Instantiate(cloudPrefab, player.position + new Vector3(0, 3, 0), Quaternion.identity);
+                    // Instantiate the cloud above the whale
+                    cloudInstance = Instantiate(cloudPrefab, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
                 }
                 else
                 {
@@ -720,9 +720,10 @@
         }
         IEnumerator SpawnIceShards()
         {
+            yield return new WaitForSeconds(2f);
+
             while (currentWeather == WeatherType.Snow)
             {
-                yield return new WaitForSeconds(2f);
                 GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
                 iceShard.tag = "IceShard";
 

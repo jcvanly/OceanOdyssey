@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterFall : MonoBehaviour
 {
-    public float speed = 4f;
+    public float speed = 2f;
     private GameObject player;
     private Rigidbody2D rb;
     private float spawnTime;

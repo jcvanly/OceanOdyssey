@@ -62,15 +62,27 @@ public GameObject projectilePrefab;
     void Shoot()
     {
         Debug.Log("shoot");
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.up * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.down * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.left * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = Vector2.right * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1).normalized * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, -1).normalized * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1).normalized * 10f;
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(-1, -1).normalized * 10f;
+        Vector2[] directions = new Vector2[]
+        {
+            Vector2.up,
+            Vector2.down,
+            Vector2.left,
+            Vector2.right,
+            new Vector2(1, 1).normalized,
+            new Vector2(1, -1).normalized,
+            new Vector2(-1, 1).normalized,
+            new Vector2(-1, -1).normalized
+        };
+
+        foreach (Vector2 direction in directions)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().velocity = direction * 10f;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            projectile.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward); // Adjusting by -90 degrees because the sprite's default direction is up
+        }
     }
+
     
     void OnTriggerEnter2D(Collider2D collider)
     {

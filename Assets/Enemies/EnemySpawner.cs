@@ -17,21 +17,19 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!hasSpawned)
         {
-            bool krakenDead = GlobalEnemyManager.KrakenDefeated;
-            bool crabLobsterDead  = GlobalEnemyManager.CrabAndLobsterDead();
             int randomIndex;
 
-            if(krakenDead && crabLobsterDead == false)
+            if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false)
             {
-                randomIndex = Random.Range(0, enemyPrefabs.Length - 2);
+                randomIndex = Random.Range(0, enemyPrefabs.Length - 3);
             }
-            else if (krakenDead && crabLobsterDead)
+            else if (GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false)
             {
                 randomIndex = Random.Range(0, enemyPrefabs.Length - 2);
             }
             else
             {
-                randomIndex = Random.Range(0,enemyPrefabs.Length - 3);
+                randomIndex = Random.Range(0,enemyPrefabs.Length);
             }
             
             GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
