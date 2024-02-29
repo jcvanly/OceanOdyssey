@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 547630724683055946}
   - component: {fileID: 7672175493201890819}
   - component: {fileID: 363353984389918718}
+  - component: {fileID: 2950484933253836549}
   m_Layer: 7
   m_Name: lavaPuddle
-  m_TagString: Untagged
+  m_TagString: LavaTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,3 +205,15 @@ PolygonCollider2D:
       - {x: 1.25, y: -6.8799996}
       - {x: 1.68, y: -6.45}
   m_UseDelaunayMesh: 0
+--- !u!114 &2950484933253836549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919030846025723311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86320f041dc66a4587fc5e5a7b7bb53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

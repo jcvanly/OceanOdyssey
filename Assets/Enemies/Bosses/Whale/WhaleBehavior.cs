@@ -98,6 +98,8 @@
 
         void Update()
         {
+            
+
             if (currentWeather == WeatherType.Rain)
             {
                 if (cloudInstance == null)
@@ -317,7 +319,7 @@
                 filterColor = new Color(0f, 0.5f, 1f, 0.3f);
                 currentWeatherEffect = Instantiate(rainParticleSystemPrefab, spawnPosition, Quaternion.identity);
                 StartPuddles();
-
+                RemoveLavaTiles(); // Call a method to remove all lava tiles
                 break;
             case WeatherType.Snow:
                 weatherIcon.sprite = snowIcon;
@@ -874,8 +876,8 @@
 
     private void SpawnLavaTiles()
     {
-        int lavaTilesToSpawn = 5; // Adjust the number of tiles to spawn as needed
-        float spawnRadius = 10f; // Radius around the whale within which tiles will spawn
+        int lavaTilesToSpawn = 4; // Adjust the number of tiles to spawn as needed
+        float spawnRadius = 7f; // Radius around the whale within which tiles will spawn
 
         for (int i = 0; i < lavaTilesToSpawn; i++)
         {
@@ -883,6 +885,16 @@
             Instantiate(lavaTilePrefab, spawnPosition, Quaternion.identity);
         }
     }
+
+void RemoveLavaTiles()
+{
+    GameObject[] lavaTiles = GameObject.FindGameObjectsWithTag("LavaTile");
+    Debug.Log($"Destroying {lavaTiles.Length} lava tiles.");
+    foreach (GameObject lavaTile in lavaTiles)
+    {
+        Destroy(lavaTile); // Destroy each lava tile
+    }
+}
 
         
 
