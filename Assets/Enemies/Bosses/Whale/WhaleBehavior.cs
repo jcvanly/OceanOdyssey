@@ -876,15 +876,33 @@
 
     private void SpawnLavaTiles()
     {
-        int lavaTilesToSpawn = 4; // Adjust the number of tiles to spawn as needed
+        int lavaTilesToSpawn = 4; // Number of lava tiles to spawn
         float spawnRadius = 7f; // Radius around the whale within which tiles will spawn
 
         for (int i = 0; i < lavaTilesToSpawn; i++)
         {
             Vector2 spawnPosition = transform.position + (Vector3)(Random.insideUnitCircle * spawnRadius);
-            Instantiate(lavaTilePrefab, spawnPosition, Quaternion.identity);
+            GameObject lavaTile = Instantiate(lavaTilePrefab, spawnPosition, Quaternion.identity);
+            StartCoroutine(GrowLavaTile(lavaTile)); // Start growing the lava tile
         }
     }
+
+    IEnumerator GrowLavaTile(GameObject lavaTile)
+    {
+        Vector3 originalScale = lavaTile.transform.localScale; // Store the original scale
+        Vector3 targetScale = originalScale * 40; // Define the target scale (e.g., 3 times the original size)
+
+        float elapsedTime = 0;
+        float growDuration = 10f; // Duration over which the tile grows
+
+        while (elapsedTime < growDuration)
+        {
+            lavaTile.transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / growDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+    }
+
 
 void RemoveLavaTiles()
 {
