@@ -6,7 +6,7 @@ public class SmallSquid : MonoBehaviour
 {
     private Transform playerTransform;
     private float tentacleShootTimer;
-    public float inkSpotShootInterval = 10f; // Interval for shooting ink spots
+    public float inkSpotShootInterval = 1f; // Interval for shooting ink spots
     private float inkSpotTimer;
     public int maxHealth = 100;
     public int currentHealth;

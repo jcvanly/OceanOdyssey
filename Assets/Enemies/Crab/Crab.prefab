@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: 5562910577631258386}
   - component: {fileID: -516718599980471941}
   - component: {fileID: 502846477651680888}
-  - component: {fileID: 5886872751221461984}
   m_Layer: 6
   m_Name: Crab
-  m_TagString: Untagged
+  m_TagString: Crab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,9 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da62366704ae6445d8f0cf04cc3df859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
-  moveDuration: 1
-  moveCooldown: 3
+  projectilePrefab: {fileID: 1017293929856622256, guid: 14e27824380cf1d4f88b7c36e3d33dcb, type: 3}
+  shootInterval: 2
   maxHealth: 60
   currentHealth: 0
   flashDuration: 0.2
@@ -350,17 +348,3 @@ MonoBehaviour:
   - {fileID: 6365717416019777495, guid: 0f93316bdbd195f4ca971e2d83ce90f6, type: 3}
   - {fileID: 6386925662759493815, guid: 7d90de31f056fb84e9b7696b51697d5a, type: 3}
   - {fileID: 7814628680419832237, guid: 44848212d71c24d488c4181e272fbc54, type: 3}
---- !u!114 &5886872751221461984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2166706549933728529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d0c774e17575b4ebb97f12d7cfe925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 3558397398815780150, guid: a2d22b0d2d539f344a5a687154ab8142, type: 3}
-  damage: 1

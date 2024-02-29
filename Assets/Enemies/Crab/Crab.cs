@@ -6,18 +6,15 @@ using UnityEngine.Tilemaps;
 
 public class Crab : MonoBehaviour
 {
-    public float moveSpeed = 1;
-    public float moveDuration = 1f;
-    public float moveCooldown = 3f;
-    private GameObject player;
-    private Rigidbody2D rb;
-    private Vector3 moveDirection;
-    public int maxHealth = 100; // Max health of the enemy
+    public GameObject projectilePrefab;
+   // public Transform target;
+    public float shootInterval = 2f;
+    public int maxHealth = 70; // Max health of the enemy
     public int currentHealth; // Current health of the enemy
-    //public Image healthBar; // Reference to the UI health bar
-    private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
+    private float shootTimer;
+    private EnemyDeath enemyDeath;
     private bool isDead = false;
-    public float flashDuration = .2f;
+    public float flashDuration = .4f;
     private SpriteRenderer enemySr;
     private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
@@ -25,29 +22,31 @@ public class Crab : MonoBehaviour
     private float timeLastFlash;
     private float currTime;
     private bool flashOnDamage = false;
-    
+
 
     void Start()
     {
+        shootTimer = shootInterval;
         currentHealth = maxHealth; // Initialize current health
         enemyDeath = GetComponent<EnemyDeath>();
-        rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
         enemySr = gameObject.GetComponent<SpriteRenderer>();
         originalColor = enemySr.color;
     }
 
-
-    private void Update()
+    void Update()
     {
+        shootTimer -= Time.deltaTime;
         currTime = Time.time;
-        Move();
+        if (shootTimer <= 0)
+        {
+            Shoot();
+            shootTimer = shootInterval;
+        }
 
         if(currTime >= (damageTime + flashDuration) && flashOnDamage == true)
         {
             resetColor();
         }
-
         else if (flashOnDamage == true)
         {
             if(enemySr.color == originalColor && currTime >= (timeLastFlash + .1f))
@@ -63,26 +62,21 @@ public class Crab : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Shoot()
     {
-        if(collision.gameObject.CompareTag("PlayerProjectile"))
+        float speed = 10f;
+        // Shooting in all diagonal directions
+        Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1).normalized * speed;
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("PlayerProjectile"))
         {
-            TakeDamage(10);
+            TakeDamage(10); // Assuming each hit decreases 10 health
+            Destroy(collider.gameObject); // Destroy the projectile
         }
     }
-
-    private void Move()
-    {
-        moveDirection = player.transform.position - transform.position;
-        rb.velocity = new Vector2(moveDirection.x,moveDirection.y).normalized * moveSpeed;
-        
-        moveDirection.Normalize();
-
-        rb.velocity = moveDirection * moveSpeed;
-    }
-
     
-
 
     public void TakeDamage(int damage)
     {
@@ -90,11 +84,7 @@ public class Crab : MonoBehaviour
         {
             currentHealth -= damage;
 
-            if (currentHealth <= 0)
-            {
-                enemyDeath.Die();
-                isDead = true;
-            }
+ 
 
             if (currentHealth <= 0)
             {
@@ -112,7 +102,7 @@ public class Crab : MonoBehaviour
         }
     }
 
-    public void resetColor()
+     public void resetColor()
     {
         enemySr.color = originalColor;
         flashOnDamage = false;

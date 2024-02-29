@@ -33,6 +33,7 @@ TagManager:
   - Puddle
   - Powerup
   - LavaTile
+  - Crab
   layers:
   - Default
   - TransparentFX

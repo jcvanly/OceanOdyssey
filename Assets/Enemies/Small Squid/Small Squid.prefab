@@ -467,8 +467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d5c6e4907704e049a0e2ba8bdda494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkSpotShootInterval: 5
-  maxHealth: 30
+  inkSpotShootInterval: 1
+  maxHealth: 40
   currentHealth: 0
   inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
   flashDuration: 0.2

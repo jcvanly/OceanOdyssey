@@ -6,7 +6,7 @@ public class InkSpray : MonoBehaviour
 {
     public float speedReduction = 350f; // Amount to reduce speed by
     public float minSpeed = 1.0f; // Minimum speed the player can be reduced to
-    private float originalPlayerMoveSpeed = 4f;
+    private float originalPlayerMoveSpeed = 3.5f;
     
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
-                randomIndex = Random.Range(0,enemyPrefabs.Length);
+                randomIndex = Random.Range(2,enemyPrefabs.Length);
             }
             
             GameObject randomEnemyPrefab = enemyPrefabs[randomIndex];
