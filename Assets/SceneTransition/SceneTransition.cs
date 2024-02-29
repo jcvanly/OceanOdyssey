@@ -13,7 +13,7 @@ public class SceneTransition : MonoBehaviour
         if (other.CompareTag("Player") && !other.isTrigger && GlobalEnemyManager.TotalEnemies == 0)
         {
             if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
-                if (GlobalEnemyManager.ScenesVisited >= 3)
+                if (GlobalEnemyManager.ScenesVisited >= 5)
                 {
                     LoadSpecificScene(); // Load a specific scene after # of visits
                 }
@@ -24,7 +24,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
-                if (GlobalEnemyManager.ScenesVisited >= 6)
+                if (GlobalEnemyManager.ScenesVisited >= 10)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }
@@ -35,7 +35,7 @@ public class SceneTransition : MonoBehaviour
             }
 
             if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-                if (GlobalEnemyManager.ScenesVisited >= 12)
+                if (GlobalEnemyManager.ScenesVisited >= 15)
                     {
                         LoadSpecificScene(); // Load a specific scene after # of visits
                     }

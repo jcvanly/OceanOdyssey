@@ -6,7 +6,7 @@
     public class WhaleBehavior : MonoBehaviour
     {
         private float lastLavaSpawnTime = 0f;
-        public float lavaSpawnInterval = 5f; // Time between lava spawns    
+        public float lavaSpawnInterval = 2f; // Time between lava spawns    
         public GameObject lavaTilePrefab; 
 
         public GameObject iceRockPrefab; 
@@ -74,7 +74,7 @@
         public Sprite enragedSprite; 
         public bool isEnraged = false; // Tracks whether the whale is enraged
         public GameObject tornadoPrefab; // Assign this in the Unity Inspector
-        private float tornadoShootTimer = 5f; // Time between tornado shots when enraged and raining
+        private float tornadoShootTimer = 3f; // Time between tornado shots when enraged and raining
         private float lastTornadoShotTime = 0f;
         public GameObject waterOrbPrefab; // Assign this in Inspector
         private bool _waterOrbCoroutineRunning = false; // Add this flag to the class variables
@@ -228,7 +228,7 @@
 
             if (isEnraged && currentWeather == WeatherType.Snow)
             {
-                if (Time.time > lastLavaSpawnTime + lavaSpawnInterval)
+                if (Time.time > lastLavaSpawnTime + 8)
                 {
                     SpawnLavaTiles();
                     lastLavaSpawnTime = Time.time;
@@ -648,13 +648,14 @@
         }
         IEnumerator ActivateOrbs()
         {
-            float rotationSpeed = 30f; // Speed at which the orbs rotate around the whale
+            float rotationSpeed = 20f; // Speed at which the orbs rotate around the whale
             float time = 0f;
 
             while (currentWeather == WeatherType.Wind)
             {
                 float totalAngle = time * rotationSpeed; // Total rotation angle based on time
-                float orbitRadius = Mathf.Lerp(minOrbitRadius, maxOrbitRadius, (Mathf.Sin(time * expansionSpeed) + 1) / 2); // Oscillate radius
+                // Oscillate the orbitRadius between minOrbitRadius and maxOrbitRadius
+                float orbitRadius = Mathf.Lerp(minOrbitRadius, maxOrbitRadius, (Mathf.Sin(time * expansionSpeed) + 1) / 2);
 
                 for (int i = 0; i < orbs.Count; i++)
                 {
@@ -677,6 +678,7 @@
 
             DeactivateOrbs(); // Ensure orbs are deactivated when coroutine stops
         }
+
         void DeactivateOrbs()
         {
             foreach (GameObject orb in orbs)

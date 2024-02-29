@@ -63990,7 +63990,7 @@ PrefabInstance:
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: orbPrefab
@@ -64072,6 +64072,10 @@ PrefabInstance:
       propertyPath: rainCirclePrefab
       value: 
       objectReference: {fileID: 8124829898370875, guid: f219c5e7beb1cc84fbf4ca8b7622f5f2, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: lavaSpawnInterval
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: whiteCirclePrefab
       value: 
