@@ -586,6 +586,7 @@
     {
         while (isEnraged && currentWeather == WeatherType.Sun)
         {
+            yield return new WaitForSeconds(4f);
             GameObject waterOrbInstance = Instantiate(waterOrbPrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(2f); // Adjust frequency of shooting as desired
         }
@@ -721,6 +722,7 @@
         {
             while (currentWeather == WeatherType.Snow)
             {
+                yield return new WaitForSeconds(2f);
                 GameObject iceShard = Instantiate(iceShardPrefab, transform.position, Quaternion.identity);
                 iceShard.tag = "IceShard";
 
@@ -845,26 +847,38 @@
                 iceRocks.Add(iceRock);
             }
         }
-        IEnumerator ActivateIceRocks()
-    {
-        while (isEnraged && currentWeather == WeatherType.Wind)
-        {
-            float rotationSpeed = 30f; // Adjust as needed for ice rocks
-            float totalAngle = Time.time * rotationSpeed;
-            for (int i = 0; i < iceRocks.Count; i++)
-            {
-                float angleStep = 360f / iceRocks.Count;
-                float angle = totalAngle + i * angleStep;
-                angle *= Mathf.Deg2Rad;
+IEnumerator ActivateIceRocks()
+{
+    // Assuming you still have your initial setup
+    float pulseSpeed = 2f; // Speed of the pulsing effect
+    float minRadius = 5f; // Minimum radius of the orbit
+    float maxRadius = 15f; // Maximum radius of the orbit
+    float pulseTime = 0f; // Time counter for the pulsing effect
 
-                Vector3 iceRockPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * iceRockOrbitRadius;
-                iceRocks[i].SetActive(true);
-                iceRocks[i].transform.position = transform.position + iceRockPosition;
-            }
-            yield return null;
+    while (isEnraged && currentWeather == WeatherType.Wind)
+    {
+        float rotationSpeed = 30f; // Adjust as needed for ice rocks
+        float totalAngle = Time.time * rotationSpeed;
+
+        // Calculate the current orbit radius based on a sine wave for the pulsing effect
+        float currentOrbitRadius = Mathf.Lerp(minRadius, maxRadius, (Mathf.Sin(pulseTime * pulseSpeed) + 1) / 2);
+
+        for (int i = 0; i < iceRocks.Count; i++)
+        {
+            float angleStep = 360f / iceRocks.Count;
+            float angle = totalAngle + i * angleStep;
+            angle *= Mathf.Deg2Rad;
+
+            Vector3 iceRockPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * currentOrbitRadius;
+            iceRocks[i].SetActive(true);
+            iceRocks[i].transform.position = transform.position + iceRockPosition;
         }
-        DeactivateIceRocks();
+
+        pulseTime += Time.deltaTime;
+        yield return null;
     }
+    DeactivateIceRocks();
+}
 
     void DeactivateIceRocks()
     {

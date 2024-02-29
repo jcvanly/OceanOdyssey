@@ -6564,7 +6564,7 @@ PrefabInstance:
       objectReference: {fileID: 1723720443}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: maxHealth
-      value: 350
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6471455306323206229, guid: 01d9a8d2fb6171541920bbb3096bf586, type: 3}
       propertyPath: victoryText
