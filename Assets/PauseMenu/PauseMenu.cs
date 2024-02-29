@@ -60,6 +60,14 @@ public class PauseMenu : MonoBehaviour
                 GlobalEnemyManager.DecreaseScenesVisited();
             }
         }
+        if (GlobalEnemyManager.KrakenDefeated == true)
+        {
+            GlobalEnemyManager.KrakenNotDefeated();
+        }
+        if (GlobalEnemyManager.CrabDefeated == true)
+        {
+            GlobalEnemyManager.CrabNotDefeated();
+        }
         audioManager.PlaySFX(audioManager.mainMenu);
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScreen");

@@ -39,4 +39,12 @@ public static class GlobalEnemyManager
         }
     }
 
+    public static void KrakenNotDefeated()
+    {
+        KrakenDefeated = false;
+    }
+    public static void CrabNotDefeated()
+    {
+        CrabDefeated = false;
+    }
 }

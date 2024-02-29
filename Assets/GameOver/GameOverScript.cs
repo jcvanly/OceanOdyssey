@@ -39,6 +39,14 @@ public class GameOverScript : MonoBehaviour
                 GlobalEnemyManager.DecreaseScenesVisited();
             }
         }
+        if (GlobalEnemyManager.KrakenDefeated == true)
+        {
+            GlobalEnemyManager.KrakenNotDefeated();
+        }
+        if (GlobalEnemyManager.CrabDefeated == true)
+        {
+            GlobalEnemyManager.CrabNotDefeated();
+        }
         if (crosshair != null)
         {
             Destroy(crosshair);
