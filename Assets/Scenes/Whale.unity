@@ -63990,7 +63990,7 @@ PrefabInstance:
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: maxHealth
-      value: 800
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: orbPrefab
