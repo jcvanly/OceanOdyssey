@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5088402773755420777}
   - component: {fileID: 954491201042173584}
   - component: {fileID: 1798656866971838779}
-  - component: {fileID: -2434381296988697107}
+  - component: {fileID: 5337401245322911428}
   m_Layer: 6
   m_Name: InkSpray
   m_TagString: InkSpot
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -284845621
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: c6d91217c273fcb4ea6ace17eb3e595d, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.62352943}
   m_FlipX: 0
@@ -98,10 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f23328c25341b4e9a4342624bd910a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedReduction: 2
+  speedReduction: 4
   minSpeed: 2
---- !u!61 &-2434381296988697107
-BoxCollider2D:
+--- !u!60 &5337401245322911428
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -115,7 +115,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -142,6 +142,37 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 10.8, y: 10.8}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 5.5699997, y: 0.74}
+      - {x: 5.5499997, y: 0.76}
+      - {x: 5.29, y: 2.86}
+      - {x: 4.48, y: 5.2}
+      - {x: 1.8499999, y: 5.2}
+      - {x: 1.8299999, y: 5.18}
+      - {x: 0.74, y: 4.83}
+      - {x: 0.71999997, y: 4.81}
+      - {x: -0.39, y: 4.49}
+      - {x: -2.45, y: 5.2}
+      - {x: -4.12, y: 5.2}
+      - {x: -5.21, y: 4.08}
+      - {x: -5.2, y: 2.59}
+      - {x: -5.18, y: 2.57}
+      - {x: -5.5699997, y: 1.48}
+      - {x: -5.5699997, y: 0}
+      - {x: -5.5499997, y: -0.02}
+      - {x: -5.2, y: -0.74}
+      - {x: -4.81, y: -1.13}
+      - {x: -5.2, y: -2.22}
+      - {x: -5.2, y: -4.0699997}
+      - {x: -5.18, y: -4.0899997}
+      - {x: -4.83, y: -4.81}
+      - {x: -4.81, y: -4.83}
+      - {x: -2.96, y: -4.83}
+      - {x: -2.57, y: -4.44}
+      - {x: -0.74, y: -5.2}
+      - {x: 1.56, y: -5.2}
+      - {x: 4.5099998, y: -4.98}
+      - {x: 4.8399997, y: -4.48}
+      - {x: 5.5699997, y: -3.04}
+  m_UseDelaunayMesh: 0
