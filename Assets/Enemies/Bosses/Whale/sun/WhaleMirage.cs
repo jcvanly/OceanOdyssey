@@ -45,7 +45,7 @@ public class WhaleMirage : MonoBehaviour
 
     void Shoot()
     {
-        float speed = 5f;
+        float speed = 4f;
         if (shootDiagonal)
         {
             // Shooting in all diagonal directions

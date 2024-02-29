@@ -339,7 +339,7 @@
 
     void shootFireball()
 {
-    float speed = 5f;
+    float speed = 4f;
     if (shootDiagonal)
     {
         // Shooting in all diagonal directions
@@ -645,7 +645,7 @@
         }
         IEnumerator ActivateOrbs()
         {
-            float rotationSpeed = 50f; // Speed at which the orbs rotate around the whale
+            float rotationSpeed = 30f; // Speed at which the orbs rotate around the whale
             float time = 0f;
 
             while (currentWeather == WeatherType.Wind)
