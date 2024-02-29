@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.384589, y: -0.7009598, z: 0}
-  m_LocalScale: {x: 0.36, y: 0.36, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5046798674203889639}
@@ -520,7 +520,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   normalSprite: {fileID: 21300000, guid: 76765f9685f2fd043bf9dbf96daa9c78, type: 3}
-  enragedSprite: {fileID: 21300000, guid: 3c0feb234dd54b9499bbfdae954914ef, type: 3}
+  enragedSprite: {fileID: 21300000, guid: 259a51f6da2f70246a4fba1fe65ebcd7, type: 3}
+  mainWhale: {fileID: 0}
 --- !u!1 &1893187506747322932
 GameObject:
   m_ObjectHideFlags: 0
