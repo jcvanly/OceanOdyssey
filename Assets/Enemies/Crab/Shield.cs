@@ -13,7 +13,7 @@ public class Shield : MonoBehaviour
     public float acceleration = 1f; // Acceleration towards the crab when returning
 
     private bool isReturning = false; // Flag to control the return logic
-    private float lifetime = 1f; // Lifetime of the shield in seconds
+    private float lifetime = 1.7f; // Lifetime of the shield in seconds
     private float timeSinceSpawn; // Track how long the shield has been active
 
     void Start()

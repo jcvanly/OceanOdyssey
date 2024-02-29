@@ -522,6 +522,7 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: 76765f9685f2fd043bf9dbf96daa9c78, type: 3}
   enragedSprite: {fileID: 21300000, guid: 259a51f6da2f70246a4fba1fe65ebcd7, type: 3}
   mainWhale: {fileID: 0}
+  waterOrbPrefab: {fileID: 7171343562540584362, guid: 7f249994285ac944bb144287f92489a5, type: 3}
 --- !u!1 &1893187506747322932
 GameObject:
   m_ObjectHideFlags: 0

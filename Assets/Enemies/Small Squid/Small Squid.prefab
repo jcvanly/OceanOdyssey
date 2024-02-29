@@ -470,7 +470,7 @@ MonoBehaviour:
   inkSpotShootInterval: 1
   maxHealth: 40
   currentHealth: 0
-  inkSpotPrefab: {fileID: 386864623317402779, guid: b1d5c42ce3862cc4eb7e72b7cee0e864, type: 3}
+  inkSpotPrefab: {fileID: 2755645203460434593, guid: 1e434f45329c4c444bb3da29ee217a2b, type: 3}
   flashDuration: 0.2
 --- !u!114 &9212221265622299304
 MonoBehaviour:
