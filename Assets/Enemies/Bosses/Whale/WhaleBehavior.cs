@@ -5,8 +5,15 @@
 
     public class WhaleBehavior : MonoBehaviour
     {
-        private bool shootDiagonal = true;
+        private float lastLavaSpawnTime = 0f;
+        public float lavaSpawnInterval = 5f; // Time between lava spawns    
+        public GameObject lavaTilePrefab; 
 
+        public GameObject iceRockPrefab; 
+        private List<GameObject> iceRocks = new List<GameObject>();
+        private bool areIceRocksActive = false;
+        private float iceRockOrbitRadius = 10f;
+        private bool shootDiagonal = true;
         public GameObject fireBall;
         public float shootInterval = 2f;
         private float shootTimer;
@@ -67,12 +74,15 @@
         public Sprite enragedSprite; 
         public bool isEnraged = false; // Tracks whether the whale is enraged
         public GameObject tornadoPrefab; // Assign this in the Unity Inspector
-
         private float tornadoShootTimer = 5f; // Time between tornado shots when enraged and raining
         private float lastTornadoShotTime = 0f;
+        public GameObject waterOrbPrefab; // Assign this in Inspector
+        private bool _waterOrbCoroutineRunning = false; // Add this flag to the class variables
+
 
         void Start()
-        {    
+        {        
+            InitializeIceRocks();
             shootTimer = shootInterval;
             originalPosition = transform.position; // Store the original position
             InitializeOrbs();
@@ -88,6 +98,8 @@
 
         void Update()
         {
+            
+
             if (currentWeather == WeatherType.Rain)
             {
                 if (cloudInstance == null)
@@ -135,6 +147,21 @@
                 StopCoroutine(LightningStrikes());
                 _lightningCoroutineRunning = false;
             }
+            
+            if (isEnraged && currentWeather == WeatherType.Sun)
+            {
+                if (!_waterOrbCoroutineRunning)
+                {
+                    StartCoroutine(ShootWaterOrbAtPlayerCoroutine());
+                    _waterOrbCoroutineRunning = true;
+                }
+            }
+            else if (_waterOrbCoroutineRunning)
+            {
+                StopCoroutine(ShootWaterOrbAtPlayerCoroutine());
+                _waterOrbCoroutineRunning = false;
+            }
+
 
             if (currentWeather == WeatherType.Sun)
             {
@@ -157,6 +184,27 @@
                 
             }
 
+            if (isEnraged && currentWeather == WeatherType.Wind)
+            {
+                if (!areIceRocksActive)
+                {
+                    StartCoroutine(ActivateIceRocks());
+                    areIceRocksActive = true;
+                }
+            }
+            else
+            {
+                if (areIceRocksActive)
+                {
+                    // This logic will now correctly deactivate ice rocks when the weather is not windy or the whale is not enraged
+                    StopCoroutine(ActivateIceRocks()); // You might need to adjust this if you cannot directly stop a coroutine started with a while loop inside
+                    foreach (GameObject iceRock in iceRocks)
+                    {
+                        iceRock.SetActive(false); // Ensure to deactivate each ice rock immediately
+                    }
+                    areIceRocksActive = false;
+                }
+            }
 
             if (currentWeather == WeatherType.Wind)
             {
@@ -176,6 +224,15 @@
                 StopCoroutine(ActivateOrbs());
                 DeactivateOrbs();
                 areOrbsActive = false;
+            }
+
+            if (isEnraged && currentWeather == WeatherType.Snow)
+            {
+                if (Time.time > lastLavaSpawnTime + lavaSpawnInterval)
+                {
+                    SpawnLavaTiles();
+                    lastLavaSpawnTime = Time.time;
+                }
             }
 
 
@@ -262,7 +319,7 @@
                 filterColor = new Color(0f, 0.5f, 1f, 0.3f);
                 currentWeatherEffect = Instantiate(rainParticleSystemPrefab, spawnPosition, Quaternion.identity);
                 StartPuddles();
-
+                RemoveLavaTiles(); // Call a method to remove all lava tiles
                 break;
             case WeatherType.Snow:
                 weatherIcon.sprite = snowIcon;
@@ -284,7 +341,7 @@
 
     void shootFireball()
 {
-    float speed = 5f;
+    float speed = 4f;
     if (shootDiagonal)
     {
         // Shooting in all diagonal directions
@@ -445,7 +502,7 @@
     }
     IEnumerator GrowPuddle(GameObject puddle) {
         Vector3 originalScale = puddle.transform.localScale;
-        Vector3 targetScale = originalScale * 3.5f; 
+        Vector3 targetScale = originalScale * 3; 
 
         float elapsedTime = 0;
         float growDuration = 10f; // Duration of growth
@@ -525,6 +582,15 @@
         mirageWhales.Clear();
     }
 
+    IEnumerator ShootWaterOrbAtPlayerCoroutine()
+    {
+        while (isEnraged && currentWeather == WeatherType.Sun)
+        {
+            GameObject waterOrbInstance = Instantiate(waterOrbPrefab, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(2f); // Adjust frequency of shooting as desired
+        }
+    }
+
     void MoveTowardsPlayer()
     {
         if (player != null)
@@ -543,7 +609,6 @@
             }
         }
     }
-
 
 
         void ApplyWindForceToPlayer()
@@ -582,7 +647,7 @@
         }
         IEnumerator ActivateOrbs()
         {
-            float rotationSpeed = 50f; // Speed at which the orbs rotate around the whale
+            float rotationSpeed = 30f; // Speed at which the orbs rotate around the whale
             float time = 0f;
 
             while (currentWeather == WeatherType.Wind)
@@ -769,4 +834,69 @@
             victoryText.SetActive(false);
             nextIslandButton.SetActive(false);
         }
+
+        void InitializeIceRocks()
+        {
+            iceRocks.Clear(); // Clear existing ice rocks to reset
+            for (int i = 0; i < 8; i++) // Create 8 ice rocks
+            {
+                GameObject iceRock = Instantiate(iceRockPrefab, transform.position, Quaternion.identity);
+                iceRock.SetActive(false); // Start inactive
+                iceRocks.Add(iceRock);
+            }
+        }
+        IEnumerator ActivateIceRocks()
+    {
+        while (isEnraged && currentWeather == WeatherType.Wind)
+        {
+            float rotationSpeed = 30f; // Adjust as needed for ice rocks
+            float totalAngle = Time.time * rotationSpeed;
+            for (int i = 0; i < iceRocks.Count; i++)
+            {
+                float angleStep = 360f / iceRocks.Count;
+                float angle = totalAngle + i * angleStep;
+                angle *= Mathf.Deg2Rad;
+
+                Vector3 iceRockPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * iceRockOrbitRadius;
+                iceRocks[i].SetActive(true);
+                iceRocks[i].transform.position = transform.position + iceRockPosition;
+            }
+            yield return null;
+        }
+        DeactivateIceRocks();
+    }
+
+    void DeactivateIceRocks()
+    {
+        foreach (GameObject iceRock in iceRocks)
+        {
+            iceRock.SetActive(false);
+        }
+    }
+
+    private void SpawnLavaTiles()
+    {
+        int lavaTilesToSpawn = 4; // Adjust the number of tiles to spawn as needed
+        float spawnRadius = 7f; // Radius around the whale within which tiles will spawn
+
+        for (int i = 0; i < lavaTilesToSpawn; i++)
+        {
+            Vector2 spawnPosition = transform.position + (Vector3)(Random.insideUnitCircle * spawnRadius);
+            Instantiate(lavaTilePrefab, spawnPosition, Quaternion.identity);
+        }
+    }
+
+void RemoveLavaTiles()
+{
+    GameObject[] lavaTiles = GameObject.FindGameObjectsWithTag("LavaTile");
+    Debug.Log($"Destroying {lavaTiles.Length} lava tiles.");
+    foreach (GameObject lavaTile in lavaTiles)
+    {
+        Destroy(lavaTile); // Destroy each lava tile
+    }
+}
+
+        
+
+
     }

@@ -80,7 +80,7 @@ public class SceneTransition : MonoBehaviour
         int specificSceneIndex = 0;
 
         if(GlobalEnemyManager.KrakenDefeated == false && GlobalEnemyManager.CrabDefeated == false){
-            specificSceneIndex = 2;
+            specificSceneIndex = 15;
         }
 
         if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == false){
@@ -88,7 +88,7 @@ public class SceneTransition : MonoBehaviour
         }
 
         if(GlobalEnemyManager.KrakenDefeated == true && GlobalEnemyManager.CrabDefeated == true){
-            specificSceneIndex = 15;
+            specificSceneIndex = 2;
         }
 
         Debug.Log("Loading specific scene index: " + specificSceneIndex);

@@ -64081,6 +64081,10 @@ PrefabInstance:
       value: -5.085
       objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: iceOrb
+      value: 
+      objectReference: {fileID: 6210985532403886675, guid: 87fedc08d259ae14a9feb30036f20d79, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: sunIcon
       value: 
       objectReference: {fileID: 21300000, guid: 150562adf46e2804fad9038345a1eae2, type: 3}
@@ -64106,7 +64110,7 @@ PrefabInstance:
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: maxHealth
-      value: 800
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: orbPrefab
@@ -64137,6 +64141,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4710238028659815799, guid: e2b34524ff6af1949bb69ab3b34fec28, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: iceRockPrefab
+      value: 
+      objectReference: {fileID: 6906283080621472061, guid: 1aba429651f74184f8f00f374e1cd55f, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: rotationSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -64149,9 +64157,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1181193127380449106, guid: ca30afca0ae6ca44ebb22eba05b7f5db, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: lavaTilePrefab
+      value: 
+      objectReference: {fileID: 5919030846025723311, guid: 84bf812c924a38144a2dcb43476b40f5, type: 3}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: rotationRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      propertyPath: waterOrbPrefab
+      value: 
+      objectReference: {fileID: 7171343562540584362, guid: 7f249994285ac944bb144287f92489a5, type: 3}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: icyGroundPrefab
       value: 

@@ -195,9 +195,9 @@ public class LobsterQueen : MonoBehaviour
             // Apply red tint
             spriteRenderer.color = Color.red;
     
-            speed = 8f; 
+            speed = 6f; 
  
-            stopTime = .25f;
+            stopTime = .3f;
 
             projectileSpeed = 15f;
             alternateTime = 1f;
