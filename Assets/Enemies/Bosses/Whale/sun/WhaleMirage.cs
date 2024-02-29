@@ -14,33 +14,42 @@ public class WhaleMirage : MonoBehaviour
     public Sprite enragedSprite; // Assign this in the Inspector
     private bool isEnraged = false; // Tracks whether the mirage is enraged
     public WhaleBehavior mainWhale;
-
+    public GameObject waterOrbPrefab; // Assign this in the Unity Inspector\
 
     void Start()
     {
-        shootTimer = shootInterval;
-        currentHealth = maxHealth; // Initialize current health
-        GetComponent<SpriteRenderer>().sprite = normalSprite;
-        
+        shootTimer = shootInterval; // Initialize the shoot timer with the shoot interval
+        currentHealth = maxHealth; // Set current health to max health at start
+        GetComponent<SpriteRenderer>().sprite = normalSprite; // Set the sprite to the normal state sprite
     }
 
     void Update()
     {
+        // Sync the enraged state and sprite with the main whale
         if (mainWhale != null && mainWhale.isEnraged != isEnraged)
-            {
-                isEnraged = mainWhale.isEnraged;
-                GetComponent<SpriteRenderer>().sprite = isEnraged ? enragedSprite : normalSprite;
-            }
-            
-        shootTimer -= Time.deltaTime;
-
-        if (shootTimer <= 0)
         {
-            Shoot();
-            shootTimer = shootInterval;
+            isEnraged = mainWhale.isEnraged;
+            GetComponent<SpriteRenderer>().sprite = isEnraged ? enragedSprite : normalSprite;
         }
 
-        
+        // Shoot at the defined interval
+        shootTimer -= Time.deltaTime;
+        if (shootTimer <= 0)
+        {
+            if (isEnraged)
+            {
+                // If enraged, shoot water orb
+                ShootWaterOrb();
+                Shoot();
+            }
+            else
+            {
+                // If not enraged, shoot normal projectile
+                Shoot();
+            }
+            // Reset the shoot timer
+            shootTimer = shootInterval;
+        }
     }
 
     void Shoot()
@@ -66,6 +75,14 @@ public class WhaleMirage : MonoBehaviour
         // Toggle the firing pattern for the next call
         shootDiagonal = !shootDiagonal;
     }
+
+    void ShootWaterOrb()
+    {
+        // Instantiate and shoot the water orb
+        GameObject waterOrb = Instantiate(waterOrbPrefab, transform.position, Quaternion.identity);
+        // Set velocity or direction for the water orb towards the target
+    }
+
 
     public void SetEnragedState(bool enraged)
     {

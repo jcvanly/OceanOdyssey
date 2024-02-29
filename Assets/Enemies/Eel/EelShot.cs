@@ -14,7 +14,7 @@ public class EelShot : MonoBehaviour
     void Update()
     {
         currTime = Time.time;
-        if(currTime - spawnTime >= 3f)
+        if(currTime - spawnTime >= 2f)
         {
             Debug.Log("destroy projectile");
             Destroy(gameObject);

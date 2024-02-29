@@ -13,7 +13,7 @@ public class SmallSquid : MonoBehaviour
     public GameObject inkSpotPrefab; // Reference to the Ink Spot prefab
     private bool isDead = false;
     private EnemyDeath enemyDeath; // Reference to the EnemyDeath component
-    public float flashDuration = .2f;
+    public float flashDuration = .5f;
     private SpriteRenderer enemySr;
     private Color damageColor = new Color(1f, 0f, 0f, 1f);
     private Color originalColor;
@@ -79,7 +79,7 @@ public class SmallSquid : MonoBehaviour
         }
 
         // Do not destroy the ink spot immediately after reaching the target. Wait for 5 seconds.
-        yield return new WaitForSeconds(5f); // Wait for 5 seconds
+        yield return new WaitForSeconds(2.5f); // Wait for 5 seconds
 
         // Destroy the ink spot after 5 seconds without fading out
         if (inkSpot != null)

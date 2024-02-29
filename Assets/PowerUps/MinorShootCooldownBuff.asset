@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed049b0ad3b9384aa9948cfb398d923, type: 3}
   m_Name: MinorShootCooldownBuff
   m_EditorClassIdentifier: 
-  amount: 0.1
+  amount: 0.03

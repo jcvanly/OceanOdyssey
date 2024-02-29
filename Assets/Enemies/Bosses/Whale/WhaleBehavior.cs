@@ -12,7 +12,7 @@
         public GameObject iceRockPrefab; 
         private List<GameObject> iceRocks = new List<GameObject>();
         private bool areIceRocksActive = false;
-        private float iceRockOrbitRadius = 10f;
+        //private float iceRockOrbitRadius = 10f;
         private bool shootDiagonal = true;
         public GameObject fireBall;
         public float shootInterval = 2f;
@@ -586,7 +586,7 @@
     {
         while (isEnraged && currentWeather == WeatherType.Sun)
         {
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(2f);
             GameObject waterOrbInstance = Instantiate(waterOrbPrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(2f); // Adjust frequency of shooting as desired
         }
@@ -648,7 +648,7 @@
         }
         IEnumerator ActivateOrbs()
         {
-            float rotationSpeed = 20f; // Speed at which the orbs rotate around the whale
+            float rotationSpeed = 15f; // Speed at which the orbs rotate around the whale
             float time = 0f;
 
             while (currentWeather == WeatherType.Wind)
@@ -860,7 +860,7 @@ IEnumerator ActivateIceRocks()
 
     while (isEnraged && currentWeather == WeatherType.Wind)
     {
-        float rotationSpeed = 30f; // Adjust as needed for ice rocks
+        float rotationSpeed = 20f; // Adjust as needed for ice rocks
         float totalAngle = Time.time * rotationSpeed;
 
         // Calculate the current orbit radius based on a sine wave for the pulsing effect
