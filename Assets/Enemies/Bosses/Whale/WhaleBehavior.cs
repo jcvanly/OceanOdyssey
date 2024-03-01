@@ -584,9 +584,9 @@
 
     IEnumerator ShootWaterOrbAtPlayerCoroutine()
     {
+        yield return new WaitForSeconds(2f);
         while (isEnraged && currentWeather == WeatherType.Sun)
         {
-            yield return new WaitForSeconds(2f);
             GameObject waterOrbInstance = Instantiate(waterOrbPrefab, transform.position, Quaternion.identity);
             yield return new WaitForSeconds(2f); // Adjust frequency of shooting as desired
         }

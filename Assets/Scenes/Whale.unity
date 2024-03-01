@@ -17872,6 +17872,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140764214}
   m_CullTransparentMesh: 1
+--- !u!1 &322503003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3798684533114851966, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+  m_PrefabInstance: {fileID: 6703758150892461611}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &446533351
 GameObject:
   m_ObjectHideFlags: 0
@@ -62891,7 +62896,7 @@ PrefabInstance:
       objectReference: {fileID: 1548021280}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: maxHealth
-      value: 850
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
       propertyPath: orbPrefab
@@ -63068,19 +63073,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3798684533114851966, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6703758150892461613}
   m_SourcePrefab: {fileID: 100100000, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
 --- !u!114 &6703758150892461612 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8093577378564833745, guid: 1b8682e462494b94ca125ac6eaca0264, type: 3}
   m_PrefabInstance: {fileID: 6703758150892461611}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 322503003}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74d0251a98903cf4f81f4c364bee1082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6703758150892461613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322503003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d0c774e17575b4ebb97f12d7cfe925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 0}
+  damage: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

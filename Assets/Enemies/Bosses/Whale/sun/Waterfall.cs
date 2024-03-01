@@ -31,7 +31,7 @@ public class WaterFall : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - spawnTime >= 5.5f)
+        if (Time.time - spawnTime >= 2f)
         {
             Debug.Log("Destroy projectile");
             Destroy(gameObject);
